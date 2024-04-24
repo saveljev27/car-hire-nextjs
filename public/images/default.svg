@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #120c1a;
+        filter: url(#filter);
+      }
+    </style>
+    <filter id="filter" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse">
+      <feFlood result="flood" flood-color="#2b59ff"/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <circle id="Эллипс_1" data-name="Эллипс 1" class="cls-1" cx="24" cy="24" r="24"/>
+</svg>
