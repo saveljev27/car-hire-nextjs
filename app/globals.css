@@ -33,11 +33,14 @@
 }
 
 .custom-btn {
-  @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none;
+  @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none hover:opacity-90;
 }
 /* END: General styles */
 
 /* START: Hero styles */
+.logo {
+  @apply hover:text-primary-red;
+}
 .hero {
   @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto;
 }
@@ -88,7 +91,7 @@
 
 /* START: Car Card styles */
 .car-card {
-  @apply flex flex-col p-6 justify-center items-start text-black-100 bg-primary-blue-100 hover:bg-white hover:shadow-md rounded-3xl;
+  @apply flex flex-col p-6 justify-center items-start text-black-100 shadow-md hover:shadow-lg rounded-3xl;
 }
 
 .car-card__content {
@@ -138,7 +141,7 @@
 }
 
 .car-details__close-btn {
-  @apply absolute top-2 right-2 z-10 w-fit p-2 bg-primary-blue-100 rounded-full;
+  @apply absolute top-2 right-2 z-10 w-fit p-2 bg-primary-red rounded-full;
 }
 
 .car-details__main-image {
@@ -198,5 +201,20 @@
 }
 /* END: Login styles */
 .profile__title {
-  @apply text-[24px] text-center text-black-100 font-semibold mt-6;
+  @apply text-[24px] text-center text-black-100 font-semibold;
+}
+.subtitle__text {
+  @apply text-center mt-4 font-semibold;
+}
+.section {
+  @apply shadow-lg border border-gray-200 rounded-lg py-4 px-8 m-2;
+}
+.car__info {
+  @apply grid mt-2 grid-cols-2 text-center place-items-center;
+}
+.car__text {
+  @apply uppercase text-left items-center;
+}
+.booking__text {
+  @apply text-xl mt-3 font-bold border-b-2;
 }

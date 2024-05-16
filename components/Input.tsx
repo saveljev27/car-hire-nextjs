@@ -1,13 +1,15 @@
-import React from 'react'
+import React from 'react';
 
 interface InputProps {
-  id: string
-  name: string
-  label: string
-  type?: string
-  value: string
-  placeholder: string
-  onChange: any
+  id: string;
+  name: string;
+  label: string;
+  type?: string;
+  defaultValue?: string | null;
+  placeholder?: string;
+  onChange?: any;
+  disabled?: boolean;
+  required?: boolean;
 }
 
 const Input = ({
@@ -15,9 +17,11 @@ const Input = ({
   name,
   label,
   type,
-  value,
+  defaultValue,
   onChange,
   placeholder,
+  disabled = false,
+  required = false,
 }: InputProps) => {
   return (
     <div className="relative mt-3">
@@ -25,14 +29,16 @@ const Input = ({
       <input
         id={id}
         name={name}
-        value={value}
+        defaultValue={defaultValue || ''}
         onChange={onChange}
+        disabled={disabled}
+        required={required}
         placeholder={placeholder}
-        type={type}
+        type={type || 'text'}
         className="block w-full rounded-md border-0 mt-1 py-1.5 pl-5 pr-20 ring-1 ring-insetplaceholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
     </div>
-  )
-}
+  );
+};
 
-export default Input
+export default Input;

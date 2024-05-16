@@ -1,69 +1,75 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
-import { CarCardProps } from '@/types'
-
-let isConnected = false
+let isConnected = false;
 
 export const connectToDB = async () => {
-  mongoose.set('strictQuery', true) // Строграя проверка запросов
+  mongoose.set('strictQuery', true); // Строграя проверка запросов
 
-  if (!process.env.MONGODB_URL) return console.log('MONGODB_URL not found')
+  if (!process.env.MONGODB_URL) return console.log('MONGODB_URL not found');
   if (isConnected) {
-    console.log('Already connected to MongoDB')
-    return
+    return;
   }
 
   try {
-    await mongoose.connect(process.env.MONGODB_URL, { dbName: 'carrent' })
-    console.log('Connected to MongoDB')
-    isConnected = true
+    await mongoose.connect(process.env.MONGODB_URL, { dbName: 'carrent' });
+    isConnected = true;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
-  const basePricePerDay = 60 // Base rental price per day in dollars
-  const mileageFactor = 0.1 // Additional rate per mile driven
-  const ageFactor = 0.05 // Additional rate per year of vehicle age
+  const basePricePerDay = 50; // Base rental price per day in dollars
+  const kmFactor = 0.2; // Additional rate per mile driven
+  const ageFactor = 10; // Additional rate per year of vehicle age
 
   // Calculate additional rate based on mileage and age
-  const mileageRate = city_mpg * mileageFactor
-  const ageRate = (new Date().getFullYear() - year) * ageFactor
+  const kmRate = city_mpg * kmFactor;
+  const ageRate = (new Date().getFullYear() - year) * ageFactor;
 
   // Calculate total rental rate per day
-  const rentalRatePerDay = basePricePerDay + mileageRate + ageRate
+  const rentalRatePerDay = basePricePerDay + kmRate + ageRate;
 
-  return rentalRatePerDay.toFixed(0)
-}
+  return rentalRatePerDay.toFixed(0);
+};
+
+export const getSumFromDate = (pickupDate: any, dropDate: any) => {
+  const date1 = new Date(pickupDate);
+  const date2 = new Date(dropDate);
+
+  const diffreneceInMs: number = Math.abs(date2.getTime() - date1.getTime());
+  const differenceInDays: number = Math.ceil(
+    diffreneceInMs / (1000 * 60 * 60 * 24)
+  );
+  return differenceInDays;
+};
 
 export const updateSearchParams = (type: string, value: string) => {
   // Get the current URL search params
-  const searchParams = new URLSearchParams(window.location.search)
+  const searchParams = new URLSearchParams(window.location.search);
 
   // Set the specified search parameter to the given value
-  searchParams.set(type, value)
+  searchParams.set(type, value);
 
   // Set the specified search parameter to the given value
-  const newPathname = `${window.location.pathname}?${searchParams.toString()}`
+  const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
 
-  return newPathname
-}
+  return newPathname;
+};
 
-export const generateCarImageUrl = (car: CarCardProps, angle?: string) => {
-  const url = new URL('https://cdn.imagin.studio/getImage')
+export const updateDateFormat = (date: string) => {
+  const formattedDate = new Date(date).toLocaleDateString('en-GB');
+  return formattedDate;
+};
 
-  const { make, year, model } = car
+export const todayDate = () => {
+  const today = new Date();
 
-  url.searchParams.append(
-    'customer',
-    process.env.NEXT_PUBLIC_IMAGIN_API_KEY || ''
-  )
-  url.searchParams.append('make', make)
-  url.searchParams.append('modelFamily', model.split(' ')[0])
-  url.searchParams.append('zoomType', 'fullscreen')
-  url.searchParams.append('modelYear', `${year}`)
-  url.searchParams.append('angle', `${angle}`)
+  const day = String(today.getDate()).padStart(2, '0');
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0, поэтому добавляем 1
+  const year = today.getFullYear();
 
-  return `${url}`
-}
+  const formattedDate = `${day}/${month}/${year}`;
+
+  return formattedDate;
+};

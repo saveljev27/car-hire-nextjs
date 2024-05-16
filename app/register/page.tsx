@@ -1,68 +1,73 @@
-'use client'
+'use client';
 
-import { useState, FormEventHandler } from 'react'
-import Input from '@/components/Input'
-import CustomButton from '@/components/CustomButton'
-import Link from 'next/link'
-import Image from 'next/image'
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useState, FormEventHandler, ChangeEvent, FC } from 'react';
+import Input from '@/components/Input';
+import CustomButton from '@/components/CustomButton';
+import Link from 'next/link';
+import Image from 'next/image';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
-const Register = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
-  const router = useRouter()
+const Register: FC = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter();
 
   const handleFormSubmit: FormEventHandler<HTMLFormElement> = async (ev) => {
-    ev.preventDefault()
-    setErrorMessage('')
+    ev.preventDefault();
+    setErrorMessage('');
     const response = await fetch('api/register', {
       method: 'POST',
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ name, email, password }),
       headers: { 'Content-Type': 'application/json' },
-    })
+    });
 
     if (!response.ok) {
-      const res = await response.json()
-      setErrorMessage(res.message)
+      const res = await response.json();
+      setErrorMessage(res.message);
     } else {
-      router.refresh()
-      router.push('/login')
+      router.refresh();
+      router.push('/login');
     }
-  }
+  };
+
   return (
     <div className="flex-1 pt-36 pb-36 padding-x ">
       <h1 className="login__title">Register</h1>
       <p className="text-red-500 text-center my-6">{errorMessage}</p>
       <form className="max-w-xs mx-auto" onSubmit={handleFormSubmit}>
         <Input
+          label="Name"
+          id="name"
+          name="name"
+          type="name"
+          placeholder="Brain"
+        />
+        <Input
           label="Email"
           id="email"
           name="email"
           type="email"
-          value={email}
           placeholder="john@google.com"
-          onChange={(ev: any) => setEmail(ev.target.value)}
         />
         <Input
           label="Password"
           id="password"
           name="password"
           type="password"
-          value={password}
           placeholder="********"
-          onChange={(ev: any) => setPassword(ev.target.value)}
         />
         <div className="mt-3">
           Existing account?
-          <Link href="/login" className="ml-1 text-primary-blue">
+          <Link href="/login" className="ml-1 text-primary-red">
             You can login here!
           </Link>
         </div>
         <CustomButton
           title="Register"
-          containerStyles="w-full py-[8px] mt-6 rounded-full bg-primary-blue hover:bg-blue-700"
+          containerStyles="w-full py-[8px] mt-6 rounded-full bg-primary-red hover:bg-blue-700"
           textStyles="text-white text-[14px] leading-[17px] font-bold"
           btnType="submit"
         />
@@ -81,7 +86,7 @@ const Register = () => {
         </button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

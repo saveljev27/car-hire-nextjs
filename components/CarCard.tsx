@@ -1,24 +1,56 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import Image from 'next/image'
+import { useState } from 'react';
+import Image from 'next/image';
 
-import CustomButton from './CustomButton'
-import CarDetails from './CarDetails'
+import CustomButton from './CustomButton';
+import CarDetails from './CarDetails';
 
-import { CarCardProps } from '@/types'
-import { calculateCarRent, generateCarImageUrl } from '@/utils'
+import { addItem } from '@/redux/order/slice';
+import { useDispatch } from 'react-redux';
+import { CarProps } from '@/lib/models/Cars';
+import { calculateCarRent } from '@/utils';
+import Link from 'next/link';
 
 interface CarCard {
-  car: CarCardProps
+  car: CarProps;
 }
 
 const CarCard = ({ car }: CarCard) => {
-  const { city_mpg, year, make, model, transmission, drive } = car
+  const {
+    _id,
+    city_consumption,
+    year,
+    make,
+    model,
+    transmission,
+    drive,
+    fuel_type,
+    image,
+    seats,
+  } = car;
 
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
-  const carRent = calculateCarRent(city_mpg, year)
+  const carRent = calculateCarRent(city_consumption, year);
+
+  const dispatch = useDispatch();
+
+  const onClickAddButton = () => {
+    const order = {
+      _id,
+      year,
+      make,
+      model,
+      transmission,
+      drive,
+      fuel_type,
+      image,
+      seats,
+      city_consumption,
+    };
+    dispatch(addItem(order));
+  };
 
   return (
     <div className="car-card group">
@@ -28,14 +60,14 @@ const CarCard = ({ car }: CarCard) => {
         </h2>
       </div>
       <p className="flex mt-6 text-[32px] font-extrabold">
-        <span className="self-start text-[14px] font-semibold">$</span>
+        <span className="self-start text-[14px] font-semibold">€</span>
         {carRent}
         <span className="self-end text-[14px] font-medium">/day</span>
       </p>
 
       <div className="relative w-full h-40 my-3 object-contain">
         <Image
-          src={generateCarImageUrl(car, '')}
+          src={image}
           alt={model}
           fill
           priority
@@ -61,23 +93,28 @@ const CarCard = ({ car }: CarCard) => {
           </div>
           <div className="flex flex-col justify-center items-center gap-2">
             <Image src="/gas.svg" width={20} height={20} alt="gas" />
-            <p className="text-[14px]">{city_mpg} MPG</p>
+            <p className="text-[14px]">{city_consumption} L/100 KM</p>
           </div>
         </div>
         <div className="car-card__btn-container">
           <CustomButton
             title="View More"
-            containerStyles="w-full py-[8px] rounded-full bg-primary-blue"
+            containerStyles="w-full py-[8px] rounded-full bg-primary-red"
             textStyles="text-white text-[14px] leading-[17px] font-bold"
             rightIcon="/right-arrow.svg"
             handleClick={() => setIsOpen(true)}
           />
-          <CustomButton
-            title="Order"
-            containerStyles="w-full py-[8px] rounded-full bg-green-500"
-            textStyles="text-white text-[14px] leading-[17px] font-bold"
-            rightIcon="/right-arrow.svg"
-          />
+          <>
+            <Link href="/order">
+              <CustomButton
+                title="Order"
+                containerStyles="w-full py-[8px] rounded-full bg-green-500"
+                textStyles="text-white text-[14px] leading-[17px] font-bold"
+                rightIcon="/cart.svg"
+                handleClick={onClickAddButton}
+              />
+            </Link>
+          </>
         </div>
       </div>
       <CarDetails
@@ -86,7 +123,7 @@ const CarCard = ({ car }: CarCard) => {
         car={car}
       />
     </div>
-  )
-}
+  );
+};
 
-export default CarCard
+export default CarCard;

@@ -1,42 +1,41 @@
-'use client'
+'use client';
 
-import { useEffect, useState, ChangeEvent } from 'react'
+import { useEffect, useState, ChangeEvent } from 'react';
 
-import Hero from '@/components/Hero'
-import CarCard from '@/components/CarCard'
-import { CarCardProps } from '@/types'
-import Image from 'next/image'
+import Hero from '@/components/Hero';
+import CarCard from '@/components/CarCard';
+import type { CarProps } from '@/lib/models/Cars';
+import Image from 'next/image';
 
 function Home() {
-  const [allCars, setAllCars] = useState<CarCardProps[]>([])
+  const [allCars, setAllCars] = useState<CarProps[]>([]);
 
-  const [searchCar, setSearchCar] = useState<string>('')
-  const [searchedCars, setSearchedCars] = useState<CarCardProps[]>([])
+  const [searchCar, setSearchCar] = useState<string>('');
+  const [searchedCars, setSearchedCars] = useState<CarProps[]>([]);
 
   const fetchCars = async () => {
-    const response = await fetch('/api/cars')
-    const data = await response.json()
-    setAllCars(data)
-  }
-
+    const response = await fetch('/api/cars');
+    const data = await response.json();
+    setAllCars(data);
+  };
   useEffect(() => {
-    fetchCars()
-  }, [])
+    fetchCars();
+  }, []);
 
   const filterPrompts = (searchtext: string) => {
-    const regex = new RegExp(searchtext, 'i')
+    const regex = new RegExp(searchtext, 'i');
     return allCars.filter((car) => {
-      return regex.test(car.make)
-    })
-  }
+      return regex.test(car.make);
+    });
+  };
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchCar(event.target.value)
-    const searchResult = filterPrompts(event.target.value)
-    setSearchedCars(searchResult)
-  }
+    setSearchCar(event.target.value);
+    const searchResult = filterPrompts(event.target.value);
+    setSearchedCars(searchResult);
+  };
 
-  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars
+  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
   return (
     <main className="overflow-hidden">
@@ -67,7 +66,7 @@ function Home() {
         {searchCar ? (
           <section>
             <div className="home__cars-wrapper">
-              {searchedCars.map((car: CarCardProps) => (
+              {searchedCars.map((car: CarProps) => (
                 <CarCard key={car._id} car={car} />
               ))}
             </div>
@@ -85,7 +84,7 @@ function Home() {
         )}
       </div>
     </main>
-  )
+  );
 }
 
-export default Home
+export default Home;
