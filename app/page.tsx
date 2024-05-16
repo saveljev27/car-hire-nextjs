@@ -43,8 +43,8 @@ function Home() {
 
       <div className="mt-12 padding-x padding-y max-width" id="discover">
         <div className="home__text-container">
-          <h1 className="text-4x1 font-extrabold">Car Catalogue</h1>
-          <p>Explore the cars you might like</p>
+          <h1 className="text-4x1 font-extrabold">Catalogue</h1>
+          <p>Investigate these ideal cars that might suit your style.</p>
         </div>
         <div className="searchbar">
           <div className="searchbar__item">
@@ -65,7 +65,7 @@ function Home() {
         </div>
         {searchCar ? (
           <section>
-            <div className="home__cars-wrapper">
+            <div id="cars" className="home__cars-wrapper">
               {searchedCars.map((car: CarProps) => (
                 <CarCard key={car._id} car={car} />
               ))}

@@ -13,23 +13,23 @@ const NavBar = ({ session }: { session: Session | null }) => {
 
   return (
     <header className="w-full absolute z-10">
-      <nav className="max-w-[1440px] mx-auto flex justify-between items-center sm:px-16 px-6 py-4">
-        <Link href="/" className="flex items-center">
+      <nav className="max-w-[1440px] mx-auto flex justify-between items-center sm:px-16 px-6 py-4 ">
+        <Link href="/" className="flex items-center max-[738px]:hidden ">
           <Image
-            src="/logo.svg"
+            src="/logo.png"
             alt="Car Showcase logo"
-            width={60}
-            height={18}
-            className="object-contain"
+            width={100}
+            height={100}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-contain w-24 h-full"
           />
-          <p className="ml-2">CarHire</p>
         </Link>
         <div className="flex gap-3 ">
           {session?.user && (
             <>
               <div className="flex gap-3 pl-3">
-                <Link href="/profile" className="flex">
-                  <div className="flex justify-center items-center mr-4">
+                <Link href="/profile" className="flex hover:text-primary-red">
+                  <div className="flex justify-center items-center mr-4 max-[738px]:hidden">
                     <p>Hello, {userName}</p>
                   </div>
                   <div className="flex rounded-full justify-center items-center">

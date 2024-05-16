@@ -14,6 +14,9 @@ interface CarDetailsProps {
 }
 
 const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
+  const modifiedCarData = Object.entries(car).filter(
+    ([key, _]) => key !== '_id' && key !== 'image'
+  );
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -66,7 +69,7 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                       {car.make} {car.model}
                     </h2>
                     <div className="mt-3 flex flex-wrap gap-4">
-                      {Object.entries(car).map(([key, value]) => (
+                      {modifiedCarData.map(([key, value]) => (
                         <div
                           className="flex justify-between gap-5 w-full text-right"
                           key={key}

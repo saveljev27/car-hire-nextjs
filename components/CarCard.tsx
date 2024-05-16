@@ -58,12 +58,12 @@ const CarCard = ({ car }: CarCard) => {
         <h2 className="car-card__content-title">
           {make} {model}
         </h2>
+        <p className="flex mt-6 text-[32px] font-extrabold">
+          <span className="self-start text-[14px] font-semibold">€</span>
+          {carRent}
+          <span className="self-end text-[14px] font-medium">/day</span>
+        </p>
       </div>
-      <p className="flex mt-6 text-[32px] font-extrabold">
-        <span className="self-start text-[14px] font-semibold">€</span>
-        {carRent}
-        <span className="self-end text-[14px] font-medium">/day</span>
-      </p>
 
       <div className="relative w-full h-40 my-3 object-contain">
         <Image
@@ -71,6 +71,7 @@ const CarCard = ({ car }: CarCard) => {
           alt={model}
           fill
           priority
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="object-contain"
         />
       </div>
@@ -98,7 +99,7 @@ const CarCard = ({ car }: CarCard) => {
         </div>
         <div className="car-card__btn-container">
           <CustomButton
-            title="View More"
+            title="View"
             containerStyles="w-full py-[8px] rounded-full bg-primary-red"
             textStyles="text-white text-[14px] leading-[17px] font-bold"
             rightIcon="/right-arrow.svg"
@@ -107,7 +108,7 @@ const CarCard = ({ car }: CarCard) => {
           <>
             <Link href="/order">
               <CustomButton
-                title="Order"
+                title="Book"
                 containerStyles="w-full py-[8px] rounded-full bg-green-500"
                 textStyles="text-white text-[14px] leading-[17px] font-bold"
                 rightIcon="/cart.svg"

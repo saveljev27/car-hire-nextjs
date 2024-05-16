@@ -1,7 +1,7 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { footerLinks } from '@/constants'
+import { footerLinks } from '@/constants';
 
 const Footer = () => {
   return (
@@ -9,16 +9,12 @@ const Footer = () => {
       <div className="flex max-md:flex-col flex-wrap justify-between gap-5 sm:px-16 px-6 py-10">
         <div className="flex flex-col justify-start items-start gap-6">
           <Image
-            src="/logo.svg"
+            src="/logo.png"
             alt="logo"
             width={118}
             height={18}
             className="object-contain"
           />
-          <p className="text-base text-gray-700 ">
-            Carhub 2024 <br />
-            All rights reserved &copy;
-          </p>
         </div>
         <div className="footer__links">
           {footerLinks.map((link) => (
@@ -28,7 +24,7 @@ const Footer = () => {
                 <Link
                   key={item.title}
                   href={item.url}
-                  className="text-gray-500"
+                  className="text-gray-500  hover:text-primary-red"
                 >
                   {item.title}
                 </Link>
@@ -38,18 +34,18 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex justify-between items-center flex-wrap mt-10 border-t border-gray-100 sm:px-16 px-6 py-10">
-        <p>@2024 Car Showcase. All Rights Reserved</p>
+        <p>@2024 CarHire. All Rights Reserved &copy;</p>
         <div className="footer__copyrights-link">
-          <Link href="/" className="text-gray-500">
+          <Link href="/" className="text-gray-500  hover:text-primary-red">
             Privacy Policy
           </Link>
-          <Link href="/" className="text-gray-500">
+          <Link href="/" className="text-gray-500  hover:text-primary-red">
             Terms of Use
           </Link>
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

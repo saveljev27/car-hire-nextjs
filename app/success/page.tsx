@@ -14,10 +14,10 @@ export default async function Success() {
   }
 
   return (
-    <div className="flex-1 pt-36 pb-36 padding-x">
+    <div className="pt-36 pb-36 padding-x">
       <div className="flex justify-center flex-col items-center w-full mx-auto">
         <h1 className="profile__title">Thank You!</h1>
-        <h1>
+        <h1 className="text-center">
           The booking has been successfully completed! We will contact you
           shortly.
         </h1>
