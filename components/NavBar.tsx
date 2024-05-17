@@ -60,21 +60,12 @@ const NavBar = ({ session }: { session: Session | null }) => {
           )}
           {!session?.user && (
             <>
-              {/* <Link href="/login"> */}
               <CustomButton
                 title="Sign Up"
                 btnType="button"
                 containerStyles="text-white rounded-full hover:bg-blue-700 bg-primary-red min-w-[130px]"
                 handleClick={() => signIn('google', { callbackUrl: '/' })}
               />
-              {/* </Link> */}
-              {/* <Link href="/register">
-                <CustomButton
-                  title="Register"
-                  btnType="button"
-                  containerStyles="text-white rounded-full hover:bg-blue-700 bg-primary-blue min-w-[130px]"
-                />
-              </Link> */}
             </>
           )}
         </div>

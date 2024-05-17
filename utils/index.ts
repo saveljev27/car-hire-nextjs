@@ -19,15 +19,13 @@ export const connectToDB = async () => {
 };
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
-  const basePricePerDay = 50; // Base rental price per day in dollars
-  const kmFactor = 0.2; // Additional rate per mile driven
-  const ageFactor = 10; // Additional rate per year of vehicle age
+  const basePricePerDay = 50;
+  const kmFactor = 0.2;
+  const ageFactor = 10;
 
-  // Calculate additional rate based on mileage and age
   const kmRate = city_mpg * kmFactor;
   const ageRate = (new Date().getFullYear() - year) * ageFactor;
 
-  // Calculate total rental rate per day
   const rentalRatePerDay = basePricePerDay + kmRate + ageRate;
 
   return rentalRatePerDay.toFixed(0);
@@ -45,13 +43,10 @@ export const getSumFromDate = (pickupDate: any, dropDate: any) => {
 };
 
 export const updateSearchParams = (type: string, value: string) => {
-  // Get the current URL search params
   const searchParams = new URLSearchParams(window.location.search);
 
-  // Set the specified search parameter to the given value
   searchParams.set(type, value);
 
-  // Set the specified search parameter to the given value
   const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
 
   return newPathname;
@@ -66,7 +61,7 @@ export const todayDate = () => {
   const today = new Date();
 
   const day = String(today.getDate()).padStart(2, '0');
-  const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0, поэтому добавляем 1
+  const month = String(today.getMonth() + 1).padStart(2, '0');
   const year = today.getFullYear();
 
   const formattedDate = `${day}/${month}/${year}`;
