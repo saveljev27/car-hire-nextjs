@@ -2,13 +2,12 @@
 
 import { DBOrderInfo } from '@/lib/models/Order';
 import { updateDateFormat } from '@/utils';
-import { FC } from 'react';
 
 type Props = {
   profileOrders: DBOrderInfo[];
 };
 
-const ProfileOrders: FC<Props> = ({ profileOrders }) => {
+const ProfileOrders = ({ profileOrders }: Props) => {
   return (
     <div>
       <h1 className="profile__title mt-5">My bookings</h1>

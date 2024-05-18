@@ -1,5 +1,7 @@
 import GoogleProvider from 'next-auth/providers/google';
 import { NextAuthOptions } from 'next-auth';
+import { User } from '@/lib/models/User';
+import { connectToDB } from '@/utils';
 
 export const options: NextAuthOptions = {
   secret: process.env.AUTH_SECRET as string,
@@ -16,4 +18,27 @@ export const options: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async signIn({ profile }) {
+      try {
+        await connectToDB();
+
+        const userExists = await User.findOne({ email: profile?.email });
+        console.log(userExists);
+
+        if (!userExists) {
+          console.log('Sozdaju');
+          await User.create({
+            email: profile?.email,
+            name: profile?.name?.replace(' ', '').toLowerCase(),
+          });
+        }
+
+        return true;
+      } catch (error) {
+        console.log('Error checking if user exists: ', error);
+        return false;
+      }
+    },
+  },
 };

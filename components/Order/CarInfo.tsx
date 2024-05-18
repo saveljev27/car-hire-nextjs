@@ -1,10 +1,10 @@
 'use client';
-import { useSelector, useDispatch } from 'react-redux';
-import { orderCard } from '@/redux/order/selectors';
-import { removeItem } from '@/redux/order/slice';
 
+import { useSelector, useDispatch } from 'react-redux';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { orderCard } from '@/redux/order/selectors';
+import { removeItem } from '@/redux/order/slice';
 
 const CarInfo = () => {
   const dispatch = useDispatch();

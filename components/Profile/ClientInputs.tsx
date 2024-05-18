@@ -1,10 +1,10 @@
 'use client';
-import { useState } from 'react';
 
+import { useState } from 'react';
+import { saveProfile } from '@/actions/profileActions';
 import { UserInfo } from '@/lib/models/User';
 import Input from '../Input';
 import CustomButton from '../CustomButton';
-import { saveProfile } from '@/actions/profileActions';
 
 type Props = {
   profileInfo: UserInfo | null;
@@ -15,7 +15,6 @@ const ClientInputs = ({ profileInfo }: Props) => {
   const [isSaving, setIsSaving] = useState(false);
 
   async function handleFormSubmit(formData: FormData) {
-    console.log(formData.get('name'));
     setSaved(false);
     setIsSaving(true);
     const response = await saveProfile(formData);

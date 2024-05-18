@@ -1,16 +1,16 @@
 'use client';
 
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Image from 'next/image';
+import Link from 'next/link';
+import { addItem } from '@/redux/order/slice';
 
 import CustomButton from './CustomButton';
 import CarDetails from './CarDetails';
 
-import { addItem } from '@/redux/order/slice';
-import { useDispatch } from 'react-redux';
 import { CarProps } from '@/lib/models/Cars';
 import { calculateCarRent } from '@/utils';
-import Link from 'next/link';
 
 interface CarCard {
   car: CarProps;

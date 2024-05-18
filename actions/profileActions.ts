@@ -1,9 +1,9 @@
 'use server';
 
+import { getServerSession } from 'next-auth';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { User } from '@/lib/models/User';
 import { connectToDB } from '@/utils';
-import { getServerSession } from 'next-auth';
 
 export async function saveProfile(formData: FormData) {
   await connectToDB();

@@ -1,12 +1,13 @@
 'use server';
+
 import Image from 'next/image';
+import { getServerSession } from 'next-auth';
+import { options } from '../api/auth/[...nextauth]/options';
+import { redirect } from 'next/navigation';
 import ClientInputs from '@/components/Profile/ClientInputs';
 import ProfileOrders from '@/components/Profile/ProfileOrders';
 import { getDataActions } from '@/actions/getDataActions';
 import { profileOrdersActions } from '@/actions/profileOrdersActions';
-import { getServerSession } from 'next-auth';
-import { options } from '../api/auth/[...nextauth]/options';
-import { redirect } from 'next/navigation';
 
 export default async function Profile() {
   const session = await getServerSession(options);

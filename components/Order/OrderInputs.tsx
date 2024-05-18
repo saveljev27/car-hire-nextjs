@@ -1,4 +1,5 @@
 'use client';
+
 import { ChangeEvent, FormEventHandler, useEffect, FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -27,6 +28,9 @@ const ClientInputs: FC<Props> = ({ profileInfo }) => {
   const dispatch = useDispatch();
   const { items } = useSelector(orderCard);
 
+  const [name, setName] = useState(profileInfo?.name || '');
+  const [orderEmail, setOrderEmail] = useState(profileInfo?.email || '');
+  const [phone, setPhone] = useState(profileInfo?.phone || '');
   const [pickupLocation, setPickupLocation] = useState('');
   const [pickupDate, setPickupDate] = useState('');
   const [pickupTime, setPickupTime] = useState('');
@@ -58,6 +62,9 @@ const ClientInputs: FC<Props> = ({ profileInfo }) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        name,
+        orderEmail,
+        phone,
         pickupLocation,
         pickupDate,
         pickupTime,
@@ -70,6 +77,7 @@ const ClientInputs: FC<Props> = ({ profileInfo }) => {
         carModel,
       }),
     });
+    console.log(response);
     if (response.ok) {
       router.push('/success');
       dispatch(clearItems());
@@ -91,21 +99,29 @@ const ClientInputs: FC<Props> = ({ profileInfo }) => {
           id="name"
           name="name"
           label="Fullname"
-          defaultValue={profileInfo?.name}
+          defaultValue={name}
+          onChange={(ev: ChangeEvent<HTMLInputElement>) =>
+            setName(ev.target.value)
+          }
         />
         <Input
           id="email"
           name="email"
           label="Email"
-          defaultValue={profileInfo?.email}
-          disabled
+          defaultValue={orderEmail}
+          onChange={(ev: ChangeEvent<HTMLInputElement>) =>
+            setOrderEmail(ev.target.value)
+          }
         />
       </div>
       <Input
         id="phone"
         name="phone"
         label="Phone"
-        defaultValue={profileInfo?.phone}
+        defaultValue={phone}
+        onChange={(ev: ChangeEvent<HTMLInputElement>) =>
+          setPhone(ev.target.value)
+        }
         required
       />
       <Input

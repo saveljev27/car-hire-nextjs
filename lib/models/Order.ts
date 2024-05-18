@@ -31,6 +31,8 @@ export type OrderInfo = {
   carMake: string;
   carModel: string;
   userEmail: string;
+  name: string;
+  phone: string;
   user: Types.ObjectId;
 };
 
@@ -47,6 +49,8 @@ const OrderSchema = new Schema<OrderInfo>(
     carMake: { type: String },
     carModel: { type: String },
     userEmail: { type: String },
+    name: { type: String },
+    phone: { type: String },
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
