@@ -191,9 +191,9 @@ const ClientInputs: FC<Props> = ({ profileInfo }) => {
             </div>
           ) : (
             <>
-              <div className="mt-4">
-                <div className="flex border-b-2 gap-1">
-                  <p className="text-xl mt-3 font-bold">
+              <div className="mt-4 *:max-[540px]:text-sm">
+                <div className="flex border-b-2 gap-1 *:max-[540px]:text-sm">
+                  <p className="text-xl mt-3 font-bold ">
                     Date: {formattedPickupDate} -
                   </p>
                   <p className="text-xl mt-3 font-bold">{formattedDropDate}</p>

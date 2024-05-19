@@ -19,7 +19,9 @@ export default async function Success() {
         <div className="flex align-center flex-col items-center mt-8">
           {session ? (
             <>
-              <p className="mt-5">You can check out your booking in profile</p>
+              <p className="mt-5 text-sm font-bold">
+                You can check out your booking in profile
+              </p>
               <Link href="/profile">
                 <CustomButton
                   title="Check Order"
@@ -29,7 +31,7 @@ export default async function Success() {
               </Link>
             </>
           ) : (
-            <p className="mt-5 font-bold">
+            <p className="mt-5 text-sm font-bold">
               If you want save your booking history you need to Sign Up!
             </p>
           )}
