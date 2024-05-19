@@ -27,7 +27,6 @@ export const options: NextAuthOptions = {
         console.log(userExists);
 
         if (!userExists) {
-          console.log('Sozdaju');
           await User.create({
             email: profile?.email,
             name: profile?.name?.replace(' ', '').toLowerCase(),

@@ -14,8 +14,8 @@ const NavBar = ({ session }: { session: Session | null }) => {
 
   return (
     <header className="w-full absolute z-10">
-      <nav className="max-w-[1440px] mx-auto flex justify-between items-center sm:px-16 px-6 py-4 ">
-        <Link href="/" className="flex items-center max-[738px]:hidden ">
+      <nav className="max-w-[1440px] mx-auto flex justify-between items-center sm:px-16 px-6 py-4 max-[640px]:flex-col">
+        <Link href="/" className="flex items-center ">
           <Image
             src="/logo.png"
             alt="Car Showcase logo"
@@ -25,7 +25,7 @@ const NavBar = ({ session }: { session: Session | null }) => {
             className="object-contain w-24 h-full"
           />
         </Link>
-        <div className="flex gap-3 ">
+        <div className="flex gap-3 max-[738px]: mt-2">
           {session?.user && (
             <>
               <div className="flex gap-3 pl-3">

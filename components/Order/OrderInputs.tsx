@@ -94,7 +94,7 @@ const ClientInputs: FC<Props> = ({ profileInfo }) => {
 
   return (
     <form onSubmit={handleOrder}>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 max-[540px]:block">
         <Input
           id="name"
           name="name"

@@ -8,9 +8,11 @@ import ClientInputs from '@/components/Profile/ClientInputs';
 import ProfileOrders from '@/components/Profile/ProfileOrders';
 import { getDataActions } from '@/actions/getDataActions';
 import { profileOrdersActions } from '@/actions/profileOrdersActions';
+import { DBOrderInfo } from '@/lib/models/Order';
 
 export default async function Profile() {
   const session = await getServerSession(options);
+  const userImage = session?.user?.image;
 
   if (!session) {
     return redirect('/');
@@ -26,14 +28,25 @@ export default async function Profile() {
         <div className="p-2 mt-10 rounded-lg relative">
           <Image
             className="rounded-full h-24 w-24"
-            src={data.image || 'images/default.svg'}
+            src={userImage || 'images/default.svg'}
             alt="Avatar"
             width={96}
             height={96}
           />
         </div>
         <ClientInputs profileInfo={data} />
-        <ProfileOrders profileOrders={orders} />
+        <div>
+          {!orders ? (
+            <p className="profile__title mt-5">No bookings found...</p>
+          ) : (
+            <>
+              <h1 className="profile__title mt-5">My bookings</h1>
+              {orders.map((order: DBOrderInfo) => (
+                <ProfileOrders key={order._id.toString()} {...order} />
+              ))}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

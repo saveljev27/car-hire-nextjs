@@ -60,13 +60,7 @@ const CarInfo = () => {
             </p>
           </div>
           <div>
-            <Image
-              src={model.image}
-              alt="Car"
-              className=""
-              width={400}
-              height={160}
-            ></Image>
+            <Image src={model.image} alt="Car" width={400} height={160}></Image>
           </div>
         </div>
       ))}

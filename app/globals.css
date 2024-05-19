@@ -46,11 +46,11 @@
 }
 
 .hero__title {
-  @apply 2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold text-center;
+  @apply 2xl:text-[72px] sm:text-[64px] text-[38px] font-extrabold mt-2 text-center;
 }
 
 .hero__subtitle {
-  @apply text-[27px] text-black-100 font-light mt-5 text-center;
+  @apply sm:text-[27px] text-black-100 font-light mt-5 text-center;
 }
 
 /* END: Hero styles */
@@ -199,7 +199,7 @@
   @apply shadow-lg border border-gray-200 rounded-lg py-4 px-8 m-2;
 }
 .car__info {
-  @apply grid mt-2 grid-cols-2 text-center place-items-center;
+  @apply grid mt-2 grid-cols-2 text-center place-items-center max-[540px]:block;
 }
 .car__text {
   @apply uppercase text-left items-center;

@@ -35,7 +35,7 @@ const Input = ({
         required={required}
         placeholder={placeholder}
         type={type || 'text'}
-        className="block w-full rounded-md border-0 mt-1 py-1.5 pl-5 pr-20 ring-1 ring-insetplaceholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        className="block w-full rounded-md border-0 mt-1 py-1.5 pl-5 pr-5 ring-1 ring-insetplaceholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
     </div>
   );
