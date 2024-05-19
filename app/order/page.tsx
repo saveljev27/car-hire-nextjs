@@ -9,7 +9,7 @@ export default async function Order() {
 
   return (
     <div className="flex-1 pt-36 pb-36 padding-x">
-      <div className="flex justify-center flex-col w-full mx-auto">
+      <div className="flex justify-center flex-col w-full mx-auto mt-8">
         <h1 className="profile__title">Order Page</h1>
         <div className="section">
           <CarInfo />

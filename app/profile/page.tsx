@@ -23,7 +23,7 @@ export default async function Profile() {
 
   return (
     <div className="flex-1 pt-36 pb-36 padding-x">
-      <div className="flex justify-center flex-col items-center w-full mx-auto">
+      <div className="flex justify-center flex-col items-center w-full mx-auto mt-8">
         <h1 className="profile__title">Profile Settings</h1>
         <div className="p-2 mt-10 rounded-lg relative">
           <Image
