@@ -25,7 +25,10 @@ const ProfileOrders: React.FC<Props> = ({
         <div>
           <div className="flex justify-between *:text-sm *:text-gray-500 max-[540px]:flex-col">
             <p>Order ID: {_id.toString()}</p>
-            <p>Created At: {new Date(createdAt).toLocaleString()}</p>
+            <p>
+              Created At:{' '}
+              {new Date(createdAt).toLocaleString('en-GB', { timeZone: 'UTC' })}
+            </p>
           </div>
           <div className="mt-2 grid grid-cols-3 *:text-sm gap-x-4">
             <p>Pickup Date: {updateDateFormat(pickupDate)}</p>

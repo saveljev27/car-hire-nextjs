@@ -53,7 +53,9 @@ export const updateSearchParams = (type: string, value: string) => {
 };
 
 export const updateDateFormat = (date: string) => {
-  const formattedDate = new Date(date).toLocaleDateString('en-GB');
+  const formattedDate = new Date(date).toLocaleDateString('en-GB', {
+    timeZone: 'UTC',
+  });
   return formattedDate;
 };
 
