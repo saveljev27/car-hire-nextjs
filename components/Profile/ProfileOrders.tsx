@@ -1,7 +1,6 @@
 'use client';
 
 import { DBOrderInfo } from '@/lib/models/Order';
-import { updateDateFormat } from '@/utils';
 import React from 'react';
 
 type Props = DBOrderInfo;
@@ -28,8 +27,8 @@ const ProfileOrders: React.FC<Props> = ({
             <p>Created At: {new Date(createdAt).toLocaleString()}</p>
           </div>
           <div className="mt-2 grid grid-cols-3 *:text-sm gap-x-4">
-            <p>Pickup Date: {updateDateFormat(pickupDate)}</p>
-            <p>Drop Date: {updateDateFormat(dropDate)}</p>
+            <p>Pickup Date: {pickupDate}</p>
+            <p>Drop Date: {dropDate}</p>
             <p>Rent Days: {rentDays}</p>
             <p>Pickup Time: {pickupTime}</p>
             <p>Drop Time: {dropTime}</p>
