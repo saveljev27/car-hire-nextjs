@@ -94,7 +94,7 @@ const CarCard = ({ car }: CarCard) => {
           </div>
           <div className="flex flex-col justify-center items-center gap-2">
             <Image src="/gas.svg" width={20} height={20} alt="gas" />
-            <p className="text-[14px]">{city_consumption} L/100 KM</p>
+            <p className="text-[14px]">{city_consumption} L/100 km</p>
           </div>
         </div>
         <div className="car-card__btn-container">

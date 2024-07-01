@@ -27,6 +27,7 @@ const ClientInputs: FC<Props> = ({ profileInfo }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { items } = useSelector(orderCard);
+  const formattedToday = todayDate();
 
   const [name, setName] = useState(profileInfo?.name || '');
   const [orderEmail, setOrderEmail] = useState(profileInfo?.email || '');
@@ -86,7 +87,6 @@ const ClientInputs: FC<Props> = ({ profileInfo }) => {
 
   const formattedPickupDate = updateDateFormat(pickupDate);
   const formattedDropDate = updateDateFormat(dropDate);
-  const formattedToday = todayDate();
 
   if (!items.length) {
     return <OrderEmpty />;

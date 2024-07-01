@@ -6,11 +6,14 @@ import Image from 'next/image';
 import CustomButton from './CustomButton';
 import { signIn, signOut } from 'next-auth/react';
 import { Session } from 'next-auth';
+import { useSelector } from 'react-redux';
+import { orderCard } from '@/redux/order/selectors';
 
 const NavBar = ({ session }: { session: Session | null }) => {
   const userImage = session?.user?.image || 'images/default.svg';
   let userName = session?.user?.name;
   userName = userName?.split(' ')[0];
+  const { items } = useSelector(orderCard);
 
   return (
     <header className="w-full absolute z-10">
@@ -52,7 +55,7 @@ const NavBar = ({ session }: { session: Session | null }) => {
               />
               <Link href="/order">
                 <CustomButton
-                  title="Order"
+                  title={`Order ${items.length === 0 ? '(0)' : '(1)'}`}
                   btnType="button"
                   containerStyles="text-white rounded-full bg-primary-red min-w-[130px]"
                 />
