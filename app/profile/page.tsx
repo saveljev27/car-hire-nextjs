@@ -40,7 +40,7 @@ export default async function Profile() {
             <p className="profile__title mt-5">No bookings found...</p>
           ) : (
             <>
-              <h1 className="profile__title mt-5">My bookings</h1>
+              <h1 className="profile__title mt-5">My bookings history</h1>
               {orders.map((order: DBOrderInfo) => (
                 <ProfileOrders key={order._id.toString()} {...order} />
               ))}

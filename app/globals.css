@@ -199,7 +199,7 @@
   @apply shadow-lg border border-gray-200 rounded-lg py-4 px-8 m-2;
 }
 .car__info {
-  @apply grid mt-2 grid-cols-2 text-center place-items-center max-[930px]:block;
+  @apply grid mt-2 grid-cols-2 text-center place-items-center max-[1000px]:block;
 }
 .car__text {
   @apply uppercase text-left items-center;

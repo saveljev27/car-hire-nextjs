@@ -18,6 +18,7 @@ import {
 import { UserInfo } from '@/lib/models/User';
 import { orderCard } from '@/redux/order/selectors';
 import OrderEmpty from './OrderEmpty';
+import Alert from '../UI/Alert';
 
 type Props = {
   profileInfo: UserInfo | null;
@@ -78,7 +79,6 @@ const ClientInputs: FC<Props> = ({ profileInfo }) => {
         carModel,
       }),
     });
-    console.log(response);
     if (response.ok) {
       router.push('/success');
       dispatch(clearItems());
@@ -87,6 +87,9 @@ const ClientInputs: FC<Props> = ({ profileInfo }) => {
 
   const formattedPickupDate = updateDateFormat(pickupDate);
   const formattedDropDate = updateDateFormat(dropDate);
+  const isPickupDateValid = pickupDate && formattedPickupDate >= formattedToday;
+  const isDropDateValid =
+    dropDate && pickupDate && formattedDropDate > formattedPickupDate;
 
   if (!items.length) {
     return <OrderEmpty />;
@@ -178,42 +181,46 @@ const ClientInputs: FC<Props> = ({ profileInfo }) => {
           setDropTime(ev.target.value)
         }
       />
-      {pickupDate && dropDate && (
-        <div>
-          <h1 className="subtitle__text">Car price breakdown</h1>
-          {pickupDate >= dropDate ? (
-            <div className="mt-4 text-red-500">
-              Drop-off date should be bigger than pick-up date.
-            </div>
-          ) : formattedPickupDate < formattedToday ? (
-            <div className="mt-4 text-red-500">
-              Pick-up date should not be in the past.
-            </div>
-          ) : (
-            <>
-              <div className="mt-4 *:max-[540px]:text-sm">
-                <div className="flex border-b-2 gap-1 *:max-[540px]:text-sm">
-                  <p className="text-xl mt-3 font-bold ">
-                    Date: {formattedPickupDate} -
-                  </p>
-                  <p className="text-xl mt-3 font-bold">{formattedDropDate}</p>
-                </div>
-                <p className="booking__text">Hire duration: {rentDays} day/s</p>
-                <p className="booking__text">Price per day: {rentPerDay}€</p>
-                <p className="booking__text">Total Price: {rentValue}€</p>
-              </div>
-              <div>
-                <CustomButton
-                  title={`Book ${rentValue}€`}
-                  containerStyles="w-full py-[8px] mt-6 rounded-full bg-primary-red"
-                  textStyles="text-white"
-                  btnType="submit"
-                />
-              </div>
-            </>
-          )}
+      <div>
+        <h1 className="subtitle__text">Car price breakdown</h1>
+        <div className="mt-4 *:max-[540px]:text-sm">
+          <div className="flex border-b-2 gap-1 *:max-[540px]:text-sm">
+            {pickupDate && dropDate ? (
+              <>
+                <p className="text-xl mt-3 font-bold ">
+                  Date: {formattedPickupDate} -
+                </p>
+                <p className="text-xl mt-3 font-bold">{formattedDropDate}</p>
+              </>
+            ) : (
+              <>
+                <p className="text-xl mt-3 font-bold ">Date: 0 - 0 day/s</p>
+              </>
+            )}
+          </div>
+          <p className="booking__text">Hire duration: {rentDays} day/s</p>
+          <p className="booking__text">Price per day: {rentPerDay}€</p>
+          <p className="booking__text">Total Price: {rentValue}€</p>
         </div>
-      )}
+        <>
+          {pickupDate && dropDate && !isDropDateValid && (
+            <Alert>Drop-off date should be later than the pick-up date.</Alert>
+          )}
+          {pickupDate && !isPickupDateValid && (
+            <Alert>Pick-up date should not be in the past.</Alert>
+          )}
+          {isPickupDateValid && isDropDateValid && (
+            <div>
+              <CustomButton
+                title={`Book ${rentValue}€`}
+                containerStyles="w-full py-[8px] mt-6 rounded-full bg-primary-red"
+                textStyles="text-white"
+                btnType="submit"
+              />
+            </div>
+          )}
+        </>
+      </div>
     </form>
   );
 };

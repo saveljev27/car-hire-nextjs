@@ -1,7 +1,7 @@
 'use client';
 
 import { DBOrderInfo } from '@/lib/models/Order';
-import { updateDateFormat } from '@/utils';
+import { orderDate, updateDateFormat } from '@/utils';
 import React from 'react';
 
 type Props = DBOrderInfo;
@@ -26,7 +26,7 @@ const ProfileOrders: React.FC<Props> = ({
           <div className="flex justify-between *:text-sm *:text-gray-500 max-[540px]:flex-col">
             <p>Order ID: {_id.toString()}</p>
             <p>
-              Created At:{' '}
+              Created At:
               {new Date(createdAt).toLocaleString('en-GB', { timeZone: 'UTC' })}
             </p>
           </div>

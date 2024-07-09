@@ -10,7 +10,6 @@ export async function POST(req: Request) {
   connectToDB();
   const data = await req.json();
   const session = await getServerSession(options);
-  console.log('data:', data);
   const email = session?.user?.email;
 
   try {
@@ -22,7 +21,6 @@ export async function POST(req: Request) {
         user: userExists._id,
         userEmail: email,
       });
-      console.log('Login order', order);
       userExists.orders.push(order._id);
       await userExists.save();
       return Response.json({ success: true, order });
@@ -33,7 +31,6 @@ export async function POST(req: Request) {
         userEmail: data.orderEmail,
         phone: data.phone,
       });
-      console.log('Guest Order', guestOrder);
       await guestOrder.save();
       return Response.json({ success: true, order: guestOrder });
     }

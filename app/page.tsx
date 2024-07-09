@@ -75,7 +75,12 @@ function Home() {
           <section>
             <div className="home__cars-wrapper">
               {isDataEmpty ? (
-                <p>No cars found</p>
+                <Image
+                  src={'/images/loading.gif'}
+                  alt="Loading"
+                  width={30}
+                  height={30}
+                />
               ) : (
                 allCars.map((car) => <CarCard key={car._id} car={car} />)
               )}

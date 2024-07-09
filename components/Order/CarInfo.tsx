@@ -15,6 +15,7 @@ const CarInfo = () => {
   const onClickRemove = () => {
     if (window.confirm('Are you sure?')) {
       dispatch(removeItem(data._id));
+      localStorage.removeItem('car');
       router.push('/');
     }
   };
@@ -34,7 +35,7 @@ const CarInfo = () => {
               alt="Car"
               width={400}
               height={160}
-              className="max-[930px]:m-auto"
+              className="max-[1000px]:m-auto"
             ></Image>
           </div>
           <div className="grid grid-cols-2 gap-6 bg-primary-red p-3 rounded-md text-white">

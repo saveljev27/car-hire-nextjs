@@ -24,7 +24,6 @@ export const options: NextAuthOptions = {
         await connectToDB();
 
         const userExists = await User.findOne({ email: profile?.email });
-        console.log(userExists);
 
         if (!userExists) {
           await User.create({

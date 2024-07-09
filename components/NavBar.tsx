@@ -15,6 +15,11 @@ const NavBar = ({ session }: { session: Session | null }) => {
   userName = userName?.split(' ')[0];
   const { items } = useSelector(orderCard);
 
+  if (items.length != 0) {
+    const car = JSON.stringify(items);
+    localStorage.setItem('car', car);
+  }
+
   return (
     <header className="w-full absolute z-10">
       <nav className="max-w-[1440px] mx-auto flex justify-between items-center sm:px-16 px-6 py-4 max-[640px]:flex-col">
@@ -53,13 +58,6 @@ const NavBar = ({ session }: { session: Session | null }) => {
                 btnType="button"
                 containerStyles="text-white rounded-full bg-primary-red min-w-[130px]"
               />
-              <Link href="/order">
-                <CustomButton
-                  title={`Order ${items.length === 0 ? '(0)' : '(1)'}`}
-                  btnType="button"
-                  containerStyles="text-white rounded-full bg-primary-red min-w-[130px]"
-                />
-              </Link>
             </>
           )}
           {!session?.user && (
@@ -72,6 +70,13 @@ const NavBar = ({ session }: { session: Session | null }) => {
               />
             </>
           )}
+          <Link href="/order">
+            <CustomButton
+              title={`Order ${items.length === 0 ? '(0)' : '(1)'}`}
+              btnType="button"
+              containerStyles="text-white rounded-full bg-primary-red min-w-[130px]"
+            />
+          </Link>
         </div>
       </nav>
     </header>
