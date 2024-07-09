@@ -80,6 +80,7 @@ function Home() {
                   alt="Loading"
                   width={30}
                   height={30}
+                  unoptimized
                 />
               ) : (
                 allCars.map((car) => <CarCard key={car._id} car={car} />)

@@ -1,7 +1,7 @@
 'use client';
 
 import { DBOrderInfo } from '@/lib/models/Order';
-import { orderDate, updateDateFormat } from '@/utils';
+import { updateDateFormat } from '@/utils';
 import React from 'react';
 
 type Props = DBOrderInfo;

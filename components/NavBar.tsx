@@ -8,17 +8,33 @@ import { signIn, signOut } from 'next-auth/react';
 import { Session } from 'next-auth';
 import { useSelector } from 'react-redux';
 import { orderCard } from '@/redux/order/selectors';
+import { useEffect, useState } from 'react';
+import { CarProps } from '@/lib/models/Cars';
 
 const NavBar = ({ session }: { session: Session | null }) => {
+  const { items } = useSelector(orderCard);
+  const [clientItems, setClientItems] = useState<CarProps[]>([]);
+
   const userImage = session?.user?.image || 'images/default.svg';
   let userName = session?.user?.name;
   userName = userName?.split(' ')[0];
-  const { items } = useSelector(orderCard);
 
-  if (items.length != 0) {
-    const car = JSON.stringify(items);
-    localStorage.setItem('car', car);
-  }
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedCar = localStorage.getItem('car');
+      if (storedCar) {
+        setClientItems(JSON.parse(storedCar));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const car = JSON.stringify(items);
+      localStorage.setItem('car', car);
+      setClientItems(items);
+    }
+  }, [items]);
 
   return (
     <header className="w-full absolute z-10">
@@ -72,7 +88,7 @@ const NavBar = ({ session }: { session: Session | null }) => {
           )}
           <Link href="/order">
             <CustomButton
-              title={`Order ${items.length === 0 ? '(0)' : '(1)'}`}
+              title={`Order (${clientItems.length})`}
               btnType="button"
               containerStyles="text-white rounded-full bg-primary-red min-w-[130px]"
             />
