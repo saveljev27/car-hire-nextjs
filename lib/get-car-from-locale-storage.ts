@@ -1,4 +1,4 @@
-import { CarProps } from '@/models/Cars';
+import { CarProps } from '@/types';
 
 export const getCarFromLocalStorage = () => {
   if (typeof window !== 'undefined') {
