@@ -15,8 +15,6 @@ function Home() {
   const [searchCars, setSearchCars] = useState<CarProps[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
-
   const fetchCars = async () => {
     const response = await fetch('/api/cars');
     const data = await response.json();
@@ -63,7 +61,7 @@ function Home() {
             />
           </div>
         </div>
-        {searchCars.length > 0 ? (
+        {searchCars && searchCars.length > 0 ? (
           <section>
             <div id="cars" className="home__cars-wrapper">
               {searchCars.map((car: CarProps) => (
