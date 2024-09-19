@@ -1,16 +1,4 @@
-import React from 'react';
-
-interface InputProps {
-  id: string;
-  name: string;
-  label: string;
-  type?: string;
-  defaultValue?: string | null;
-  placeholder?: string;
-  onChange?: any;
-  disabled?: boolean;
-  required?: boolean;
-}
+import { InputProps } from '@/types';
 
 const Input = ({
   id,

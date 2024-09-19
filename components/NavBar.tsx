@@ -9,7 +9,7 @@ import { Session } from 'next-auth';
 import { useSelector } from 'react-redux';
 import { orderCard } from '@/redux/order/selectors';
 import { useEffect, useState } from 'react';
-import { CarProps } from '@/lib/models/Cars';
+import { CarProps } from '@/types';
 
 const NavBar = ({ session }: { session: Session | null }) => {
   const { items } = useSelector(orderCard);
@@ -41,7 +41,7 @@ const NavBar = ({ session }: { session: Session | null }) => {
       <nav className="max-w-[1440px] mx-auto flex justify-between items-center sm:px-16 px-6 py-4 max-[640px]:flex-col">
         <Link href="/" className="flex items-center ">
           <Image
-            src="/logo.png"
+            src="/images/logo.png"
             alt="Car Showcase logo"
             width={100}
             height={100}

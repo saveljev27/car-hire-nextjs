@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { CarProps } from '@/lib/models/Cars';
-import getCarFromStorage from '@/utils/getCarFromStorage';
+import { CarProps } from '@/types';
+import { getCarFromLocalStorage } from '@/lib';
 
 interface OrderSliceState {
   items: CarProps[];
 }
 
-const initialState: OrderSliceState = getCarFromStorage();
+const initialState: OrderSliceState = getCarFromLocalStorage();
 const orderSlice = createSlice({
   name: 'order',
   initialState,

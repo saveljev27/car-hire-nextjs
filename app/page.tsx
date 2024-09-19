@@ -1,17 +1,21 @@
 'use client';
 
-import { useEffect, useState, ChangeEvent } from 'react';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 import Hero from '@/components/Hero';
 import CarCard from '@/components/CarCard';
-import type { CarProps } from '@/lib/models/Cars';
-import Image from 'next/image';
+
+import { CarProps } from '@/types';
+import { search } from '@/actions';
+import { useDebounce } from 'react-use';
 
 function Home() {
   const [allCars, setAllCars] = useState<CarProps[]>([]);
+  const [searchCars, setSearchCars] = useState<CarProps[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const [searchCar, setSearchCar] = useState<string>('');
-  const [searchedCars, setSearchedCars] = useState<CarProps[]>([]);
+  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
   const fetchCars = async () => {
     const response = await fetch('/api/cars');
@@ -22,20 +26,16 @@ function Home() {
     fetchCars();
   }, []);
 
-  const filterPrompts = (searchtext: string) => {
-    const regex = new RegExp(searchtext, 'i');
-    return allCars.filter((car) => {
-      return regex.test(car.make);
-    });
-  };
-
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchCar(event.target.value);
-    const searchResult = filterPrompts(event.target.value);
-    setSearchedCars(searchResult);
-  };
-
-  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
+  useDebounce(
+    async () => {
+      try {
+        const response = await search(searchQuery);
+        setSearchCars(response);
+      } catch (error) {}
+    },
+    350,
+    [searchQuery]
+  );
 
   return (
     <main className="overflow-hidden">
@@ -49,7 +49,7 @@ function Home() {
         <div className="searchbar">
           <div className="searchbar__item">
             <Image
-              src="/car-logo.svg"
+              src="/images/car-logo.svg"
               width={20}
               height={20}
               className="absolute left-3"
@@ -58,15 +58,15 @@ function Home() {
             <input
               className="search-manufacturer__input"
               placeholder="Volkswagen"
-              value={searchCar}
-              onChange={handleSearchChange}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
         </div>
-        {searchCar ? (
+        {searchCars.length > 0 ? (
           <section>
             <div id="cars" className="home__cars-wrapper">
-              {searchedCars.map((car: CarProps) => (
+              {searchCars.map((car: CarProps) => (
                 <CarCard key={car._id} car={car} />
               ))}
             </div>
@@ -74,16 +74,17 @@ function Home() {
         ) : (
           <section>
             <div className="home__cars-wrapper">
-              {isDataEmpty ? (
-                <Image
-                  src={'/images/loading.gif'}
-                  alt="Loading"
-                  width={30}
-                  height={30}
-                  unoptimized
-                />
-              ) : (
+              {allCars.length > 0 ? (
                 allCars.map((car) => <CarCard key={car._id} car={car} />)
+              ) : (
+                <div className="row">
+                  <Image
+                    src={'/images/loading.gif'}
+                    alt="Loading"
+                    width={30}
+                    height={30}
+                  />
+                </div>
               )}
             </div>
           </section>

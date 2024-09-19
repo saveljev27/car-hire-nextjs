@@ -2,8 +2,8 @@
 
 import { getServerSession } from 'next-auth/next';
 import { options } from '@/app/api/auth/[...nextauth]/options';
-import { Order } from '@/lib/models/Order';
-import { connectToDB } from '@/utils';
+import { Order } from '@/models/Order';
+import { connectToDB } from '@/lib';
 
 export async function profileOrdersActions() {
   const session = await getServerSession(options);

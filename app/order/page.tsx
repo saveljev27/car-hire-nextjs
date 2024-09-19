@@ -2,7 +2,7 @@
 
 import CarInfo from '@/components/Order/CarInfo';
 import OrderInputs from '@/components/Order/OrderInputs';
-import { getDataActions } from '@/actions/getDataActions';
+import { getDataActions } from '@/actions';
 
 export default async function Order() {
   const data = await getDataActions();

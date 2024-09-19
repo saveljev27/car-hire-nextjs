@@ -9,8 +9,8 @@ import { addItem } from '@/redux/order/slice';
 import CustomButton from './CustomButton';
 import CarDetails from './CarDetails';
 
-import { CarProps } from '@/lib/models/Cars';
-import { calculateCarRent } from '@/utils';
+import { CarProps } from '@/types';
+import { carRentCalculation } from '@/lib';
 
 interface CarCard {
   car: CarProps;
@@ -32,7 +32,7 @@ const CarCard = ({ car }: CarCard) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const carRent = calculateCarRent(city_consumption, year);
+  const carRent = carRentCalculation(city_consumption, year);
 
   const dispatch = useDispatch();
 
@@ -79,7 +79,7 @@ const CarCard = ({ car }: CarCard) => {
         <div className="flex w-full group-hover:invisible justify-between text-gray">
           <div className="flex flex-col justify-center items-center gap-2">
             <Image
-              src="/steering-wheel.svg"
+              src="/images/steering-wheel.svg"
               width={20}
               height={20}
               alt="steering wheel"
@@ -89,11 +89,11 @@ const CarCard = ({ car }: CarCard) => {
             </p>
           </div>
           <div className="flex flex-col justify-center items-center gap-2">
-            <Image src="/tire.svg" width={20} height={20} alt="tire" />
+            <Image src="/images/tire.svg" width={20} height={20} alt="tire" />
             <p className="text-[14px]">{drive.toUpperCase()}</p>
           </div>
           <div className="flex flex-col justify-center items-center gap-2">
-            <Image src="/gas.svg" width={20} height={20} alt="gas" />
+            <Image src="/images/gas.svg" width={20} height={20} alt="gas" />
             <p className="text-[14px]">{city_consumption} L/100 km</p>
           </div>
         </div>
@@ -102,7 +102,7 @@ const CarCard = ({ car }: CarCard) => {
             title="View"
             containerStyles="w-full py-[8px] rounded-full bg-primary-red"
             textStyles="text-white text-[14px] leading-[17px] font-bold"
-            rightIcon="/right-arrow.svg"
+            rightIcon="/images/right-arrow.svg"
             handleClick={() => setIsOpen(true)}
           />
           <>
@@ -111,7 +111,7 @@ const CarCard = ({ car }: CarCard) => {
                 title="Book"
                 containerStyles="w-full py-[8px] rounded-full bg-green-500"
                 textStyles="text-white text-[14px] leading-[17px] font-bold"
-                rightIcon="/cart.svg"
+                rightIcon="/images/cart.svg"
                 handleClick={onClickAddButton}
               />
             </Link>

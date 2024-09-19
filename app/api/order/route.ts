@@ -1,12 +1,13 @@
 import { getServerSession } from 'next-auth';
+import { NextRequest, NextResponse } from 'next/server';
 
 import { options } from '@/app/api/auth/[...nextauth]/options';
 
-import { connectToDB } from '@/utils';
-import { Order } from '@/lib/models/Order';
-import { User } from '@/lib/models/User';
+import { connectToDB } from '@/lib';
+import { Order } from '@/models/Order';
+import { User } from '@/models/User';
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   connectToDB();
   const data = await req.json();
   const session = await getServerSession(options);
@@ -23,7 +24,7 @@ export async function POST(req: Request) {
       });
       userExists.orders.push(order._id);
       await userExists.save();
-      return Response.json({ success: true, order });
+      return NextResponse.json({ success: true, order });
     } else {
       const guestOrder = await Order.create({
         ...data,
@@ -32,10 +33,10 @@ export async function POST(req: Request) {
         phone: data.phone,
       });
       await guestOrder.save();
-      return Response.json({ success: true, order: guestOrder });
+      return NextResponse.json({ success: true, order: guestOrder });
     }
   } catch (error) {
-    return Response.json({
+    return NextResponse.json({
       success: false,
       message: 'An error occurred while creating an order',
       error,

@@ -1,13 +1,5 @@
-import { model, models, Schema, Types } from 'mongoose';
-
-export type UserInfo = {
-  name: string;
-  email: string;
-  password: string;
-  image: string;
-  phone: string;
-  orders: Types.ObjectId[];
-};
+import { UserInfo } from '@/types';
+import { model, models, Schema } from 'mongoose';
 
 const UserSchema = new Schema<UserInfo>(
   {

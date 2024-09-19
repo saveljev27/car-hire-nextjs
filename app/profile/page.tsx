@@ -6,9 +6,9 @@ import { options } from '../api/auth/[...nextauth]/options';
 import { redirect } from 'next/navigation';
 import ClientInputs from '@/components/Profile/ClientInputs';
 import ProfileOrders from '@/components/Profile/ProfileOrders';
-import { getDataActions } from '@/actions/getDataActions';
-import { profileOrdersActions } from '@/actions/profileOrdersActions';
-import { DBOrderInfo } from '@/lib/models/Order';
+import { getDataActions } from '@/actions';
+import { profileOrdersActions } from '@/actions';
+import { DBOrderInfo } from '@/types';
 
 export default async function Profile() {
   const session = await getServerSession(options);

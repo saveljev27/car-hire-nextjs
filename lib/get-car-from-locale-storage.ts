@@ -1,6 +1,6 @@
-import { CarProps } from '@/lib/models/Cars';
+import { CarProps } from '@/models/Cars';
 
-const getCarFromStorage = () => {
+export const getCarFromLocalStorage = () => {
   if (typeof window !== 'undefined') {
     const data = localStorage.getItem('car');
     const items = data ? JSON.parse(data) : [];
@@ -9,11 +9,8 @@ const getCarFromStorage = () => {
       items: items as CarProps[],
     };
   } else {
-    // Возвращаем пустое значение, если localStorage недоступен (например, на сервере)
     return {
       items: [] as CarProps[],
     };
   }
 };
-
-export default getCarFromStorage;

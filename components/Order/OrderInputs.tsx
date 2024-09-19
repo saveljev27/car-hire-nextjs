@@ -6,16 +6,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearItems } from '@/redux/order/slice';
 import { useRouter } from 'next/navigation';
 
-import Input from '../Input';
-import CustomButton from '../CustomButton';
 import {
-  calculateCarRent,
+  carRentCalculation,
   getSumFromDate,
   todayDate,
-  updateDateFormat,
-} from '@/utils';
+  dateFormatUpdate,
+} from '@/lib';
 
-import { UserInfo } from '@/lib/models/User';
+import Input from '../Input';
+import CustomButton from '../CustomButton';
+
+import { UserInfo } from '@/types';
 import { orderCard } from '@/redux/order/selectors';
 import OrderEmpty from './OrderEmpty';
 import Alert from '../UI/Alert';
@@ -48,7 +49,9 @@ const ClientInputs: FC<Props> = ({ profileInfo }) => {
     if (pickupDate && dropDate) {
       const days = getSumFromDate(pickupDate, dropDate);
       const { year, city_consumption, make, model } = items[0];
-      const pricePerDay = parseFloat(calculateCarRent(city_consumption, year));
+      const pricePerDay = parseFloat(
+        carRentCalculation(city_consumption, year)
+      );
       setRentDays(days);
       setRentPerDay(pricePerDay);
       setCarMake(make);
@@ -85,8 +88,8 @@ const ClientInputs: FC<Props> = ({ profileInfo }) => {
     }
   };
 
-  const formattedPickupDate = updateDateFormat(pickupDate);
-  const formattedDropDate = updateDateFormat(dropDate);
+  const formattedPickupDate = dateFormatUpdate(pickupDate);
+  const formattedDropDate = dateFormatUpdate(dropDate);
   const isPickupDateValid = pickupDate && formattedPickupDate >= formattedToday;
   const isDropDateValid =
     dropDate && pickupDate && formattedDropDate > formattedPickupDate;
