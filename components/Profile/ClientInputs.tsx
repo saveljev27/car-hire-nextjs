@@ -53,7 +53,7 @@ const ClientInputs = ({ profileInfo }: Props) => {
       />
       <CustomButton
         title="Save"
-        containerStyles="w-full py-[8px] mt-6 rounded-full bg-primary-red"
+        containerStyles="w-full py-[8px] mt-6 rounded bg-primary-red"
         textStyles="text-white"
         btnType="submit"
       />

@@ -102,20 +102,16 @@ const CarCard = ({ car }: CarCard) => {
             title="View"
             containerStyles="w-full py-[8px] rounded-full bg-primary-red"
             textStyles="text-white text-[14px] leading-[17px] font-bold"
-            rightIcon="/images/right-arrow.svg"
             handleClick={() => setIsOpen(true)}
           />
-          <>
-            <Link href="/order">
-              <CustomButton
-                title="Book"
-                containerStyles="w-full py-[8px] rounded-full bg-green-500"
-                textStyles="text-white text-[14px] leading-[17px] font-bold"
-                rightIcon="/images/cart.svg"
-                handleClick={onClickAddButton}
-              />
-            </Link>
-          </>
+          <Link href={`/order`}>
+            <CustomButton
+              title="Book"
+              containerStyles="w-full py-[8px] rounded-full min-w-[180px] bg-green-500"
+              textStyles="text-white text-[14px] leading-[17px] font-bold"
+              handleClick={onClickAddButton}
+            />
+          </Link>
         </div>
       </div>
       <CarDetails

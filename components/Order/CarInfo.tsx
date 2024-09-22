@@ -2,23 +2,10 @@
 
 import { useSelector, useDispatch } from 'react-redux';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { orderCard } from '@/redux/order/selectors';
-import { removeItem } from '@/redux/order/slice';
 
 const CarInfo = () => {
-  const dispatch = useDispatch();
-  const router = useRouter();
   const { items } = useSelector(orderCard);
-  const [data] = items;
-
-  const onClickRemove = () => {
-    if (window.confirm('Are you sure?')) {
-      dispatch(removeItem(data._id));
-      localStorage.removeItem('car');
-      router.push('/');
-    }
-  };
 
   if (!items.length) {
     return <div>No information</div>;
@@ -38,7 +25,7 @@ const CarInfo = () => {
               className="max-[1000px]:m-auto"
             ></Image>
           </div>
-          <div className="grid grid-cols-2 gap-6 bg-primary-red p-3 rounded-md text-white">
+          <div className="grid grid-cols-2 gap-6 bg-primary-red p-3 rounded-md text-white max-md:grid-cols-1">
             <p className="car__text">
               Make:<span className="font-bold ml-1">{model.make}</span>
             </p>
@@ -74,14 +61,6 @@ const CarInfo = () => {
           </div>
         </div>
       ))}
-      <div className="flex mt-2 justify-start max-[930px]:justify-center">
-        <button
-          className="text-right hover:text-primary-red"
-          onClick={onClickRemove}
-        >
-          Cancel booking
-        </button>
-      </div>
     </>
   );
 };

@@ -72,7 +72,7 @@ const NavBar = ({ session }: { session: Session | null }) => {
                 title="Logout"
                 handleClick={() => signOut()}
                 btnType="button"
-                containerStyles="text-white rounded-full bg-primary-red min-w-[130px]"
+                containerStyles="text-white rounded bg-primary-red min-w-[130px]"
               />
             </>
           )}
@@ -81,18 +81,20 @@ const NavBar = ({ session }: { session: Session | null }) => {
               <CustomButton
                 title="Sign Up"
                 btnType="button"
-                containerStyles="text-white rounded-full bg-primary-red min-w-[130px]"
+                containerStyles="text-white rounded bg-primary-red min-w-[130px]"
                 handleClick={() => signIn('google', { callbackUrl: '/' })}
               />
             </>
           )}
-          <Link href="/order">
-            <CustomButton
-              title={`Order (${clientItems.length})`}
-              btnType="button"
-              containerStyles="text-white rounded-full bg-primary-red min-w-[130px]"
-            />
-          </Link>
+          {clientItems.length > 0 && (
+            <Link href="/order">
+              <CustomButton
+                title={`Order (${clientItems.length})`}
+                btnType="button"
+                containerStyles="text-white rounded bg-primary-red min-w-[130px]"
+              />
+            </Link>
+          )}
         </div>
       </nav>
     </header>

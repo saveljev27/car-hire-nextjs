@@ -26,7 +26,7 @@ export default async function Success() {
                 <CustomButton
                   title="Check Order"
                   btnType="button"
-                  containerStyles="text-white mt-5 rounded-full bg-primary-red min-w-[130px]"
+                  containerStyles="text-white mt-5 rounded bg-primary-red min-w-[130px]"
                 />
               </Link>
             </>
@@ -41,7 +41,7 @@ export default async function Success() {
           <CustomButton
             title="Back to home screen"
             btnType="button"
-            containerStyles="text-white mt-5 rounded-full bg-primary-red min-w-[130px]"
+            containerStyles="text-white mt-5 rounded bg-primary-red min-w-[130px]"
           />
         </Link>
       </div>

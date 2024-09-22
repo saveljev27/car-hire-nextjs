@@ -8,12 +8,11 @@ import CarCard from '@/components/CarCard';
 
 import { CarProps } from '@/types';
 import { search } from '@/actions';
-import { useDebounce } from 'react-use';
+import SearchBar from '@/components/SearchBar';
 
 function Home() {
   const [allCars, setAllCars] = useState<CarProps[]>([]);
   const [searchCars, setSearchCars] = useState<CarProps[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchCars = async () => {
     const response = await fetch('/api/cars');
@@ -24,43 +23,26 @@ function Home() {
     fetchCars();
   }, []);
 
-  useDebounce(
-    async () => {
+  const handleSearch = async (searchQuery: string) => {
+    if (searchQuery) {
       try {
-        const response = await search(searchQuery);
-        setSearchCars(response);
+        const cars = await search(searchQuery);
+        setSearchCars(cars);
       } catch (error) {}
-    },
-    350,
-    [searchQuery]
-  );
+    } else {
+      setSearchCars([]);
+    }
+  };
 
   return (
     <main className="overflow-hidden">
       <Hero />
-
       <div className="mt-12 padding-x padding-y max-width" id="discover">
         <div className="home__text-container">
           <h1 className="text-4x1 font-extrabold">Catalogue</h1>
           <p>Investigate these ideal cars that might suit your style.</p>
         </div>
-        <div className="searchbar">
-          <div className="searchbar__item">
-            <Image
-              src="/images/car-logo.svg"
-              width={20}
-              height={20}
-              className="absolute left-3"
-              alt="Car logo"
-            />
-            <input
-              className="search-manufacturer__input"
-              placeholder="Volkswagen"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-        </div>
+        <SearchBar onSearch={handleSearch} />
         {searchCars && searchCars.length > 0 ? (
           <section>
             <div id="cars" className="home__cars-wrapper">

@@ -38,8 +38,8 @@ export interface DBOrderInfo {
   rentPerDay: number;
   rentValue: number;
   rentDays: number;
-  carMake: string;
-  carModel: string;
+  make: string;
+  model: string;
   userEmail: string;
   user: Types.ObjectId;
   createdAt: Date;
@@ -53,15 +53,24 @@ export interface OrderInfo {
   pickupTime: string;
   dropDate: string;
   dropTime: string;
-  rentPerDay: number;
   rentValue: number;
   rentDays: number;
-  carMake: string;
-  carModel: string;
-  userEmail: string;
+  rentPerDay: number;
+  make: string;
+  model: string;
+  email: string;
   name: string;
   phone: string;
+  token: string;
   user: Types.ObjectId;
+}
+
+export interface OrderStatusInfo {
+  payment: string;
+  status: string;
+  orderId: string;
+  totalAmount: number;
+  order: Types.ObjectId;
 }
 
 export interface UserInfo {

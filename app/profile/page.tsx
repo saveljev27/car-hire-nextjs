@@ -24,7 +24,7 @@ export default async function Profile() {
   return (
     <div className="flex-1 pt-36 pb-36 padding-x">
       <div className="flex justify-center flex-col items-center w-full mx-auto mt-8">
-        <h1 className="profile__title">Profile Settings</h1>
+        <h1 className="page__title">Profile Settings</h1>
         <div className="p-2 mt-10 rounded-lg relative">
           <Image
             className="rounded-full h-24 w-24"
@@ -37,10 +37,10 @@ export default async function Profile() {
         <ClientInputs profileInfo={data} />
         <div>
           {!orders ? (
-            <p className="profile__title mt-5">No bookings found...</p>
+            <p className="page__title mt-5">No bookings found...</p>
           ) : (
             <>
-              <h1 className="profile__title mt-5">My bookings history</h1>
+              <h1 className="page__title mt-5">My bookings history</h1>
               {orders.map((order: DBOrderInfo) => (
                 <ProfileOrders key={order._id.toString()} {...order} />
               ))}

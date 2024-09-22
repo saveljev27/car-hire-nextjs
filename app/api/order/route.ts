@@ -1,36 +1,72 @@
-import { getServerSession } from 'next-auth';
+'use server';
 import { NextRequest, NextResponse } from 'next/server';
-
-import { options } from '@/app/api/auth/[...nextauth]/options';
-
-import { connectToDB } from '@/lib';
-import { Order } from '@/models/Order';
+import { carRentCalculation, connectToDB, getSumFromDate } from '@/lib';
+import { cookies } from 'next/headers';
 import { User } from '@/models/User';
+import { Order } from '@/models/Order';
 
 export async function POST(req: NextRequest) {
-  connectToDB();
-  const data = await req.json();
-  const session = await getServerSession(options);
-  const email = session?.user?.email;
+  await connectToDB();
+
+  const formData = await req.formData();
+  const {
+    email,
+    pickupDate,
+    dropDate,
+    make,
+    model,
+    city_consumption,
+    year,
+    ...data
+  } = Object.fromEntries(formData);
+
+  if (pickupDate > dropDate) {
+    return NextResponse.json({
+      success: false,
+      message: 'Pickup date cannot be greater than drop date',
+    });
+  }
+
+  const rentDays = getSumFromDate(pickupDate, dropDate);
+  const priceRentPerDay = parseFloat(
+    carRentCalculation(Number(city_consumption), Number(year))
+  );
 
   try {
-    const userExists = await User.findOne({ email });
+    const cookieStore = cookies();
+    const token = crypto.randomUUID();
+    const orderToken = cookieStore.set('orderToken', token);
 
-    if (userExists) {
+    const userExist = await User.findOne({ email });
+    if (userExist) {
       const order = await Order.create({
         ...data,
-        user: userExists._id,
-        userEmail: email,
+        make,
+        model,
+        pickupDate,
+        dropDate,
+        rentDays,
+        rentPerDay: priceRentPerDay,
+        rentValue: rentDays * priceRentPerDay,
+        email,
+        token,
       });
-      userExists.orders.push(order._id);
-      await userExists.save();
+
+      userExist.orders.push(order._id);
+      await userExist.save();
       return NextResponse.json({ success: true, order });
     } else {
       const guestOrder = await Order.create({
         ...data,
-        name: data.name,
-        userEmail: data.orderEmail,
-        phone: data.phone,
+        make,
+        model,
+        pickupDate,
+        dropDate,
+        rentDays,
+        rentPerDay: priceRentPerDay,
+        rentValue: rentDays * priceRentPerDay,
+        email,
+        token,
       });
       await guestOrder.save();
       return NextResponse.json({ success: true, order: guestOrder });
@@ -38,8 +74,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     return NextResponse.json({
       success: false,
-      message: 'An error occurred while creating an order',
-      error,
+      message: 'Something went wrong',
     });
   }
 }

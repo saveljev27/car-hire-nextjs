@@ -1,231 +1,131 @@
 'use client';
 
-import { ChangeEvent, FormEventHandler, useEffect, FC, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { clearItems } from '@/redux/order/slice';
-import { useRouter } from 'next/navigation';
-
-import {
-  carRentCalculation,
-  getSumFromDate,
-  todayDate,
-  dateFormatUpdate,
-} from '@/lib';
-
+import { useState } from 'react';
 import Input from '../Input';
 import CustomButton from '../CustomButton';
-
-import { UserInfo } from '@/types';
-import { orderCard } from '@/redux/order/selectors';
-import OrderEmpty from './OrderEmpty';
 import Alert from '../UI/Alert';
+import { OrderInfo } from '@/types';
+import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { orderCard } from '@/redux/order/selectors';
+import Cancel from '../UI/Cancel';
 
-type Props = {
-  profileInfo: UserInfo | null;
-};
+interface OrderProps {
+  profileInfo: OrderInfo | null;
+}
 
-const ClientInputs: FC<Props> = ({ profileInfo }) => {
-  const router = useRouter();
-  const dispatch = useDispatch();
+export default function OrderInputs({ profileInfo }: OrderProps) {
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<boolean>(false);
   const { items } = useSelector(orderCard);
-  const formattedToday = todayDate();
+  const router = useRouter();
 
-  const [name, setName] = useState(profileInfo?.name || '');
-  const [orderEmail, setOrderEmail] = useState(profileInfo?.email || '');
-  const [phone, setPhone] = useState(profileInfo?.phone || '');
-  const [pickupLocation, setPickupLocation] = useState('');
-  const [pickupDate, setPickupDate] = useState('');
-  const [pickupTime, setPickupTime] = useState('');
-  const [dropDate, setDropDate] = useState('');
-  const [dropTime, setDropTime] = useState('');
-  const [rentPerDay, setRentPerDay] = useState<number>(0);
-  const [rentValue, setRentValue] = useState<number>(0);
-  const [rentDays, setRentDays] = useState<number>(0);
-  const [carMake, setCarMake] = useState('');
-  const [carModel, setCarModel] = useState('');
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const { year, city_consumption, make, model } = items[0];
+    const formData = new FormData(event.currentTarget);
+    formData.set('year', JSON.stringify(year));
+    formData.set('city_consumption', JSON.stringify(city_consumption));
+    formData.set('make', JSON.stringify(make));
+    formData.set('model', JSON.stringify(model));
+    console.log(formData);
+    try {
+      const response = await fetch('/api/order', {
+        method: 'POST',
+        body: formData,
+      });
 
-  useEffect(() => {
-    if (pickupDate && dropDate) {
-      const days = getSumFromDate(pickupDate, dropDate);
-      const { year, city_consumption, make, model } = items[0];
-      const pricePerDay = parseFloat(
-        carRentCalculation(city_consumption, year)
-      );
-      setRentDays(days);
-      setRentPerDay(pricePerDay);
-      setCarMake(make);
-      setCarModel(model);
-    }
-    const calculateTotalPrice = rentDays * rentPerDay;
-    if (!isNaN(calculateTotalPrice)) setRentValue(calculateTotalPrice);
-  }, [pickupDate, dropDate, rentDays, rentPerDay]);
+      const result = await response.json();
+      const orderId = result.order._id;
 
-  const handleOrder: FormEventHandler<HTMLFormElement> = async (ev) => {
-    ev.preventDefault();
-    const response = await fetch('/api/order', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name,
-        orderEmail,
-        phone,
-        pickupLocation,
-        pickupDate,
-        pickupTime,
-        dropDate,
-        dropTime,
-        rentPerDay,
-        rentValue,
-        rentDays,
-        carMake,
-        carModel,
-      }),
-    });
-    if (response.ok) {
-      router.push('/success');
-      dispatch(clearItems());
+      if (result.success) {
+        setSuccess(true);
+        router.push(`/order/${orderId}`);
+        console.log('Order created:', result.order);
+      } else {
+        setError(result.message || 'Something went wrong');
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Something went wrong. Please try again.');
     }
   };
 
-  const formattedPickupDate = dateFormatUpdate(pickupDate);
-  const formattedDropDate = dateFormatUpdate(dropDate);
-  const isPickupDateValid = pickupDate && formattedPickupDate >= formattedToday;
-  const isDropDateValid =
-    dropDate && pickupDate && formattedDropDate > formattedPickupDate;
-
-  if (!items.length) {
-    return <OrderEmpty />;
-  }
-
   return (
-    <form onSubmit={handleOrder}>
+    <form onSubmit={handleSubmit}>
       <div className="grid grid-cols-2 gap-4 max-[540px]:block">
         <Input
           id="name"
           name="name"
           label="Fullname"
-          defaultValue={name}
-          onChange={(ev: ChangeEvent<HTMLInputElement>) =>
-            setName(ev.target.value)
-          }
+          defaultValue={profileInfo?.name}
         />
         <Input
           id="email"
           name="email"
           label="Email"
-          defaultValue={orderEmail}
-          onChange={(ev: ChangeEvent<HTMLInputElement>) =>
-            setOrderEmail(ev.target.value)
-          }
+          defaultValue={profileInfo?.email}
         />
       </div>
       <Input
         id="phone"
         name="phone"
         label="Phone"
-        defaultValue={phone}
-        onChange={(ev: ChangeEvent<HTMLInputElement>) =>
-          setPhone(ev.target.value)
-        }
+        defaultValue={profileInfo?.phone}
         required
       />
       <Input
         id="pickupLocation"
         name="pickupLocation"
         label="Pick-up location"
-        defaultValue={pickupLocation}
+        defaultValue={profileInfo?.address}
         required
-        onChange={(ev: ChangeEvent<HTMLInputElement>) =>
-          setPickupLocation(ev.target.value)
-        }
       />
       <Input
         id="pickupDate"
         name="pickupDate"
         type="date"
         label="Pick-up date"
-        defaultValue={pickupDate}
+        defaultValue={profileInfo?.pickupDate}
         required
-        onChange={(ev: ChangeEvent<HTMLInputElement>) =>
-          setPickupDate(ev.target.value)
-        }
       />
       <Input
         id="pickupTime"
         name="pickupTime"
         type="time"
         label="Pick-up time"
-        defaultValue={pickupTime}
+        defaultValue={profileInfo?.pickupTime}
         required
-        onChange={(ev: ChangeEvent<HTMLInputElement>) =>
-          setPickupTime(ev.target.value)
-        }
       />
       <Input
         id="dropDate"
         name="dropDate"
         type="date"
         label="Drop-off date"
-        defaultValue={dropDate}
+        defaultValue={profileInfo?.dropDate}
         required
-        onChange={(ev: ChangeEvent<HTMLInputElement>) =>
-          setDropDate(ev.target.value)
-        }
       />
       <Input
         id="dropTime"
         name="dropTime"
         type="time"
         label="Drop-off time"
-        defaultValue={dropTime}
+        defaultValue={profileInfo?.dropTime}
         required
-        onChange={(ev: ChangeEvent<HTMLInputElement>) =>
-          setDropTime(ev.target.value)
-        }
       />
-      <div>
-        <h1 className="subtitle__text">Car price breakdown</h1>
-        <div className="mt-4 *:max-[540px]:text-sm">
-          <div className="flex border-b-2 gap-1 *:max-[540px]:text-sm">
-            {pickupDate && dropDate ? (
-              <>
-                <p className="text-xl mt-3 font-bold ">
-                  Date: {formattedPickupDate} -
-                </p>
-                <p className="text-xl mt-3 font-bold">{formattedDropDate}</p>
-              </>
-            ) : (
-              <>
-                <p className="text-xl mt-3 font-bold ">Date: 0 - 0 day/s</p>
-              </>
-            )}
-          </div>
-          <p className="booking__text">Hire duration: {rentDays} day/s</p>
-          <p className="booking__text">Price per day: {rentPerDay}€</p>
-          <p className="booking__text">Total Price: {rentValue}€</p>
-        </div>
-        <>
-          {pickupDate && dropDate && !isDropDateValid && (
-            <Alert>Drop-off date should be later than the pick-up date.</Alert>
-          )}
-          {pickupDate && !isPickupDateValid && (
-            <Alert>Pick-up date should not be in the past.</Alert>
-          )}
-          {isPickupDateValid && isDropDateValid && (
-            <div>
-              <CustomButton
-                title={`Book ${rentValue}€`}
-                containerStyles="w-full py-[8px] mt-6 rounded-full bg-primary-red"
-                textStyles="text-white"
-                btnType="submit"
-              />
-            </div>
-          )}
-        </>
+
+      {error && <Alert>{error}</Alert>}
+      {success && <Alert>Order created successfully!</Alert>}
+
+      <div className="flex justify-center gap-5 max-md:flex-col-reverse">
+        <Cancel title="Booking" />
+        <CustomButton
+          title="Book"
+          containerStyles="py-[8px] min-w-[350px] mt-6 rounded bg-primary-red max-md:min-w-full"
+          textStyles="text-white"
+          btnType="submit"
+        />
       </div>
     </form>
   );
-};
-
-export default ClientInputs;
+}
