@@ -16,7 +16,6 @@ interface OrderProps {
 
 export default function OrderInputs({ profileInfo }: OrderProps) {
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<boolean>(false);
   const { items } = useSelector(orderCard);
   const router = useRouter();
 
@@ -24,11 +23,29 @@ export default function OrderInputs({ profileInfo }: OrderProps) {
     event.preventDefault();
     const { year, city_consumption, make, model } = items[0];
     const formData = new FormData(event.currentTarget);
+
     formData.set('year', JSON.stringify(year));
     formData.set('city_consumption', JSON.stringify(city_consumption));
     formData.set('make', JSON.stringify(make));
     formData.set('model', JSON.stringify(model));
-    console.log(formData);
+
+    const pickupDateStr = formData.get('pickupDate') as string;
+    const dropDateStr = formData.get('dropDate') as string;
+
+    const pickupDate = new Date(pickupDateStr).getTime();
+    const dropDate = new Date(dropDateStr).getTime();
+    const today = new Date().getTime();
+
+    if (pickupDate > dropDate) {
+      setError('Pickup date cannot be greater than drop date.');
+      return;
+    }
+
+    if (pickupDate < today) {
+      setError('Pickup date cannot be in the past.');
+      return;
+    }
+
     try {
       const response = await fetch('/api/order', {
         method: 'POST',
@@ -39,14 +56,11 @@ export default function OrderInputs({ profileInfo }: OrderProps) {
       const orderId = result.order._id;
 
       if (result.success) {
-        setSuccess(true);
         router.push(`/order/${orderId}`);
-        console.log('Order created:', result.order);
       } else {
-        setError(result.message || 'Something went wrong');
+        setError(result.message);
       }
     } catch (err) {
-      console.error(err);
       setError('Something went wrong. Please try again.');
     }
   };
@@ -115,7 +129,6 @@ export default function OrderInputs({ profileInfo }: OrderProps) {
       />
 
       {error && <Alert>{error}</Alert>}
-      {success && <Alert>Order created successfully!</Alert>}
 
       <div className="flex justify-center gap-5 max-md:flex-col-reverse">
         <Cancel title="Booking" />

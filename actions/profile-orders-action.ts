@@ -11,9 +11,11 @@ export async function profileOrdersActions() {
   if (!email) {
     return [];
   }
-  await connectToDB();
-  const clientOrder = JSON.parse(
-    JSON.stringify(await Order.find({ userEmail: email }))
-  );
-  return clientOrder;
+  try {
+    await connectToDB();
+    const clientOrder = JSON.parse(
+      JSON.stringify(await Order.find({ userEmail: email }))
+    );
+    return clientOrder;
+  } catch (error) {}
 }

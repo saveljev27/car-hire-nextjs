@@ -20,13 +20,6 @@ export async function POST(req: NextRequest) {
     ...data
   } = Object.fromEntries(formData);
 
-  if (pickupDate > dropDate) {
-    return NextResponse.json({
-      success: false,
-      message: 'Pickup date cannot be greater than drop date',
-    });
-  }
-
   const rentDays = getSumFromDate(pickupDate, dropDate);
   const priceRentPerDay = parseFloat(
     carRentCalculation(Number(city_consumption), Number(year))

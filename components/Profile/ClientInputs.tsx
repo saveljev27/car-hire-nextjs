@@ -12,24 +12,19 @@ type Props = {
 
 const ClientInputs = ({ profileInfo }: Props) => {
   const [saved, setSaved] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
 
-  async function handleFormSubmit(formData: FormData) {
-    setSaved(false);
-    setIsSaving(true);
-    const response = await profileAction(formData);
-    setIsSaving(false);
-    if (response) {
-      setSaved(true);
-    }
-  }
+  const handleFormSubmit = async (formData: FormData) => {
+    try {
+      const response = await profileAction(formData);
+      if (response) {
+        setSaved(true);
+        setTimeout(() => setSaved(false), 3000);
+      }
+    } catch (error) {}
+  };
 
   return (
     <form action={handleFormSubmit}>
-      {saved && <p className="text-green-500 text-center my-6">Saved!</p>}
-      {isSaving && (
-        <p className="text-yellow-500 text-center my-6">Saving...</p>
-      )}
       <div className="grid grid-cols-2 gap-4">
         <Input
           id="name"
@@ -52,8 +47,11 @@ const ClientInputs = ({ profileInfo }: Props) => {
         defaultValue={profileInfo?.phone}
       />
       <CustomButton
-        title="Save"
-        containerStyles="w-full py-[8px] mt-6 rounded bg-primary-red"
+        isDisabled={saved}
+        title={`${saved ? 'Saved' : 'Save'}`}
+        containerStyles={`w-full py-[8px] mt-6 rounded ${
+          saved ? 'bg-green-500' : 'bg-primary-red'
+        }`}
         textStyles="text-white"
         btnType="submit"
       />

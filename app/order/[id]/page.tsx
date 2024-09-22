@@ -1,23 +1,10 @@
 'use server';
 
-import { connectToDB } from '@/lib';
-import { Order } from '@/models/Order';
-import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
 import OrderConfirmation from '@/components/Order/OrderConfirmation';
+import { findConfirmationOrder } from '@/actions';
 
 const OrderPage = async ({ params }: { params: { id: string } }) => {
-  const cookiesStore = cookies();
-  const token = cookiesStore.get('orderToken');
-  await connectToDB();
-
-  if (!token && !params.id) {
-    redirect('/');
-  }
-
-  const findOrder = JSON.parse(
-    JSON.stringify(await Order.findOne({ token: token?.value }))
-  );
+  const findOrder = await findConfirmationOrder({ params });
 
   return (
     <div className="flex-1 pt-36 pb-36 padding-x min-h-[100vh]">

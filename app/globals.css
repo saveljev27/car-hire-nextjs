@@ -202,7 +202,7 @@
   @apply grid mt-2 grid-cols-2 text-center place-items-center max-[1000px]:block;
 }
 .car__text {
-  @apply uppercase text-left items-center;
+  @apply uppercase text-left items-center border-b;
 }
 .booking__text {
   @apply text-xl mt-3 font-bold border-b-2;

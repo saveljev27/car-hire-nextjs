@@ -10,11 +10,12 @@ export async function getDataActions() {
   if (!session || !session.user?.email) {
     return 'Not logged in';
   }
-  const email = session.user.email;
-
-  await connectToDB();
-  const profileInfoDoc = JSON.parse(
-    JSON.stringify(await User.findOne({ email }))
-  );
-  return profileInfoDoc;
+  try {
+    await connectToDB();
+    const email = session.user.email;
+    const profileInfoDoc = JSON.parse(
+      JSON.stringify(await User.findOne({ email }))
+    );
+    return profileInfoDoc;
+  } catch (error) {}
 }
