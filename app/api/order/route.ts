@@ -1,9 +1,29 @@
 'use server';
+
 import { NextRequest, NextResponse } from 'next/server';
-import { carRentCalculation, connectToDB, getSumFromDate } from '@/lib';
 import { cookies } from 'next/headers';
+import { getServerSession } from 'next-auth/next';
+import { options } from '../auth/[...nextauth]/options';
+
+import { carRentCalculation, connectToDB, getSumFromDate } from '@/lib';
 import { User } from '@/models/User';
 import { Order } from '@/models/Order';
+
+export async function GET() {
+  const session = await getServerSession(options);
+  const email = session?.user?.email;
+  if (!email) {
+    return NextResponse.json({ success: false });
+  }
+  try {
+    await connectToDB();
+    const clientOrder = await Order.find({ userEmail: email }).sort({
+      createdAt: -1,
+    });
+
+    return NextResponse.json(clientOrder);
+  } catch (error) {}
+}
 
 export async function POST(req: NextRequest) {
   await connectToDB();

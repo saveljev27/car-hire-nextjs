@@ -6,9 +6,8 @@ import { options } from '../api/auth/[...nextauth]/options';
 import { redirect } from 'next/navigation';
 import ClientInputs from '@/components/Profile/ClientInputs';
 import ProfileOrders from '@/components/Profile/ProfileOrders';
-import { getDataActions } from '@/actions';
-import { profileOrdersActions } from '@/actions';
 import { DBOrderInfo } from '@/types';
+import { headers } from 'next/headers';
 
 export default async function Profile() {
   const session = await getServerSession(options);
@@ -17,9 +16,24 @@ export default async function Profile() {
   if (!session) {
     return redirect('/');
   }
+  const fetchProfileData = async () => {
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/profile`, {
+      method: 'GET',
+      headers: headers(),
+    });
+    return await response.json();
+  };
 
-  const data = await getDataActions();
-  const orders = await profileOrdersActions();
+  const fetchOrders = async () => {
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/order`, {
+      method: 'GET',
+      headers: headers(),
+    });
+    return await response.json();
+  };
+
+  const profileData = (await fetchProfileData()) || {};
+  const orders = (await fetchOrders()) || [];
 
   return (
     <div className="flex-1 pt-36 pb-36 padding-x">
@@ -34,9 +48,9 @@ export default async function Profile() {
             height={96}
           />
         </div>
-        <ClientInputs profileInfo={data} />
+        <ClientInputs profileInfo={profileData} />
         <div>
-          {!orders ? (
+          {!orders.length || orders.length === 0 ? (
             <p className="page__title mt-5">No bookings found...</p>
           ) : (
             <>

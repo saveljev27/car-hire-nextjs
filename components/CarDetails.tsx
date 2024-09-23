@@ -71,7 +71,7 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                     <div className="mt-3 flex flex-wrap gap-4">
                       {modifiedCarData.map(([key, value]) => (
                         <div
-                          className="flex justify-between gap-5 w-full text-right"
+                          className="flex justify-between gap-5 w-full text-right border-b-2"
                           key={key}
                         >
                           <h4 className="text-gray capitalize">

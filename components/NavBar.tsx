@@ -70,7 +70,7 @@ const NavBar = ({ session }: { session: Session | null }) => {
               </div>
               <CustomButton
                 title="Logout"
-                handleClick={() => signOut()}
+                handleClick={() => signOut({ callbackUrl: '/' })}
                 btnType="button"
                 containerStyles="text-white rounded bg-primary-red min-w-[130px]"
               />

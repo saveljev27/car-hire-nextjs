@@ -13,7 +13,7 @@ const CarInfo = () => {
 
   return (
     <>
-      <h1 className="subtitle__text">Car Info</h1>
+      <h1 className="subtitle__text">Car Information</h1>
       {items.map((model, index) => (
         <div className="car__info" key={index}>
           <div>

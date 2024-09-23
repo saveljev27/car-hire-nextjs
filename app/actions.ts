@@ -1,11 +1,21 @@
 'use server';
 
-import { getServerSession } from 'next-auth';
-import { options } from '@/app/api/auth/[...nextauth]/options';
-import { User } from '@/models/User';
-import { connectToDB } from '@/lib';
+import { getServerSession } from 'next-auth/next';
+import { options } from './api/auth/[...nextauth]/options';
 
-export async function profileAction(formData: FormData) {
+import { connectToDB } from '@/lib';
+import { Order } from '@/models/Order';
+import { User } from '@/models/User';
+import { Cars } from '@/models/Cars';
+
+export const findAndDeleteOrder = async (id: string) => {
+  try {
+    await connectToDB();
+    return await Order.deleteOne({ _id: id });
+  } catch (error) {}
+};
+
+export const profileAction = async (formData: FormData) => {
   const session = await getServerSession(options);
   const email = session?.user?.email;
 
@@ -22,4 +32,4 @@ export async function profileAction(formData: FormData) {
   } catch (error) {}
 
   return true;
-}
+};

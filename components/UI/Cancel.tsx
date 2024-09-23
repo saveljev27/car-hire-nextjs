@@ -5,8 +5,8 @@ import CustomButton from '../CustomButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { orderCard } from '@/redux/order/selectors';
-import { findAndDeleteOrder } from '@/actions/find-and-delete-order';
-import Modal from './Modal'; // Импортируем модальное окно
+import { findAndDeleteOrder } from '@/app/actions';
+import Modal from './Modal';
 import { useState } from 'react';
 
 interface CancelProps {
@@ -34,7 +34,7 @@ const Cancel = ({ title, orderId }: CancelProps) => {
       dispatch(removeItem(data._id));
       localStorage.removeItem('car');
       if (orderId) {
-        await findAndDeleteOrder(orderId);
+        findAndDeleteOrder(orderId);
       }
     } catch (error) {
       console.error('Error removing order:', error);

@@ -1,10 +1,18 @@
 'use server';
 
 import OrderConfirmation from '@/components/Order/OrderConfirmation';
-import { findConfirmationOrder } from '@/actions';
+import { headers } from 'next/headers';
 
 const OrderPage = async ({ params }: { params: { id: string } }) => {
-  const findOrder = await findConfirmationOrder({ params });
+  const fetchConfrimationOrder = async () => {
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/checkout/`, {
+      method: 'GET',
+      headers: headers(),
+    });
+    return await response.json();
+  };
+
+  const findOrder = await fetchConfrimationOrder();
 
   return (
     <div className="flex-1 pt-36 pb-36 padding-x min-h-[100vh]">

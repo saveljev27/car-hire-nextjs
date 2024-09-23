@@ -3,36 +3,35 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
+import { BsFillFuelPumpFill } from 'react-icons/bs';
+import SearchBar from '@/components/SearchBar';
+import Filter from '@/components/Filter';
 import Hero from '@/components/Hero';
 import CarCard from '@/components/CarCard';
-
 import { CarProps } from '@/types';
-import { search } from '@/actions';
-import SearchBar from '@/components/SearchBar';
+import { fuels } from '@/constants';
 
 function Home() {
   const [allCars, setAllCars] = useState<CarProps[]>([]);
-  const [searchCars, setSearchCars] = useState<CarProps[]>([]);
+  const [displayedCars, setDisplayedCars] = useState<CarProps[]>([]);
 
   const fetchCars = async () => {
     const response = await fetch('/api/cars');
     const data = await response.json();
     setAllCars(data);
   };
+
+  const handleSearch = async (searchedCars: CarProps[]) => {
+    setDisplayedCars(searchedCars);
+  };
+
+  const handleFilterUpdate = async (filteredCars: CarProps[]) => {
+    setDisplayedCars(filteredCars);
+  };
+
   useEffect(() => {
     fetchCars();
   }, []);
-
-  const handleSearch = async (searchQuery: string) => {
-    if (searchQuery) {
-      try {
-        const cars = await search(searchQuery);
-        setSearchCars(cars);
-      } catch (error) {}
-    } else {
-      setSearchCars([]);
-    }
-  };
 
   return (
     <main className="overflow-hidden">
@@ -42,11 +41,21 @@ function Home() {
           <h1 className="text-4x1 font-extrabold">Catalogue</h1>
           <p>Investigate these ideal cars that might suit your style.</p>
         </div>
-        <SearchBar onSearch={handleSearch} />
-        {searchCars && searchCars.length > 0 ? (
+        <div className="home__filters">
+          <SearchBar onSearch={handleSearch} />
+          <div className="home__filter-container">
+            <BsFillFuelPumpFill />
+            <Filter
+              title="fuel"
+              options={fuels}
+              onFilterUpdate={handleFilterUpdate}
+            />
+          </div>
+        </div>
+        {displayedCars && displayedCars.length > 0 ? (
           <section>
             <div id="cars" className="home__cars-wrapper">
-              {searchCars.map((car: CarProps) => (
+              {displayedCars.map((car: CarProps) => (
                 <CarCard key={car._id} car={car} />
               ))}
             </div>

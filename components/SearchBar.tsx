@@ -1,17 +1,27 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useDebounce } from 'react-use';
+import { CarProps } from '@/types';
 
 interface SearchBarProps {
-  onSearch: (query: string) => void;
+  onSearch: (cars: CarProps[]) => void;
 }
 
 const SearchBar = ({ onSearch }: SearchBarProps) => {
   const [searchQuery, setSearchQuery] = useState('');
 
+  const handleSearch = async (searchQuery: string) => {
+    const queryParam = new URLSearchParams({ search: searchQuery }).toString();
+    try {
+      const data = await fetch(`/api/cars?${searchQuery ? queryParam : ''}`);
+      const cars = await data.json();
+      onSearch(cars);
+    } catch (error) {}
+  };
+
   useDebounce(
     () => {
-      onSearch(searchQuery);
+      handleSearch(searchQuery);
     },
     350,
     [searchQuery]

@@ -54,11 +54,11 @@ const OrderConfirmation = ({ findOrder, params }: ConfirmationProps) => {
         </div>
         <div className="flex justify-between border-b mt-2">
           <p className="font-bold mr-2">Make:</p>
-          <p className="uppercase">{findOrder?.make.replace(/"/g, '')}</p>
+          <p className="uppercase">{findOrder?.make?.replace(/"/g, '')}</p>
         </div>
         <div className="flex justify-between border-b mt-2">
           <p className="font-bold mr-2">Model:</p>
-          <p className="uppercase">{findOrder?.model.replace(/"/g, '')}</p>
+          <p className="uppercase">{findOrder?.model?.replace(/"/g, '')}</p>
         </div>
         <div className="flex justify-between border-b mt-2">
           <p className="font-bold mr-2">Rent Days:</p>

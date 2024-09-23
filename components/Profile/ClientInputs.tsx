@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { profileAction } from '@/actions';
+import { profileAction } from '@/app/actions';
 import { UserInfo } from '@/types';
 import Input from '../Input';
 import CustomButton from '../CustomButton';

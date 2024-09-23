@@ -41,7 +41,7 @@ export default function OrderInputs({ profileInfo }: OrderProps) {
       return;
     }
 
-    if (pickupDate < today) {
+    if (pickupDate <= today) {
       setError('Pickup date cannot be in the past.');
       return;
     }
@@ -130,11 +130,11 @@ export default function OrderInputs({ profileInfo }: OrderProps) {
 
       {error && <Alert>{error}</Alert>}
 
-      <div className="flex justify-center gap-5 max-md:flex-col-reverse">
+      <div className="flex justify-between gap-5 max-md:flex-col-reverse">
         <Cancel title="Booking" />
         <CustomButton
           title="Book"
-          containerStyles="py-[8px] min-w-[350px] mt-6 rounded bg-primary-red max-md:min-w-full"
+          containerStyles="py-[8px] min-w-[450px] mt-6 rounded bg-primary-red max-md:min-w-full"
           textStyles="text-white"
           btnType="submit"
         />

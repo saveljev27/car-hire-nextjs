@@ -29,3 +29,22 @@ export const footerLinks = [
     ],
   },
 ];
+
+export const fuels = [
+  {
+    title: 'All',
+    value: '',
+  },
+  {
+    title: 'Gas',
+    value: 'Gas',
+  },
+  {
+    title: 'Diesel',
+    value: 'Diesel',
+  },
+  {
+    title: 'Electric',
+    value: 'Electric',
+  },
+];
