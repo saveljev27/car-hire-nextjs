@@ -17,10 +17,9 @@ export async function GET() {
   }
   try {
     await connectToDB();
-    const clientOrder = await Order.find({ userEmail: email }).sort({
+    const clientOrder = await Order.find({ email }).sort({
       createdAt: -1,
     });
-
     return NextResponse.json(clientOrder);
   } catch (error) {}
 }

@@ -32,3 +32,16 @@ export const profileAction = async (formData: FormData) => {
 
   return true;
 };
+
+export const findProfileInfo = async () => {
+  const session = await getServerSession(options);
+  const email = session?.user?.email;
+  if (!email) return [];
+  try {
+    await connectToDB();
+    const profileInfo = await User.findOne({ email }).select(
+      'name email image phone'
+    );
+    return JSON.parse(JSON.stringify(profileInfo));
+  } catch (error) {}
+};

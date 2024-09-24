@@ -4,7 +4,6 @@ import './globals.css';
 import { getServerSession } from 'next-auth';
 import { options } from './api/auth/[...nextauth]/options';
 import { Footer, NavBar, StoreProvider } from '@/shared/components';
-import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Car Showcase | Main Page',

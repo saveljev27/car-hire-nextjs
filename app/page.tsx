@@ -25,12 +25,10 @@ export default async function Home({
         <div className="home__filters">
           <SearchBar />
           <div className="home__filter-container">
-            <Suspense>
-              <BsFillFuelPumpFill />
-              <Filter title="fuel" options={fuels} />
-              <FaCarAlt />
-              <Filter title="class" options={bodyClass} />
-            </Suspense>
+            <BsFillFuelPumpFill />
+            <Filter title="fuel" options={fuels} />
+            <FaCarAlt />
+            <Filter title="class" options={bodyClass} />
           </div>
         </div>
 
