@@ -21,11 +21,9 @@ export default async function RootLayout({
     <html lang="en">
       <body className="relative">
         <StoreProvider>
-          <Suspense>
-            <NavBar session={session} />
-            {children}
-            <Footer />
-          </Suspense>
+          <NavBar session={session} />
+          {children}
+          <Footer />
         </StoreProvider>
       </body>
     </html>
