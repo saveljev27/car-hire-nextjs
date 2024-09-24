@@ -5,6 +5,7 @@ import { fuels, bodyClass } from '@/shared/constants';
 import { CarCard, Filter, Hero, SearchBar } from '@/shared/components';
 import { SearchParams } from '@/shared/lib/find-cars';
 import { findCars } from '@/shared/lib/find-cars';
+import { Suspense } from 'react';
 
 export default async function Home({
   searchParams,
@@ -24,10 +25,12 @@ export default async function Home({
         <div className="home__filters">
           <SearchBar />
           <div className="home__filter-container">
-            <BsFillFuelPumpFill />
-            <Filter title="fuel" options={fuels} />
-            <FaCarAlt />
-            <Filter title="class" options={bodyClass} />
+            <Suspense>
+              <BsFillFuelPumpFill />
+              <Filter title="fuel" options={fuels} />
+              <FaCarAlt />
+              <Filter title="class" options={bodyClass} />
+            </Suspense>
           </div>
         </div>
 
