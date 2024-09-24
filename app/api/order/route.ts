@@ -5,9 +5,9 @@ import { cookies } from 'next/headers';
 import { getServerSession } from 'next-auth/next';
 import { options } from '../auth/[...nextauth]/options';
 
-import { carRentCalculation, connectToDB, getSumFromDate } from '@/lib';
-import { User } from '@/models/User';
-import { Order } from '@/models/Order';
+import { connectToDB, getSumFromDate } from '@/shared/lib';
+import { User } from '@/shared/models/User';
+import { Order } from '@/shared/models/Order';
 
 export async function GET() {
   const session = await getServerSession(options);
@@ -29,21 +29,10 @@ export async function POST(req: NextRequest) {
   await connectToDB();
 
   const formData = await req.formData();
-  const {
-    email,
-    pickupDate,
-    dropDate,
-    make,
-    model,
-    city_consumption,
-    year,
-    ...data
-  } = Object.fromEntries(formData);
+  const { email, pickupDate, dropDate, make, model, price, year, ...data } =
+    Object.fromEntries(formData);
 
   const rentDays = getSumFromDate(pickupDate, dropDate);
-  const priceRentPerDay = parseFloat(
-    carRentCalculation(Number(city_consumption), Number(year))
-  );
 
   try {
     const cookieStore = cookies();
@@ -59,8 +48,8 @@ export async function POST(req: NextRequest) {
         pickupDate,
         dropDate,
         rentDays,
-        rentPerDay: priceRentPerDay,
-        rentValue: rentDays * priceRentPerDay,
+        rentPerDay: price,
+        rentValue: rentDays * Number(price),
         email,
         token,
       });
@@ -76,8 +65,8 @@ export async function POST(req: NextRequest) {
         pickupDate,
         dropDate,
         rentDays,
-        rentPerDay: priceRentPerDay,
-        rentValue: rentDays * priceRentPerDay,
+        rentPerDay: price,
+        rentValue: rentDays * Number(price),
         email,
         token,
       });

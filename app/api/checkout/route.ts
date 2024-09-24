@@ -4,9 +4,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-import { Order } from '@/models/Order';
-import { OrderStatus } from '@/models/OrderStatus';
-import { connectToDB } from '@/lib';
+import { Order } from '@/shared/models/Order';
+import { OrderStatus } from '@/shared/models/OrderStatus';
+import { connectToDB } from '@/shared/lib';
 
 export async function GET() {
   const cookiesStore = cookies();

@@ -200,19 +200,16 @@
 }
 /* END: Login styles */
 .page__title {
-  @apply md:text-[32px] text-black-100 font-semibold text-center mb-5;
+  @apply text-3xl text-black-100 font-semibold text-center mb-5;
 }
 .subtitle__text {
-  @apply text-center mt-4 font-semibold;
+  @apply text-left mx-[-10px] mb-2 font-semibold;
 }
 .section {
   @apply shadow-lg border border-gray-200 rounded-lg py-4 px-8 m-2;
 }
-.car__info {
-  @apply grid mt-2 grid-cols-2 text-center place-items-center max-[1000px]:block;
-}
 .car__text {
-  @apply uppercase text-left items-center border-b;
+  @apply uppercase text-left text-xs items-center border-b;
 }
 .booking__text {
   @apply text-xl mt-3 font-bold border-b-2;

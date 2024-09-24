@@ -4,8 +4,8 @@ import Image from 'next/image';
 import { getServerSession } from 'next-auth';
 import { options } from '../api/auth/[...nextauth]/options';
 import { redirect } from 'next/navigation';
-import ClientInputs from '@/components/Profile/ClientInputs';
-import ProfileOrders from '@/components/Profile/ProfileOrders';
+import { ClientInputs } from '@/shared/components/Profile';
+import { ProfileOrders } from '@/shared/components/Profile';
 import { DBOrderInfo } from '@/types';
 import { headers } from 'next/headers';
 

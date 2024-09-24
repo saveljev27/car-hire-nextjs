@@ -1,7 +1,7 @@
 import GoogleProvider from 'next-auth/providers/google';
 import { NextAuthOptions } from 'next-auth';
-import { User } from '@/models/User';
-import { connectToDB } from '@/lib';
+import { User } from '@/shared/models/User';
+import { connectToDB } from '@/shared/lib';
 
 export const options: NextAuthOptions = {
   secret: process.env.AUTH_SECRET as string,

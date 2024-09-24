@@ -3,7 +3,7 @@
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { options } from '../api/auth/[...nextauth]/options';
-import CustomButton from '@/components/CustomButton';
+import { CustomButton } from '@/shared/components';
 
 export default async function Success() {
   const session = await getServerSession(options);

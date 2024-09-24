@@ -26,6 +26,7 @@ export interface CarProps {
   transmission: string;
   year: number;
   image: string;
+  price: string;
 }
 
 export interface DBOrderInfo {
@@ -102,5 +103,4 @@ export interface OptionProps {
 export interface CustomFilterProps {
   title: string;
   options: OptionProps[];
-  onFilterUpdate: (cars: CarProps[]) => void;
 }

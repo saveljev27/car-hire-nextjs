@@ -1,6 +1,6 @@
-import { connectToDB } from '@/lib';
+import { connectToDB } from '@/shared/lib';
 
-import { Cars } from '@/models/Cars';
+import { Cars } from '@/shared/models/Cars';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const GET = async (req: NextRequest) => {

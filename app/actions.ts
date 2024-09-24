@@ -3,10 +3,9 @@
 import { getServerSession } from 'next-auth/next';
 import { options } from './api/auth/[...nextauth]/options';
 
-import { connectToDB } from '@/lib';
-import { Order } from '@/models/Order';
-import { User } from '@/models/User';
-import { Cars } from '@/models/Cars';
+import { connectToDB } from '@/shared/lib';
+import { Order } from '@/shared/models/Order';
+import { User } from '@/shared/models/User';
 
 export const findAndDeleteOrder = async (id: string) => {
   try {

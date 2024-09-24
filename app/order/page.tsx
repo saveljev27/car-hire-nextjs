@@ -1,7 +1,6 @@
 'use server';
 
-import CarInfo from '@/components/Order/CarInfo';
-import OrderInputs from '@/components/Order/OrderInputs';
+import { CarInfo, OrderInputs } from '@/shared/components/Order';
 import { headers } from 'next/headers';
 
 const Order = async () => {
@@ -15,14 +14,16 @@ const Order = async () => {
   const profileData = await fetchProfileData();
 
   return (
-    <div className="flex-1 pt-36 pb-36 padding-x">
+    <div className="pt-36 pb-36 padding-x max-width">
       <div className="flex justify-center flex-col w-full mx-auto mt-8">
         <h1 className="page__title">Order Page</h1>
-        <div className="section">
-          <CarInfo />
-        </div>
-        <div className="section">
-          <OrderInputs profileInfo={profileData} />
+        <div className="flex max-xl:flex-col">
+          <div>
+            <CarInfo />
+          </div>
+          <div>
+            <OrderInputs profileInfo={profileData} />
+          </div>
         </div>
       </div>
     </div>

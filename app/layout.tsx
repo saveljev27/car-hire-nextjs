@@ -1,11 +1,9 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
-import NavBar from '@/components/NavBar';
-import Footer from '@/components/Footer';
 import { getServerSession } from 'next-auth';
 import { options } from './api/auth/[...nextauth]/options';
-import StoreProvider from '@/components/StoreProvides';
+import { Footer, NavBar, StoreProvider } from '@/shared/components';
 
 export const metadata: Metadata = {
   title: 'Car Showcase',

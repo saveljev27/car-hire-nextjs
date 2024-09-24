@@ -1,6 +1,6 @@
 'use server';
 
-import OrderConfirmation from '@/components/Order/OrderConfirmation';
+import { OrderConfirmation } from '@/shared/components/Order';
 import { headers } from 'next/headers';
 
 const OrderPage = async ({ params }: { params: { id: string } }) => {
