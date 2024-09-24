@@ -1,4 +1,5 @@
 import { Cars } from '../models/Cars';
+import { connectToDB } from './db-connection';
 
 export interface SearchParams {
   fuel?: string;
@@ -7,6 +8,7 @@ export interface SearchParams {
 }
 
 export const findCars = async (params: SearchParams) => {
+  await connectToDB();
   const query: any = {};
 
   if (params.fuel) {
