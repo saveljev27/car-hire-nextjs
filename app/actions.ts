@@ -58,6 +58,6 @@ export async function getConfirmationOrder() {
     await connectToDB();
     const confirmedOrder = await Order.findOne({ token: token?.value });
 
-    return confirmedOrder.json();
+    return JSON.parse(JSON.stringify(confirmedOrder));
   } catch (error) {}
 }

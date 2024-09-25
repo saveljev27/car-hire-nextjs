@@ -23,7 +23,7 @@ export default async function Profile() {
       method: 'GET',
       headers: headers(),
     });
-    return await response.json();
+    return response.json();
   };
 
   const profileData = await findProfileInfo();
