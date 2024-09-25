@@ -7,8 +7,7 @@ import { redirect } from 'next/navigation';
 import { ClientInputs } from '@/shared/components/Profile';
 import { ProfileOrders } from '@/shared/components/Profile';
 import { DBOrderInfo } from '@/types';
-import { headers } from 'next/headers';
-import { findProfileInfo } from '../actions';
+import { findProfileInfo, findProfileOrders } from '../actions';
 
 export default async function Profile() {
   const session = await getServerSession(options);
@@ -18,16 +17,8 @@ export default async function Profile() {
     return redirect('/');
   }
 
-  const fetchOrders = async () => {
-    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/order`, {
-      method: 'GET',
-      headers: headers(),
-    });
-    return response.json();
-  };
-
   const profileData = await findProfileInfo();
-  const orders = (await fetchOrders()) || [];
+  const orders = await findProfileOrders();
 
   return (
     <div className="flex-1 pt-36 pb-36 padding-x">

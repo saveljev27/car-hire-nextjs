@@ -48,6 +48,21 @@ export const findProfileInfo = async () => {
   } catch (error) {}
 };
 
+export const findProfileOrders = async () => {
+  const session = await getServerSession(options);
+  const email = session?.user?.email;
+  if (!email) {
+    redirect('/');
+  }
+  try {
+    await connectToDB();
+    const clientsOrders = await Order.find({ email }).sort({
+      createdAt: -1,
+    });
+    return JSON.parse(JSON.stringify(clientsOrders));
+  } catch (error) {}
+};
+
 export async function getConfirmationOrder() {
   const cookiesStore = cookies();
   const token = cookiesStore.get('orderToken');
