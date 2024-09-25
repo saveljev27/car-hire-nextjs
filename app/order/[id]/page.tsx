@@ -9,7 +9,7 @@ const OrderPage = async ({ params }: { params: { id: string } }) => {
       method: 'GET',
       headers: headers(),
     });
-    return await response.json();
+    return response.json();
   };
 
   const findOrder = await fetchConfrimationOrder();
