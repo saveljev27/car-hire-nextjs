@@ -2,6 +2,8 @@
 
 import { getServerSession } from 'next-auth/next';
 import { options } from './api/auth/[...nextauth]/options';
+import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
 
 import { connectToDB } from '@/shared/lib';
 import { Order } from '@/shared/models/Order';
@@ -45,3 +47,17 @@ export const findProfileInfo = async () => {
     return JSON.parse(JSON.stringify(profileInfo));
   } catch (error) {}
 };
+
+export async function getConfirmationOrder() {
+  const cookiesStore = cookies();
+  const token = cookiesStore.get('orderToken');
+  if (!token) {
+    redirect('/');
+  }
+  try {
+    await connectToDB();
+    const confirmedOrder = await Order.findOne({ token: token?.value });
+
+    return confirmedOrder.json();
+  } catch (error) {}
+}
