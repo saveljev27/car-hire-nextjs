@@ -24,9 +24,7 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   await connectToDB();
-
   const data = await req.json();
-
   try {
     if (data) {
       const findOrder = await Order.findById(data.orderId);

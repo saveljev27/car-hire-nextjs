@@ -104,3 +104,8 @@ export interface CustomFilterProps {
   title: string;
   options: OptionProps[];
 }
+
+export interface CheckoutProps {
+  amount: number;
+  orderId: string;
+}

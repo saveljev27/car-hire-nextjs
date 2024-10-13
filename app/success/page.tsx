@@ -5,17 +5,28 @@ import Link from 'next/link';
 import { options } from '../api/auth/[...nextauth]/options';
 import { CustomButton } from '@/shared/components';
 
-export default async function Success() {
+export default async function Success({
+  searchParams: { amount },
+}: {
+  searchParams: { amount: string };
+}) {
   const session = await getServerSession(options);
 
   return (
     <div className="pt-36 pb-36 padding-x">
       <div className="flex justify-center flex-col items-center w-full mx-auto mt-8">
         <h1 className="profile__title">Thank You!</h1>
-        <h1 className="text-center">
-          The booking has been successfully completed! We will contact you
-          shortly.
-        </h1>
+        {amount ? (
+          <h1 className="text-center">
+            The booking has been successfully completed and paid €{amount}! We
+            will contact you shortly.
+          </h1>
+        ) : (
+          <h1 className="text-center">
+            The booking has been successfully completed! We will contact you
+            shortly.
+          </h1>
+        )}
         <div className="flex align-center flex-col items-center mt-8">
           {session ? (
             <>
