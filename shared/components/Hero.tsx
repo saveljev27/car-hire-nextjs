@@ -18,8 +18,8 @@ export const Hero = () => {
         <h1 className="hero__title">
           Choose, Book, or Rent Your Ideal Car — Fast and Simple!
         </h1>
-        <div className="flex justify-between">
-          <p className="hero__subtitle flex flex-col gap-2 items-center ">
+        <div className="flex justify-between mt-5 max-xl:flex-col">
+          <p className="hero__subtitle flex flex-col gap-2 items-center">
             Free cancellations on most bookings
             <span className="text-black text-3xl">{<IoMdCheckbox />}</span>
           </p>

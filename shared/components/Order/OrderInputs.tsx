@@ -22,20 +22,25 @@ export function OrderInputs({ profileInfo }: OrderProps) {
             id="name"
             name="name"
             label="Fullname"
+            placeholder="John Doe"
             defaultValue={profileInfo?.name}
           />
           <Input
             id="email"
             name="email"
             label="Email"
+            placeholder="johh.doe@example.com"
             defaultValue={profileInfo?.email}
+            required
           />
         </div>
         <Input
           id="phone"
           name="phone"
           label="Phone"
+          type="number"
           defaultValue={profileInfo?.phone}
+          placeholder="123 456 7890"
           required
         />
         <Input
@@ -43,6 +48,7 @@ export function OrderInputs({ profileInfo }: OrderProps) {
           name="pickupLocation"
           label="Pick-up location"
           defaultValue={profileInfo?.address}
+          placeholder="123 Main St, Anytown, USA"
           required
         />
         <Input
@@ -77,7 +83,6 @@ export function OrderInputs({ profileInfo }: OrderProps) {
           defaultValue={profileInfo?.dropTime}
           required
         />
-
         {error && <Alert>{error}</Alert>}
 
         <div className="mt-10 ">

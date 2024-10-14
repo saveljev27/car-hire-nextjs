@@ -3,9 +3,9 @@
 import { DBOrderInfo } from '@/types';
 import { Cancel } from '../UI';
 import { Elements } from '@stripe/react-stripe-js';
-import CheckoutPage from './CheckoutPage';
 import { convertToSubcurrency } from '@/shared/lib';
 import { loadStripe } from '@stripe/stripe-js';
+import { CheckoutPage } from './CheckoutPage';
 
 interface ConfirmationProps {
   params: { id: string };

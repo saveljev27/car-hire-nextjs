@@ -22,10 +22,16 @@ export const useOrderInputs = () => {
 
     const pickupDateStr = formData.get('pickupDate') as string;
     const dropDateStr = formData.get('dropDate') as string;
+    const email = formData.get('email') as string;
 
     const pickupDate = new Date(pickupDateStr).getTime();
     const dropDate = new Date(dropDateStr).getTime();
     const today = new Date().getTime();
+
+    if (!email) {
+      setError('Email is required.');
+      return;
+    }
 
     if (pickupDate > dropDate) {
       setError('Pickup date cannot be greater than drop date.');

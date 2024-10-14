@@ -5,7 +5,7 @@ import CustomButton from '../CustomButton';
 import { CheckoutProps } from '@/types';
 import { useCheckout } from '@/shared/hooks/useCheckout';
 
-const CheckoutPage = ({ amount, orderId }: CheckoutProps) => {
+export const CheckoutPage = ({ amount, orderId }: CheckoutProps) => {
   const {
     clientSecret,
     loading,
@@ -44,5 +44,3 @@ const CheckoutPage = ({ amount, orderId }: CheckoutProps) => {
     </form>
   );
 };
-
-export default CheckoutPage;
