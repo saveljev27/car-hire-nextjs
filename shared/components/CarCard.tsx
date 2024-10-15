@@ -5,11 +5,10 @@ import { useDispatch } from 'react-redux';
 import Image from 'next/image';
 import Link from 'next/link';
 import { addItem } from '@/shared/redux';
-
 import CustomButton from './CustomButton';
-
 import { CarProps } from '@/types';
 import { CarDetails } from './CarDetails';
+import { GiGearStick, IoSpeedometerSharp, PiSeatFill } from './UI';
 
 interface CarCard {
   car: CarProps;
@@ -77,23 +76,18 @@ export const CarCard = ({ car }: CarCard) => {
       <div className="relative flex w-full mt-2">
         <div className="flex w-full group-hover:invisible justify-between text-gray">
           <div className="flex flex-col justify-center items-center gap-2">
-            <Image
-              src="/images/steering-wheel.svg"
-              width={20}
-              height={20}
-              alt="steering wheel"
-            />
-            <p className="text-[14px]">
-              {transmission === 'a' ? 'Automatic' : 'Manual'}
+            <GiGearStick size={18} />
+            <p className="text-[12px]">
+              {transmission === 'automatic' ? 'Automatic' : 'Manual'}
             </p>
           </div>
           <div className="flex flex-col justify-center items-center gap-2">
-            <Image src="/images/tire.svg" width={20} height={20} alt="tire" />
-            <p className="text-[14px]">{drive.toUpperCase()}</p>
+            <PiSeatFill size={18} />
+            <p className="text-[12px]">{seats} seats</p>
           </div>
           <div className="flex flex-col justify-center items-center gap-2">
-            <Image src="/images/gas.svg" width={20} height={20} alt="gas" />
-            <p className="text-[14px]">{city_consumption} L/100 km</p>
+            <IoSpeedometerSharp size={18} />
+            <p className="text-[12px]">{city_consumption} L/100 km</p>
           </div>
         </div>
         <div className="car-card__btn-container">

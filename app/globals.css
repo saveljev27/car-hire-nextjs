@@ -66,6 +66,10 @@
 }
 
 .home__filter-container {
+  @apply flex justify-start flex-wrap items-center gap-2 max-sm:flex-col;
+}
+
+.home__filter-element {
   @apply flex justify-start flex-wrap items-center gap-2;
 }
 

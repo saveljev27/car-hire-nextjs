@@ -2,7 +2,13 @@
 
 import { Fragment, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Listbox, Transition } from '@headlessui/react';
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+  Transition,
+} from '@headlessui/react';
 
 import { CustomFilterProps } from '@/types';
 import { useRouter } from 'next/navigation';
@@ -27,7 +33,7 @@ export function Filter({ title, options }: CustomFilterProps) {
         }}
       >
         <div className="relative w-fit z-10">
-          <Listbox.Button className="custom-filter__btn">
+          <ListboxButton className="custom-filter__btn">
             <span className="block truncate">{selected.title}</span>
             <Image
               src="/images/chevron-up-down.svg"
@@ -36,16 +42,16 @@ export function Filter({ title, options }: CustomFilterProps) {
               className="ml-4 object-contain"
               alt="chevron_up-down"
             />
-          </Listbox.Button>
+          </ListboxButton>
           <Transition
             as={Fragment}
             leave="transition ease-in duration-100"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="custom-filter__options">
+            <ListboxOptions className="custom-filter__options">
               {options.map((option) => (
-                <Listbox.Option
+                <ListboxOption
                   key={option.title}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 px-4 ${
@@ -65,9 +71,9 @@ export function Filter({ title, options }: CustomFilterProps) {
                       </span>
                     </>
                   )}
-                </Listbox.Option>
+                </ListboxOption>
               ))}
-            </Listbox.Options>
+            </ListboxOptions>
           </Transition>
         </div>
       </Listbox>

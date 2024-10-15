@@ -4,6 +4,7 @@ import { connectToDB } from './db-connection';
 export interface SearchParams {
   fuel?: string;
   class?: string;
+  transmission?: string;
   search?: string;
 }
 
@@ -16,6 +17,9 @@ export const findCars = async (params: SearchParams) => {
   }
   if (params.class) {
     query.class = params.class;
+  }
+  if (params.transmission) {
+    query.transmission = params.transmission;
   }
   if (params.search) {
     query.$or = [

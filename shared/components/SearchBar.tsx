@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useDebounce } from 'react-use';
-import { CarProps } from '@/types';
 import { useRouter } from 'next/navigation';
 import { updateSearchParams } from '../lib/update-search-params';
 
@@ -12,7 +11,10 @@ export const SearchBar = () => {
   const router = useRouter();
 
   const handleSearch = async (searchQuery: string) => {
-    const newPathName = updateSearchParams('search', searchQuery.toLowerCase());
+    const newPathName = updateSearchParams(
+      'search',
+      searchQuery.toLowerCase().trim()
+    );
     router.push(newPathName, { scroll: false });
   };
 

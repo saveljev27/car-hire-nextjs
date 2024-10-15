@@ -1,11 +1,13 @@
-import { BsFillFuelPumpFill } from 'react-icons/bs';
-import { FaCarAlt } from 'react-icons/fa';
 import { CarProps } from '@/types';
-import { fuels, bodyClass } from '@/shared/constants';
+import { fuels, bodyClass, transmissions } from '@/shared/constants';
 import { CarCard, Filter, Hero, SearchBar } from '@/shared/components';
 import { SearchParams } from '@/shared/lib/find-cars';
 import { findCars } from '@/shared/lib/find-cars';
-import { Suspense } from 'react';
+import {
+  BsFillFuelPumpFill,
+  FaCarAlt,
+  GiGearStick,
+} from '@/shared/components/UI';
 
 export default async function Home({
   searchParams,
@@ -25,10 +27,18 @@ export default async function Home({
         <div className="home__filters">
           <SearchBar />
           <div className="home__filter-container">
-            <BsFillFuelPumpFill />
-            <Filter title="fuel" options={fuels} />
-            <FaCarAlt />
-            <Filter title="class" options={bodyClass} />
+            <div className="home__filter-element">
+              <BsFillFuelPumpFill />
+              <Filter title="fuel" options={fuels} />
+            </div>
+            <div className="home__filter-element">
+              <FaCarAlt />
+              <Filter title="class" options={bodyClass} />
+            </div>
+            <div className="home__filter-element">
+              <GiGearStick />
+              <Filter title="transmission" options={transmissions} />
+            </div>
           </div>
         </div>
 
