@@ -5,6 +5,8 @@ import { OrderInfo } from '@/types';
 import { Input } from '../Input';
 import { Alert, Cancel } from '../UI';
 import { useOrderInputs } from '@/shared/hooks/useOrderInputs';
+import { AddressInput } from './AddressInput';
+import { useState } from 'react';
 
 interface OrderProps {
   profileInfo: OrderInfo | null;
@@ -43,14 +45,7 @@ export function OrderInputs({ profileInfo }: OrderProps) {
           placeholder="123 456 7890"
           required
         />
-        <Input
-          id="pickupLocation"
-          name="pickupLocation"
-          label="Pick-up location"
-          defaultValue={profileInfo?.address}
-          placeholder="123 Main St, Anytown, USA"
-          required
-        />
+        <AddressInput />
         <Input
           id="pickupDate"
           name="pickupDate"
@@ -83,6 +78,7 @@ export function OrderInputs({ profileInfo }: OrderProps) {
           defaultValue={profileInfo?.dropTime}
           required
         />
+
         {error && <Alert>{error}</Alert>}
 
         <div className="mt-10 ">
