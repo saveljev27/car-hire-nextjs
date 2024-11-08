@@ -181,8 +181,15 @@
   @apply relative w-full min-w-[127px] flex justify-between items-center cursor-default rounded-lg bg-white py-2 px-3 text-left shadow-md sm:text-sm border;
 }
 
+.custom-filter-reset__btn {
+  @apply relative w-full min-w-[110px] flex items-center justify-center cursor-default rounded-lg bg-white py-2 px-3 shadow-md sm:text-sm border hover:bg-primary-red hover:text-white cursor-pointer;
+}
+
 .custom-filter__options {
   @apply absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm;
+}
+.snowmore__btn {
+  @apply relative min-w-[160px] flex items-center justify-center rounded-lg bg-white py-2 px-3 shadow-md sm:text-sm border m-auto hover:bg-primary-red hover:text-white cursor-pointer;
 }
 /* END: Custom Filter styles */
 

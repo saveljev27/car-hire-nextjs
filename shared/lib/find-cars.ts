@@ -6,12 +6,17 @@ export interface SearchParams {
   class?: string;
   transmission?: string;
   search?: string;
+  limit?: string;
 }
 
 export const findCars = async (params: SearchParams) => {
   await connectToDB();
   const query: any = {};
+  let limit;
 
+  if (params.limit) {
+    limit = parseInt(params.limit);
+  }
   if (params.fuel) {
     query.fuel_type = params.fuel;
   }
@@ -29,7 +34,16 @@ export const findCars = async (params: SearchParams) => {
   }
 
   try {
-    const cars = await Cars.find(query);
-    return JSON.parse(JSON.stringify(cars));
-  } catch (error) {}
+    const [cars, count] = await Promise.all([
+      Cars.find(query)
+        .limit(limit ? limit : 8)
+        .sort({ _id: -1 }),
+      Cars.countDocuments(query),
+    ]);
+
+    return { cars: JSON.parse(JSON.stringify(cars)), count };
+  } catch (error) {
+    console.log('Error fetching cars: ', error);
+    return { cars: [], count: 0 };
+  }
 };

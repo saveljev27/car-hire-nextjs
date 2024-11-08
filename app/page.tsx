@@ -1,6 +1,12 @@
 import { CarProps } from '@/types';
 import { fuels, bodyClass, transmissions } from '@/shared/constants';
-import { CarCard, Filter, Hero, SearchBar } from '@/shared/components';
+import {
+  CarCard,
+  CustomButton,
+  Filter,
+  Hero,
+  SearchBar,
+} from '@/shared/components';
 import { SearchParams } from '@/shared/lib/find-cars';
 import { findCars } from '@/shared/lib/find-cars';
 import {
@@ -8,13 +14,16 @@ import {
   FaCarAlt,
   GiGearStick,
 } from '@/shared/components/UI';
+import { Showmore } from '@/shared/components/UI/ShowMore';
+import { ResetFilters } from '@/shared/components/UI/ResetFilters';
 
 export default async function Home({
   searchParams,
 }: {
   searchParams: SearchParams;
 }) {
-  const allCars = await findCars(searchParams);
+  const { cars, count } = await findCars(searchParams);
+  const limit = searchParams.limit ? parseInt(searchParams.limit) : 8;
 
   return (
     <main className="overflow-hidden">
@@ -39,15 +48,14 @@ export default async function Home({
               <GiGearStick />
               <Filter title="transmission" options={transmissions} />
             </div>
+            <ResetFilters />
           </div>
         </div>
 
         <section>
           <div className="home__cars-wrapper">
-            {allCars.length > 0 ? (
-              allCars.map((car: CarProps) => (
-                <CarCard key={car._id} car={car} />
-              ))
+            {cars.length > 0 ? (
+              cars.map((car: CarProps) => <CarCard key={car._id} car={car} />)
             ) : (
               <div className="row min-h-[40vh]">
                 <h1>No cars found</h1>
@@ -55,6 +63,7 @@ export default async function Home({
             )}
           </div>
         </section>
+        {count > cars.length && <Showmore limit={limit} />}
       </div>
     </main>
   );
