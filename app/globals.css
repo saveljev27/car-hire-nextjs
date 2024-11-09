@@ -188,7 +188,7 @@
 .custom-filter__options {
   @apply absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm;
 }
-.snowmore__btn {
+.showmore__btn {
   @apply relative min-w-[160px] flex items-center justify-center rounded-lg bg-white py-2 px-3 shadow-md sm:text-sm border m-auto hover:bg-primary-red hover:text-white cursor-pointer;
 }
 /* END: Custom Filter styles */
@@ -204,7 +204,7 @@
 }
 
 .search-manufacturer__input {
-  @apply w-full h-[48px] pl-12 p-4 rounded-md max-sm:rounded-full bg-light-white outline-none cursor-pointer text-sm ring-1 ring-gray-300 focus:ring-primary-red;
+  @apply w-full h-[48px] pl-12 p-4 rounded-md max-sm:rounded-full bg-light-white outline-none cursor-pointer text-sm ring-1 ring-gray-300 focus:ring-primary-red relative;
 }
 
 /* END: searchbar styles */

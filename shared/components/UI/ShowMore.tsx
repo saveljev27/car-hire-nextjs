@@ -14,7 +14,7 @@ export const Showmore = ({ limit }: { limit: number }) => {
 
   return (
     <div className="text-center justify-center mt-8">
-      <button onClick={handleShowMore} className="snowmore__btn">
+      <button onClick={handleShowMore} className="showmore__btn">
         Show more
       </button>
     </div>

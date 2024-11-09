@@ -5,7 +5,7 @@ import { dateFormatUpdate } from '@/shared/lib';
 
 type Props = DBOrderInfo;
 
-export const ProfileOrders = ({
+export const ProfileOrder = ({
   _id,
   pickupDate,
   pickupTime,

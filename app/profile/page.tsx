@@ -1,51 +1,35 @@
 'use server';
 
-import Image from 'next/image';
 import { getServerSession } from 'next-auth';
 import { options } from '../api/auth/[...nextauth]/options';
 import { redirect } from 'next/navigation';
 import { ClientInputs } from '@/shared/components/Profile';
-import { ProfileOrders } from '@/shared/components/Profile';
-import { DBOrderInfo } from '@/types';
 import { findProfileInfo, findProfileOrders } from '../actions';
+import { ProfileOrderList } from '@/shared/components/Profile/ProfileOrderList';
+import Link from 'next/link';
+import { CustomButton } from '@/shared/components';
 
 export default async function Profile() {
   const session = await getServerSession(options);
   const userImage = session?.user?.image;
 
-  if (!session) {
-    return redirect('/');
-  }
+  if (!session) redirect('/');
 
   const profileData = await findProfileInfo();
-  const orders = await findProfileOrders();
+  const orders = await findProfileOrders(false);
 
   return (
-    <div className="flex-1 pt-36 pb-36 padding-x">
-      <div className="flex justify-center flex-col items-center w-full mx-auto mt-8">
-        <h1 className="page__title">Profile Settings</h1>
-        <div className="p-2 mt-10 rounded-lg relative">
-          <Image
-            className="rounded-full h-24 w-24"
-            src={userImage || 'images/default.svg'}
-            alt="Avatar"
-            width={96}
-            height={96}
+    <div className="pt-36 pb-36 padding-x">
+      <div className="flex justify-center flex-col items-center w-full mx-auto">
+        <ClientInputs profileInfo={profileData} image={userImage} />
+        <ProfileOrderList orders={orders} title="The latest 5 bookings" />
+        <Link href="/profile/my-orders" className="mt-5">
+          <CustomButton
+            title="Show All Bookings"
+            btnType="button"
+            containerStyles="showmore__btn"
           />
-        </div>
-        <ClientInputs profileInfo={profileData} />
-        <div>
-          {!orders.length || orders.length === 0 ? (
-            <p className="page__title mt-5">No bookings found...</p>
-          ) : (
-            <>
-              <h1 className="page__title mt-5">My bookings history</h1>
-              {orders.map((order: DBOrderInfo) => (
-                <ProfileOrders key={order._id.toString()} {...order} />
-              ))}
-            </>
-          )}
-        </div>
+        </Link>
       </div>
     </div>
   );

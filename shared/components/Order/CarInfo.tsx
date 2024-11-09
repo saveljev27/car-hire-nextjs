@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Image from 'next/image';
 import { orderCard } from '@/shared/redux';
 import { CarInfoSkeleton } from './CarInfoSkeleton';
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CarProps } from '@/types';
 
 export const CarInfo = () => {

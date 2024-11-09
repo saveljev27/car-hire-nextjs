@@ -75,12 +75,14 @@ export interface OrderStatusInfo {
 }
 
 export interface UserInfo {
+  _id: Types.ObjectId;
   name: string;
   email: string;
   password: string;
   image: string;
   phone: string;
   orders: Types.ObjectId[];
+  isAdmin: boolean;
 }
 
 export interface InputProps {

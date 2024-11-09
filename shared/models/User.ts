@@ -9,6 +9,7 @@ const UserSchema = new Schema<UserInfo>(
     image: { type: String },
     phone: { type: String },
     orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }],
+    isAdmin: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

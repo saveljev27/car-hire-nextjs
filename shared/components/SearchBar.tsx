@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useDebounce } from 'react-use';
 import { useRouter } from 'next/navigation';
 import { updateSearchParams } from '../lib/update-search-params';
+import { RxCross2 } from './UI';
 
 export const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -42,6 +43,14 @@ export const SearchBar = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
+        {searchQuery && (
+          <button
+            className="absolute top-1/3 right-3 hover:text-primary-red"
+            onClick={() => setSearchQuery('')}
+          >
+            {<RxCross2 />}
+          </button>
+        )}
       </div>
     </div>
   );

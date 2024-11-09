@@ -42,13 +42,14 @@ export const findProfileInfo = async () => {
   try {
     await connectToDB();
     const profileInfo = await User.findOne({ email }).select(
-      'name email image phone'
+      'name email image phone isAdmin'
     );
     return JSON.parse(JSON.stringify(profileInfo));
   } catch (error) {}
 };
 
-export const findProfileOrders = async () => {
+export const findProfileOrders = async (showAll = true) => {
+  const limit = showAll ? 0 : 5;
   const session = await getServerSession(options);
   const email = session?.user?.email;
   if (!email) {
@@ -56,11 +57,13 @@ export const findProfileOrders = async () => {
   }
   try {
     await connectToDB();
-    const clientsOrders = await Order.find({ email }).sort({
+    const clientsOrders = await Order.find({ email }).limit(limit).sort({
       createdAt: -1,
     });
     return JSON.parse(JSON.stringify(clientsOrders));
-  } catch (error) {}
+  } catch (error) {
+    return [];
+  }
 };
 
 export async function getConfirmationOrder() {
