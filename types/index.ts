@@ -14,11 +14,11 @@ export interface CustomButtonProps {
 export interface CarProps {
   _id: string;
   class?: string;
-  city_consumption: number;
-  highway_consumption: number;
-  combination_consumption: number;
+  city_consumption?: number;
+  highway_consumption?: number;
+  combination_consumption?: number;
   seats: number;
-  displacement: number;
+  displacement?: number;
   drive: string;
   fuel_type?: string;
   make: string;
