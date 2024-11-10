@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import './globals.css';
+import '../globals.css';
 
 import { getServerSession } from 'next-auth';
-import { options } from './api/auth/[...nextauth]/options';
+import { options } from '../api/auth/[...nextauth]/options';
 import { Footer, NavBar, StoreProvider } from '@/shared/components';
 
 export const metadata: Metadata = {

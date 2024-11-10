@@ -12,9 +12,10 @@ import { GiGearStick, IoSpeedometerSharp, PiSeatFill } from './UI';
 
 interface CarCard {
   car: CarProps;
+  admin?: boolean;
 }
 
-export const CarCard = ({ car }: CarCard) => {
+export const CarCard = ({ car, admin }: CarCard) => {
   const {
     _id,
     city_consumption,
@@ -97,14 +98,25 @@ export const CarCard = ({ car }: CarCard) => {
             textStyles="text-white text-[14px] leading-[17px] font-bold"
             handleClick={() => setIsOpen(true)}
           />
-          <Link href={`/order`}>
-            <CustomButton
-              title="Book"
-              containerStyles="w-full py-[8px] rounded-full min-w-[180px] bg-green-500"
-              textStyles="text-white text-[14px] leading-[17px] font-bold"
-              handleClick={onClickAddButton}
-            />
-          </Link>
+          {admin ? (
+            <Link href={`/admin-panel/car-list/${_id}`}>
+              <CustomButton
+                title="Edit"
+                containerStyles="w-full py-[8px] rounded-full min-w-[180px] bg-green-500"
+                textStyles="text-white text-[14px] leading-[17px] font-bold"
+                handleClick={onClickAddButton}
+              />
+            </Link>
+          ) : (
+            <Link href={`/order`}>
+              <CustomButton
+                title="Book"
+                containerStyles="w-full py-[8px] rounded-full min-w-[180px] bg-green-500"
+                textStyles="text-white text-[14px] leading-[17px] font-bold"
+                handleClick={onClickAddButton}
+              />
+            </Link>
+          )}
         </div>
       </div>
       <CarDetails

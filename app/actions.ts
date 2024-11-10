@@ -8,6 +8,8 @@ import { cookies } from 'next/headers';
 import { connectToDB } from '@/shared/lib';
 import { Order } from '@/shared/models/Order';
 import { User } from '@/shared/models/User';
+import { Cars } from '@/shared/models/Cars';
+import mongoose from 'mongoose';
 
 export const findAndDeleteOrder = async (id: string) => {
   try {
@@ -78,4 +80,28 @@ export async function getConfirmationOrder() {
 
     return JSON.parse(JSON.stringify(confirmedOrder));
   } catch (error) {}
+}
+
+export async function findCar(id: string) {
+  try {
+    await connectToDB();
+    const car = await Cars.findById(id);
+    return JSON.parse(JSON.stringify(car));
+  } catch (error) {
+    return [];
+  }
+}
+
+export async function updateCarInfo(id: string, data: any) {
+  try {
+    await connectToDB();
+    const carInfo = Object.fromEntries(data);
+    const car = await Cars.findOneAndUpdate({ _id: id }, carInfo, {
+      new: true,
+    });
+    await car.save();
+  } catch (error) {
+    return console.error('Update car info error', error);
+  }
+  return true;
 }

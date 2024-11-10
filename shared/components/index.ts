@@ -1,3 +1,4 @@
+export { Container } from './Container';
 export { CarCard } from './CarCard';
 export { CarDetails } from './CarDetails';
 export { CustomButton } from './CustomButton';

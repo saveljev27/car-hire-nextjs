@@ -8,7 +8,7 @@ interface ProfileOrderListProps {
 
 export const ProfileOrderList = ({ orders, title }: ProfileOrderListProps) => {
   return (
-    <div>
+    <>
       {!orders.length || orders.length === 0 ? (
         <p className="page__title mt-8">No bookings found...</p>
       ) : (
@@ -19,6 +19,6 @@ export const ProfileOrderList = ({ orders, title }: ProfileOrderListProps) => {
           ))}
         </>
       )}
-    </div>
+    </>
   );
 };

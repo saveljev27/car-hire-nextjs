@@ -9,9 +9,10 @@ export interface SearchParams {
   limit?: string;
 }
 
-export const findCars = async (params: SearchParams) => {
+export const findCars = async (params: SearchParams, showAll = false) => {
   await connectToDB();
   const query: any = {};
+  const showAllCars = showAll ? 0 : 8;
   let limit;
 
   if (params.limit) {
@@ -33,11 +34,11 @@ export const findCars = async (params: SearchParams) => {
     ];
   }
 
+  const limitSettings = limit ? limit : showAllCars;
+
   try {
     const [cars, count] = await Promise.all([
-      Cars.find(query)
-        .limit(limit ? limit : 8)
-        .sort({ _id: -1 }),
+      Cars.find(query).limit(limitSettings).sort({ _id: -1 }),
       Cars.countDocuments(query),
     ]);
 

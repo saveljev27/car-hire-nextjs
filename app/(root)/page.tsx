@@ -1,12 +1,6 @@
 import { CarProps } from '@/types';
 import { fuels, bodyClass, transmissions } from '@/shared/constants';
-import {
-  CarCard,
-  CustomButton,
-  Filter,
-  Hero,
-  SearchBar,
-} from '@/shared/components';
+import { CarCard, Filter, Hero, SearchBar } from '@/shared/components';
 import { SearchParams } from '@/shared/lib/find-cars';
 import { findCars } from '@/shared/lib/find-cars';
 import {
