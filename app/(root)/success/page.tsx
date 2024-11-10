@@ -3,8 +3,9 @@
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 
-import { Container, CustomButton } from '@/shared/components';
+import { Container } from '@/shared/components';
 import { options } from '@/app/api/auth/[...nextauth]/options';
+import { CustomButton } from '@/shared/components/UI';
 
 export default async function Success({
   searchParams: { amount },

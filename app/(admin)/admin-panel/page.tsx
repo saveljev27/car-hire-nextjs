@@ -3,10 +3,11 @@
 import { getServerSession } from 'next-auth';
 
 import { redirect } from 'next/navigation';
-import { Container, CustomButton } from '@/shared/components';
+import { Container } from '@/shared/components';
 import Link from 'next/link';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { findProfileInfo } from '@/app/actions';
+import { CustomButton } from '@/shared/components/UI';
 
 export default async function AdminPanel() {
   const session = await getServerSession(options);

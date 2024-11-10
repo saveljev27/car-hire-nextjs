@@ -5,10 +5,15 @@ import { useDispatch } from 'react-redux';
 import Image from 'next/image';
 import Link from 'next/link';
 import { addItem } from '@/shared/redux';
-import CustomButton from './CustomButton';
+
 import { CarProps } from '@/types';
 import { CarDetails } from './CarDetails';
-import { GiGearStick, IoSpeedometerSharp, PiSeatFill } from './UI';
+import {
+  CustomButton,
+  GiGearStick,
+  IoSpeedometerSharp,
+  PiSeatFill,
+} from './UI';
 
 interface CarCard {
   car: CarProps;

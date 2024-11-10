@@ -37,15 +37,15 @@ export const fuels = [
   },
   {
     title: 'Gas',
-    value: 'Gas',
+    value: 'gas',
   },
   {
     title: 'Diesel',
-    value: 'Diesel',
+    value: 'diesel',
   },
   {
     title: 'Electric',
-    value: 'Electric',
+    value: 'electric',
   },
 ];
 
@@ -56,11 +56,11 @@ export const transmissions = [
   },
   {
     title: 'Manual',
-    value: 'Manual',
+    value: 'manual',
   },
   {
     title: 'Automatic',
-    value: 'Automatic',
+    value: 'automatic',
   },
 ];
 
@@ -71,14 +71,14 @@ export const bodyClass = [
   },
   {
     title: 'Sedan',
-    value: 'Sedan',
+    value: 'sedan',
   },
   {
     title: 'SUV',
-    value: 'SUV',
+    value: 'suv',
   },
   {
     title: 'Hatchback',
-    value: 'Hatchback',
+    value: 'hatchback',
   },
 ];

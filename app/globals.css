@@ -214,6 +214,10 @@
   @apply text-[24px] text-center text-black-100 font-semibold mt-6;
 }
 /* END: Login styles */
+.custom-input {
+  @apply block w-full rounded-md mt-1 py-1.5 pl-5 pr-5 bg-light-white outline-none cursor-pointer text-sm ring-1 ring-gray-300 focus:ring-primary-red;
+}
+
 .page__title {
   @apply text-3xl text-black-100 font-semibold text-center mb-5;
 }

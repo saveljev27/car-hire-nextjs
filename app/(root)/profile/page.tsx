@@ -7,7 +7,8 @@ import { ClientInputs } from '@/shared/components/Profile';
 import { findProfileInfo, findProfileOrders } from '../../actions';
 import { ProfileOrderList } from '@/shared/components/Profile/ProfileOrderList';
 import Link from 'next/link';
-import { Container, CustomButton } from '@/shared/components';
+import { Container } from '@/shared/components';
+import { CustomButton } from '@/shared/components/UI';
 
 export default async function Profile() {
   const session = await getServerSession(options);

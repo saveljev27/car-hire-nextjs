@@ -38,7 +38,7 @@ export const findCars = async (params: SearchParams, showAll = false) => {
 
   try {
     const [cars, count] = await Promise.all([
-      Cars.find(query).limit(limitSettings).sort({ _id: -1 }),
+      Cars.find(query).limit(limitSettings).sort({ updatedAt: -1 }),
       Cars.countDocuments(query),
     ]);
 

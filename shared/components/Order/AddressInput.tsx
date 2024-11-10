@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { useJsApiLoader, StandaloneSearchBox } from '@react-google-maps/api';
-import { Input } from '../Input';
+import { Input } from '../UI/Input';
 
 export const AddressInput = () => {
   const inputRef = useRef<google.maps.places.SearchBox | null>(null);

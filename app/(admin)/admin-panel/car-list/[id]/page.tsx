@@ -1,8 +1,6 @@
-import { findCar, updateCarInfo } from '@/app/actions';
-import { Container, Input } from '@/shared/components';
+import { findCar } from '@/app/actions';
+import { Container } from '@/shared/components';
 import { CarInfo } from '@/shared/components/Admin/CarInfo';
-
-import Image from 'next/image';
 
 export default async function SingeCarPage({
   params,

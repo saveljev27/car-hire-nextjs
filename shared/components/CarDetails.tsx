@@ -15,7 +15,12 @@ interface CarDetailsProps {
 
 export const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
   const modifiedCarData = Object.entries(car).filter(
-    ([key, _]) => key !== '_id' && key !== 'image'
+    ([key, _]) =>
+      key !== '_id' &&
+      key !== 'image' &&
+      key !== '__v' &&
+      key !== 'createdAt' &&
+      key !== 'updatedAt'
   );
   return (
     <>

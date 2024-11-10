@@ -1,12 +1,11 @@
 'use client';
 
-import CustomButton from '../CustomButton';
+import CustomButton from '../UI/CustomButton';
 import { OrderInfo } from '@/types';
-import { Input } from '../Input';
+import { Input } from '../UI/Input';
 import { Alert, Cancel } from '../UI';
 import { useOrderInputs } from '@/shared/hooks/useOrderInputs';
 import { AddressInput } from './AddressInput';
-import { useState } from 'react';
 
 interface OrderProps {
   profileInfo: OrderInfo | null;

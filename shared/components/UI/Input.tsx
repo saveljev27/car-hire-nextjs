@@ -13,7 +13,7 @@ export const Input = ({
 }: InputProps) => {
   return (
     <div className="relative mt-3">
-      <label htmlFor="">{label}</label>
+      <label htmlFor={id}>{label}</label>
       <input
         id={id}
         name={name}
@@ -23,7 +23,7 @@ export const Input = ({
         required={required}
         placeholder={placeholder}
         type={type || 'text'}
-        className="block w-full rounded-md mt-1 py-1.5 pl-5 pr-5 bg-light-white outline-none cursor-pointer text-sm ring-1 ring-gray-300 focus:ring-primary-red"
+        className="custom-input"
       />
     </div>
   );

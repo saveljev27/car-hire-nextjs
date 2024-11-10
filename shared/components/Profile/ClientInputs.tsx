@@ -4,9 +4,9 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { profileAction } from '@/app/actions';
 import { UserInfo } from '@/types';
-import CustomButton from '../CustomButton';
-import { Input } from '../Input';
+import { Input } from '../UI/Input';
 import Link from 'next/link';
+import { CustomButton } from '../UI';
 
 type Props = {
   profileInfo: UserInfo | null;

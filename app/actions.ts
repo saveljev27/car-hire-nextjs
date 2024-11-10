@@ -9,7 +9,6 @@ import { connectToDB } from '@/shared/lib';
 import { Order } from '@/shared/models/Order';
 import { User } from '@/shared/models/User';
 import { Cars } from '@/shared/models/Cars';
-import mongoose from 'mongoose';
 
 export const findAndDeleteOrder = async (id: string) => {
   try {
@@ -96,6 +95,7 @@ export async function updateCarInfo(id: string, data: any) {
   try {
     await connectToDB();
     const carInfo = Object.fromEntries(data);
+    console.log(carInfo);
     const car = await Cars.findOneAndUpdate({ _id: id }, carInfo, {
       new: true,
     });

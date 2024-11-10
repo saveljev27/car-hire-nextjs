@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation';
 import { orderCard } from '@/shared/redux';
 import { findAndDeleteOrder } from '@/app/actions';
 import { useState } from 'react';
-import CustomButton from '../CustomButton';
 import { Modal } from './Modal';
+import { CustomButton } from './CustomButton';
 
 interface CancelProps {
   title: string;

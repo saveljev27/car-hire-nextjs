@@ -1,9 +1,9 @@
 'use client';
 
 import { PaymentElement } from '@stripe/react-stripe-js';
-import CustomButton from '../CustomButton';
 import { CheckoutProps } from '@/types';
 import { useCheckout } from '@/shared/hooks/useCheckout';
+import { CustomButton } from '../UI';
 
 export const CheckoutPage = ({ amount, orderId }: CheckoutProps) => {
   const {

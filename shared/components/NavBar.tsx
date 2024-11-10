@@ -3,13 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import CustomButton from './CustomButton';
 import { signIn, signOut } from 'next-auth/react';
 import { Session } from 'next-auth';
 import { useSelector } from 'react-redux';
 import { orderCard } from '@/shared/redux';
 import { useEffect, useState } from 'react';
 import { CarProps } from '@/types';
+import { CustomButton } from './UI';
 
 export const NavBar = ({ session }: { session: Session | null }) => {
   const { items } = useSelector(orderCard);

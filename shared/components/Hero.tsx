@@ -1,7 +1,7 @@
 'use client';
 
-import CustomButton from './CustomButton';
 import { IoMdCheckbox } from 'react-icons/io';
+import { CustomButton } from './UI';
 
 export const Hero = () => {
   const handleScroll = () => {

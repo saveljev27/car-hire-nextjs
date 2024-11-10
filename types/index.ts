@@ -15,18 +15,18 @@ export interface CarProps {
   _id: string;
   class?: string;
   city_consumption: number;
-  highway_consumption?: number;
-  combination_consumption?: number;
+  highway_consumption: number;
+  combination_consumption: number;
   seats: number;
-  displacement?: number;
+  displacement: number;
   drive: string;
-  fuel_type: string;
+  fuel_type?: string;
   make: string;
   model: string;
-  transmission: string;
+  transmission?: string;
   year: number;
   image: string;
-  price: string;
+  price: number;
 }
 
 export interface DBOrderInfo {

@@ -1,11 +1,9 @@
 export { Container } from './Container';
 export { CarCard } from './CarCard';
 export { CarDetails } from './CarDetails';
-export { CustomButton } from './CustomButton';
 export { Filter } from './Filter';
 export { Footer } from './Footer';
 export { Hero } from './Hero';
-export { Input } from './Input';
 export { NavBar } from './NavBar';
 export { SearchBar } from './SearchBar';
 export { StoreProvider } from './StoreProvides';

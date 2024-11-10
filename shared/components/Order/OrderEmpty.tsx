@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import CustomButton from '../CustomButton';
+import CustomButton from '../UI/CustomButton';
 
 export const OrderEmpty = () => {
   return (
