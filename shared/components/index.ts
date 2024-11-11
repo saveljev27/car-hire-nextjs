@@ -1,4 +1,5 @@
 export { Container } from './Container';
+export { CarList } from './CarList';
 export { CarCard } from './CarCard';
 export { CarDetails } from './CarDetails';
 export { Filter } from './Filter';

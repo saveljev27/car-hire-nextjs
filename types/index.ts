@@ -111,3 +111,11 @@ export interface CheckoutProps {
   amount: number;
   orderId: string;
 }
+
+export interface SearchParams {
+  fuel?: string;
+  class?: string;
+  transmission?: string;
+  search?: string;
+  limit?: string;
+}

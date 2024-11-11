@@ -7,7 +7,7 @@ import { Container } from '@/shared/components';
 import Link from 'next/link';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { findProfileInfo } from '@/app/actions';
-import { CustomButton } from '@/shared/components/UI';
+import { CustomButton, PageHeader } from '@/shared/components/UI';
 
 export default async function AdminPanel() {
   const session = await getServerSession(options);
@@ -17,11 +17,12 @@ export default async function AdminPanel() {
   if (!adminStatusCheck.isAdmin) redirect('/');
 
   return (
-    <Container>
+    <Container flexCol>
+      <PageHeader>Admin panel</PageHeader>
       <div className="flex gap-3">
-        <Link href="admin-panel/car-list">
+        <Link href="admin-panel/all-cars">
           <CustomButton
-            title="Car list"
+            title="All cars"
             btnType="button"
             containerStyles="showmore__btn"
           />

@@ -1,8 +1,6 @@
-import { CarProps } from '@/types';
+import { CarProps, SearchParams } from '@/types';
 import { fuels, bodyClass, transmissions } from '@/shared/constants';
-import { CarCard, Filter, Hero, SearchBar } from '@/shared/components';
-import { SearchParams } from '@/shared/lib/find-cars';
-import { findCars } from '@/shared/lib/find-cars';
+import { CarCard, CarList, Filter, Hero, SearchBar } from '@/shared/components';
 import {
   BsFillFuelPumpFill,
   FaCarAlt,
@@ -10,6 +8,7 @@ import {
 } from '@/shared/components/UI';
 import { Showmore } from '@/shared/components/UI/ShowMore';
 import { ResetFilters } from '@/shared/components/UI/ResetFilters';
+import { findCars } from '../actions';
 
 export default async function Home({
   searchParams,
@@ -45,18 +44,7 @@ export default async function Home({
             <ResetFilters />
           </div>
         </div>
-
-        <section>
-          <div className="home__cars-wrapper">
-            {cars.length > 0 ? (
-              cars.map((car: CarProps) => <CarCard key={car._id} car={car} />)
-            ) : (
-              <div className="row min-h-[40vh]">
-                <h1>No cars found</h1>
-              </div>
-            )}
-          </div>
-        </section>
+        <CarList cars={cars} count={count} />
         {count > cars.length && <Showmore limit={limit} />}
       </div>
     </main>

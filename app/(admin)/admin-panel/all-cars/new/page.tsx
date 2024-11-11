@@ -3,8 +3,13 @@
 import { Container } from '@/shared/components';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { CustomButton, Input, Select } from '@/shared/components/UI';
-import { transmissions, bodyClass, fuels } from '@/shared/constants';
+import {
+  CustomButton,
+  Input,
+  PageHeader,
+  Select,
+} from '@/shared/components/UI';
+import { transmissions, bodyClass, fuels, drive } from '@/shared/constants';
 import Link from 'next/link';
 
 export default function NewCar() {
@@ -16,7 +21,6 @@ export default function NewCar() {
     combination_consumption: '',
     seats: '',
     displacement: '',
-    drive: '',
     price: '',
     make: '',
     model: '',
@@ -37,7 +41,7 @@ export default function NewCar() {
       if (response) {
         setSaved(true);
         setTimeout(() => setSaved(false), 3000);
-        router.push(`/admin-panel/car-list/${carId}`);
+        router.push(`/admin-panel/all-cars/${carId}`);
       }
     } catch (error) {}
   };
@@ -45,11 +49,11 @@ export default function NewCar() {
   return (
     <Container>
       <div className="flex flex-col justify-center items-center">
-        <h1 className="page__title">New Car</h1>
+        <PageHeader>New Car</PageHeader>
         <div className="flex gap-3 justify-center mb-4">
-          <Link href="/admin-panel/car-list/">
+          <Link href="/admin-panel/all-cars/">
             <CustomButton
-              title="Back to Car List"
+              title="Back to All Cars List"
               containerStyles="showmore__btn"
             />
           </Link>
@@ -58,8 +62,8 @@ export default function NewCar() {
           </Link>
         </div>
         <form action={handleNewCar}>
+          <Input id="_id" name="_id" label="_id" defaultValue={carId} />
           <div className="grid grid-cols-3 gap-3">
-            <Input id="_id" name="_id" label="_id" defaultValue={carId} />
             {Object.entries(car).map(([key, value]) => (
               <Input
                 id={key}
@@ -72,6 +76,7 @@ export default function NewCar() {
             ))}
           </div>
           <Select options={fuels} title="fuel_type" />
+          <Select options={drive} title="drive" />
           <Select options={bodyClass} title="class" />
           <Select options={transmissions} title="transmission" />
           <div className="mt-4">

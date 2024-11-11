@@ -82,3 +82,22 @@ export const bodyClass = [
     value: 'hatchback',
   },
 ];
+
+export const drive = [
+  {
+    title: 'All',
+    value: '',
+  },
+  {
+    title: 'RWD',
+    value: 'rwd',
+  },
+  {
+    title: 'FWD',
+    value: 'fwd',
+  },
+  {
+    title: '4WD',
+    value: '4wd',
+  },
+];

@@ -5,11 +5,11 @@ import { Input } from '../UI/Input';
 import { updateCarInfo } from '@/app/actions';
 import { CarProps } from '@/types';
 import { useState } from 'react';
-import { CustomButton, Select } from '../UI';
+import { CustomButton, PageHeader, Select } from '../UI';
 import { useRouter } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import Link from 'next/link';
-import { bodyClass, fuels, transmissions } from '@/shared/constants';
+import { bodyClass, fuels, transmissions, drive } from '@/shared/constants';
 
 interface CarInfoProps {
   car: CarProps;
@@ -26,7 +26,6 @@ export const CarInfo = ({ car, carId }: CarInfoProps) => {
     combination_consumption: car.combination_consumption || '',
     seats: car.seats || '',
     displacement: car.displacement || '',
-    drive: car.drive || '',
     price: car.price || '',
     make: car.make || '',
     model: car.model || '',
@@ -40,7 +39,7 @@ export const CarInfo = ({ car, carId }: CarInfoProps) => {
         method: 'DELETE',
       });
       if (response) {
-        router.replace(`/admin-panel/car-list/`);
+        router.replace(`/admin-panel/all-cars/`);
       }
     } catch (error) {}
   };
@@ -51,17 +50,17 @@ export const CarInfo = ({ car, carId }: CarInfoProps) => {
       if (response) {
         setSaved(true);
         setTimeout(() => setSaved(false), 2000);
-        revalidatePath('/admin-panel/car-list/');
+        revalidatePath('/admin-panel/all-cars/');
       }
     } catch (error) {}
   };
   return (
     <div className="flex flex-col justify-center items-center">
-      <h1 className="page__title">Car Edit</h1>
+      <PageHeader>Car Edit</PageHeader>
       <div className="flex gap-3 justify-center mb-4">
-        <Link href="/admin-panel/car-list/">
+        <Link href="/admin-panel/all-cars/">
           <CustomButton
-            title="Back to Car List"
+            title="Back to All Cars List"
             containerStyles="showmore__btn"
           />
         </Link>
@@ -73,8 +72,8 @@ export const CarInfo = ({ car, carId }: CarInfoProps) => {
         <Image src={car.image} alt={car.make} width={300} height={300} />
       </div>
       <form action={handleUpdate}>
+        <Input id="_id" name="_id" label="_id" defaultValue={carId} />
         <div className="grid grid-cols-3 gap-3">
-          <Input id="_id" name="_id" label="_id" defaultValue={carId} />
           {Object.entries(carFields).map(([key, value]) => (
             <Input
               id={key}
@@ -91,6 +90,7 @@ export const CarInfo = ({ car, carId }: CarInfoProps) => {
           title="fuel_type"
           defaultValue={car.fuel_type}
         />
+        <Select options={drive} title="drive" defaultValue={car.drive} />
         <Select options={bodyClass} title="class" defaultValue={car.class} />
         <Select
           options={transmissions}

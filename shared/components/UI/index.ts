@@ -16,6 +16,7 @@ export { SkeletonCard } from './SkeletonCard';
 export { Input } from './Input';
 export { CustomButton } from './CustomButton';
 export { Select } from './Select';
+export { PageHeader } from './PageHeader';
 
 export {
   GiSteeringWheel,

@@ -9,14 +9,9 @@ import { connectToDB } from '@/shared/lib';
 import { Order } from '@/shared/models/Order';
 import { User } from '@/shared/models/User';
 import { Cars } from '@/shared/models/Cars';
+import { SearchParams } from '@/types';
 
-export const findAndDeleteOrder = async (id: string) => {
-  try {
-    await connectToDB();
-    return await Order.deleteOne({ _id: id });
-  } catch (error) {}
-};
-
+// Profile actions
 export const profileAction = async (formData: FormData) => {
   const session = await getServerSession(options);
   const email = session?.user?.email;
@@ -35,7 +30,6 @@ export const profileAction = async (formData: FormData) => {
 
   return true;
 };
-
 export const findProfileInfo = async () => {
   const session = await getServerSession(options);
   const email = session?.user?.email;
@@ -48,7 +42,6 @@ export const findProfileInfo = async () => {
     return JSON.parse(JSON.stringify(profileInfo));
   } catch (error) {}
 };
-
 export const findProfileOrders = async (showAll = true) => {
   const limit = showAll ? 0 : 5;
   const session = await getServerSession(options);
@@ -67,6 +60,14 @@ export const findProfileOrders = async (showAll = true) => {
   }
 };
 
+// Order actions
+export async function getAllOrders() {
+  try {
+    await connectToDB();
+    const orders = await Order.find({});
+    return JSON.parse(JSON.stringify(orders));
+  } catch (error) {}
+}
 export async function getConfirmationOrder() {
   const cookiesStore = cookies();
   const token = cookiesStore.get('orderToken');
@@ -80,7 +81,53 @@ export async function getConfirmationOrder() {
     return JSON.parse(JSON.stringify(confirmedOrder));
   } catch (error) {}
 }
+export const findAndDeleteOrder = async (id: string) => {
+  try {
+    await connectToDB();
+    return await Order.deleteOne({ _id: id });
+  } catch (error) {}
+};
 
+// Car actions
+export async function findCars(params: SearchParams, showAll = false) {
+  await connectToDB();
+  const query: any = {};
+  const showAllCars = showAll ? 0 : 8;
+  let limit;
+
+  if (params.limit) {
+    limit = parseInt(params.limit);
+  }
+  if (params.fuel) {
+    query.fuel_type = params.fuel;
+  }
+  if (params.class) {
+    query.class = params.class;
+  }
+  if (params.transmission) {
+    query.transmission = params.transmission;
+  }
+  if (params.search) {
+    query.$or = [
+      { make: { $regex: params.search, $options: 'i' } },
+      { model: { $regex: params.search, $options: 'i' } },
+    ];
+  }
+
+  const limitSettings = limit ? limit : showAllCars;
+
+  try {
+    const [cars, count] = await Promise.all([
+      Cars.find(query).limit(limitSettings).sort({ updatedAt: -1 }),
+      Cars.countDocuments(query),
+    ]);
+
+    return { cars: JSON.parse(JSON.stringify(cars)), count };
+  } catch (error) {
+    console.log('Error fetching cars: ', error);
+    return { cars: [], count: 0 };
+  }
+}
 export async function findCar(id: string) {
   try {
     await connectToDB();
@@ -90,7 +137,6 @@ export async function findCar(id: string) {
     return [];
   }
 }
-
 export async function updateCarInfo(id: string, data: any) {
   try {
     await connectToDB();
