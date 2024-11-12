@@ -1,7 +1,7 @@
-import { OrderInfo } from '@/types';
+import { OrderProps } from '@/types';
 import { model, models, Schema } from 'mongoose';
 
-const OrderSchema = new Schema<OrderInfo>(
+const OrderSchema = new Schema<OrderProps>(
   {
     address: { type: String },
     pickupDate: { type: String },
@@ -25,4 +25,4 @@ const OrderSchema = new Schema<OrderInfo>(
   { timestamps: true }
 );
 
-export const Order = models?.Order || model<OrderInfo>('Order', OrderSchema);
+export const Order = models?.Order || model<OrderProps>('Order', OrderSchema);
