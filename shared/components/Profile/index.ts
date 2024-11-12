@@ -1,3 +1,4 @@
 export { ClientInputs } from './ClientInputs';
 export { ProfileOrder } from './ProfileOrder';
-export { ProfileOrderList } from './ProfileOrderList';
+export { OrderList } from './OrderList';
+export { OrderInfo } from './OrderInfo';

@@ -1,5 +1,4 @@
 'use server';
-
 import { getServerSession } from 'next-auth/next';
 import { options } from './api/auth/[...nextauth]/options';
 import { redirect } from 'next/navigation';
@@ -9,7 +8,7 @@ import { connectToDB } from '@/shared/lib';
 import { Order } from '@/shared/models/Order';
 import { User } from '@/shared/models/User';
 import { Cars } from '@/shared/models/Cars';
-import { SearchParams } from '@/types';
+import { DBOrderInfo, SearchParams } from '@/types';
 
 // Profile actions
 export const profileAction = async (formData: FormData) => {
@@ -61,14 +60,27 @@ export const findProfileOrders = async (showAll = true) => {
 };
 
 // Order actions
-export async function getAllOrders() {
+export const getAllOrders = async () => {
   try {
     await connectToDB();
-    const orders = await Order.find({});
-    return JSON.parse(JSON.stringify(orders));
+    const orders = await Order.find({}).sort({ createdAt: -1 });
+    if (orders) {
+      return JSON.parse(JSON.stringify(orders));
+    }
+    return [];
   } catch (error) {}
-}
-export async function getConfirmationOrder() {
+};
+export const findOrder = async (id: string) => {
+  try {
+    await connectToDB();
+    const order = await Order.findById(id);
+    if (order) {
+      return JSON.parse(JSON.stringify(order));
+    }
+    return [];
+  } catch (error) {}
+};
+export const getConfirmationOrder = async () => {
   const cookiesStore = cookies();
   const token = cookiesStore.get('orderToken');
   if (!token) {
@@ -80,7 +92,7 @@ export async function getConfirmationOrder() {
 
     return JSON.parse(JSON.stringify(confirmedOrder));
   } catch (error) {}
-}
+};
 export const findAndDeleteOrder = async (id: string) => {
   try {
     await connectToDB();
@@ -89,7 +101,7 @@ export const findAndDeleteOrder = async (id: string) => {
 };
 
 // Car actions
-export async function findCars(params: SearchParams, showAll = false) {
+export const findCars = async (params: SearchParams, showAll = false) => {
   await connectToDB();
   const query: any = {};
   const showAllCars = showAll ? 0 : 8;
@@ -127,8 +139,8 @@ export async function findCars(params: SearchParams, showAll = false) {
     console.log('Error fetching cars: ', error);
     return { cars: [], count: 0 };
   }
-}
-export async function findCar(id: string) {
+};
+export const findCar = async (id: string) => {
   try {
     await connectToDB();
     const car = await Cars.findById(id);
@@ -136,8 +148,8 @@ export async function findCar(id: string) {
   } catch (error) {
     return [];
   }
-}
-export async function updateCarInfo(id: string, data: any) {
+};
+export const updateCarInfo = async (id: string, data: any) => {
   try {
     await connectToDB();
     const carInfo = Object.fromEntries(data);
@@ -150,4 +162,4 @@ export async function updateCarInfo(id: string, data: any) {
     return console.error('Update car info error', error);
   }
   return true;
-}
+};

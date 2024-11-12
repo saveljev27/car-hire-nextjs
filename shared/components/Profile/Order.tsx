@@ -1,11 +1,6 @@
 import { DBOrderInfo } from '@/types';
 
-export const AdminOrder = ({
-  _id,
-  rentValue,
-  rentDays,
-  createdAt,
-}: DBOrderInfo) => {
+export const Order = ({ _id, rentValue, rentDays, createdAt }: DBOrderInfo) => {
   return (
     <div className="border border-gray-200 py-2 px-4 mt-5 rounded-lg">
       <div className="flex justify-between">

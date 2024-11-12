@@ -48,7 +48,7 @@ export interface DBOrderInfo {
   __v: number;
 }
 
-export interface OrderInfo {
+export interface OrderProps {
   address: string;
   pickupDate: string;
   pickupTime: string;
@@ -95,6 +95,7 @@ export interface InputProps {
   onChange?: any;
   disabled?: boolean;
   required?: boolean;
+  readOnly?: boolean;
 }
 
 export interface OptionProps {

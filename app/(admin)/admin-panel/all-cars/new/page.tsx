@@ -11,6 +11,7 @@ import {
 } from '@/shared/components/UI';
 import { transmissions, bodyClass, fuels, drive } from '@/shared/constants';
 import Link from 'next/link';
+import { AdminBtn, CarListBtn } from '@/shared/components/Admin/NavButtons';
 
 export default function NewCar() {
   const [saved, setSaved] = useState(false);
@@ -51,15 +52,8 @@ export default function NewCar() {
       <div className="flex flex-col justify-center items-center">
         <PageHeader>New Car</PageHeader>
         <div className="flex gap-3 justify-center mb-4">
-          <Link href="/admin-panel/all-cars/">
-            <CustomButton
-              title="Back to All Cars List"
-              containerStyles="showmore__btn"
-            />
-          </Link>
-          <Link href="/admin-panel/">
-            <CustomButton title="Admin Panel" containerStyles="showmore__btn" />
-          </Link>
+          <CarListBtn />
+          <AdminBtn />
         </div>
         <form action={handleNewCar}>
           <Input id="_id" name="_id" label="_id" defaultValue={carId} />

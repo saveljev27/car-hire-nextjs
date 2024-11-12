@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import Link from 'next/link';
 import { bodyClass, fuels, transmissions, drive } from '@/shared/constants';
+import { AdminBtn, CarListBtn } from './NavButtons';
 
 interface CarInfoProps {
   car: CarProps;
@@ -58,15 +59,8 @@ export const CarInfo = ({ car, carId }: CarInfoProps) => {
     <div className="flex flex-col justify-center items-center">
       <PageHeader>Car Edit</PageHeader>
       <div className="flex gap-3 justify-center mb-4">
-        <Link href="/admin-panel/all-cars/">
-          <CustomButton
-            title="Back to All Cars List"
-            containerStyles="showmore__btn"
-          />
-        </Link>
-        <Link href="/admin-panel/">
-          <CustomButton title="Admin Panel" containerStyles="showmore__btn" />
-        </Link>
+        <CarListBtn />
+        <AdminBtn />
       </div>
       <div className="pt-8">
         <Image src={car.image} alt={car.make} width={300} height={300} />

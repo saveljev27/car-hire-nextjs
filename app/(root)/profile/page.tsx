@@ -3,12 +3,9 @@
 import { getServerSession } from 'next-auth';
 import { options } from '../../api/auth/[...nextauth]/options';
 import { redirect } from 'next/navigation';
-import { ClientInputs } from '@/shared/components/Profile';
+import { ClientInputs, OrderList } from '@/shared/components/Profile';
 import { findProfileInfo, findProfileOrders } from '../../actions';
-import { ProfileOrderList } from '@/shared/components/Profile/ProfileOrderList';
-import Link from 'next/link';
 import { Container } from '@/shared/components';
-import { CustomButton } from '@/shared/components/UI';
 
 export default async function Profile() {
   const session = await getServerSession(options);
@@ -22,14 +19,11 @@ export default async function Profile() {
   return (
     <Container flexCol>
       <ClientInputs profileInfo={profileData} image={userImage} />
-      <ProfileOrderList orders={orders} title="The latest 5 bookings" />
-      <Link href="/profile/my-orders" className="mt-5">
-        <CustomButton
-          title="Show All Bookings"
-          btnType="button"
-          containerStyles="showmore__btn"
-        />
-      </Link>
+      <div className="divider" />
+      <OrderList
+        orders={orders}
+        title={`The latest ${orders.length} booking/s`}
+      />
     </Container>
   );
 }

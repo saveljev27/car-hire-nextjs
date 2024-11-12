@@ -1,16 +1,16 @@
 'use client';
 
-import { OrderInfo } from '@/types';
+import { OrderProps } from '@/types';
 import { Input } from '../UI/Input';
 import { Alert, Cancel, CustomButton } from '../UI';
 import { useOrderInputs } from '@/shared/hooks/useOrderInputs';
 import { AddressInput } from './AddressInput';
 
-interface OrderProps {
-  profileInfo: OrderInfo | null;
+interface OrderInfoProps {
+  profileInfo: OrderProps | null;
 }
 
-export function OrderInputs({ profileInfo }: OrderProps) {
+export function OrderInputs({ profileInfo }: OrderInfoProps) {
   const { error, handleSubmit } = useOrderInputs();
 
   return (
@@ -32,6 +32,7 @@ export function OrderInputs({ profileInfo }: OrderProps) {
             placeholder="johh.doe@example.com"
             defaultValue={profileInfo?.email}
             required
+            readOnly={profileInfo?.email ? true : false}
           />
         </div>
         <Input

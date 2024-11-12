@@ -10,6 +10,7 @@ export const Input = ({
   placeholder,
   disabled = false,
   required = false,
+  readOnly = false,
 }: InputProps) => {
   return (
     <div className="relative mt-3">
@@ -24,6 +25,7 @@ export const Input = ({
         placeholder={placeholder}
         type={type || 'text'}
         className="custom-input"
+        readOnly={readOnly}
       />
     </div>
   );
