@@ -20,7 +20,7 @@ export default async function AllCars() {
           <CustomButton title="Add car" containerStyles="showmore__btn" />
         </Link>
       </div>
-      <CarList cars={cars} count={count} />
+      <CarList cars={cars} count={count} admin />
     </Container>
   );
 }

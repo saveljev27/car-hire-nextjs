@@ -10,12 +10,6 @@ import { findProfileInfo } from '@/app/actions';
 import { CustomButton, PageHeader } from '@/shared/components/UI';
 
 export default async function AdminPanel() {
-  const session = await getServerSession(options);
-  if (!session) redirect('/');
-
-  const adminStatusCheck = await findProfileInfo();
-  if (!adminStatusCheck.isAdmin) redirect('/');
-
   return (
     <Container flexCol>
       <PageHeader>Admin panel</PageHeader>
