@@ -12,40 +12,11 @@ import {
 import { transmissions, bodyClass, fuels, drive } from '@/shared/constants';
 import Link from 'next/link';
 import { AdminBtn, CarListBtn } from '@/shared/components/Admin/NavButtons';
+import { useCar } from '@/shared/hooks/useCar';
 
 export default function NewCar() {
-  const [saved, setSaved] = useState(false);
-  const router = useRouter();
-  const car = {
-    city_consumption: '',
-    highway_consumption: '',
-    combination_consumption: '',
-    seats: '',
-    displacement: '',
-    price: '',
-    make: '',
-    model: '',
-    year: '',
-    image: '',
-  };
-
   const carId = crypto.randomUUID();
-
-  const handleNewCar = async (formData: FormData) => {
-    const data = Object.fromEntries(formData);
-    const carId = data._id;
-    try {
-      const response = await fetch('/api/admin/car/', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      });
-      if (response) {
-        setSaved(true);
-        setTimeout(() => setSaved(false), 3000);
-        router.push(`/admin-panel/all-cars/${carId}`);
-      }
-    } catch (error) {}
-  };
+  const { carNewFields, handleNewCar, saved } = useCar({ carId });
 
   return (
     <Container>
@@ -58,7 +29,7 @@ export default function NewCar() {
         <form action={handleNewCar}>
           <Input id="_id" name="_id" label="_id" defaultValue={carId} />
           <div className="grid grid-cols-3 gap-3">
-            {Object.entries(car).map(([key, value]) => (
+            {Object.entries(carNewFields).map(([key, value]) => (
               <Input
                 id={key}
                 key={key}

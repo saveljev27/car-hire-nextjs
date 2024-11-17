@@ -7,9 +7,15 @@ interface AdminOrderListProps {
   orders: DBOrderInfo[];
   title?: string;
   admin?: boolean;
+  page?: boolean;
 }
 
-export const OrderList = ({ orders, title, admin }: AdminOrderListProps) => {
+export const OrderList = ({
+  orders,
+  title,
+  page,
+  admin,
+}: AdminOrderListProps) => {
   const url = admin ? 'admin-panel/orders' : 'profile/my-orders';
   return (
     <>
@@ -27,13 +33,15 @@ export const OrderList = ({ orders, title, admin }: AdminOrderListProps) => {
               <Order {...order} />
             </Link>
           ))}
-          {orders.length > 5 && (
-            <Link href="/profile/my-orders" className="mt-5">
-              <CustomButton
-                title="Show All Bookings"
-                btnType="button"
-                containerStyles="showmore__btn"
-              />
+          {orders.length >= 5 && !page && (
+            <Link href="/profile/my-orders">
+              <div className="mt-5">
+                <CustomButton
+                  title="Show All Bookings"
+                  btnType="button"
+                  containerStyles="showmore__btn"
+                />
+              </div>
             </Link>
           )}
         </div>

@@ -1,10 +1,10 @@
 interface SelectProps {
   options: any;
   title: string;
-  defaultValue: string;
+  defaultValue?: string;
 }
 
-export const Select = ({ options, title, defaultValue }: any) => {
+export const Select = ({ options, title, defaultValue }: SelectProps) => {
   return (
     <div className="relative mt-3">
       <label htmlFor={title}>{title}</label>

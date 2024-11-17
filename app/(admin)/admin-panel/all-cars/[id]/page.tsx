@@ -1,4 +1,3 @@
-import { findCar } from '@/app/actions';
 import { Container } from '@/shared/components';
 import { CarInfo } from '@/shared/components/Admin/CarInfo';
 
@@ -7,11 +6,9 @@ export default async function SingeCarPage({
 }: {
   params: { id: string };
 }) {
-  const car = await findCar(params.id);
-
   return (
     <Container>
-      <CarInfo car={car} carId={params.id} />
+      <CarInfo carId={params.id} />
     </Container>
   );
 }

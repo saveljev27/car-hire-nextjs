@@ -9,7 +9,11 @@ export default async function MyOrders() {
 
   return (
     <Container flexCol>
-      <OrderList orders={orders} title={`All Bookings (${orders.length})`} />
+      <OrderList
+        orders={orders}
+        title={`All Bookings (${orders.length})`}
+        page
+      />
     </Container>
   );
 }

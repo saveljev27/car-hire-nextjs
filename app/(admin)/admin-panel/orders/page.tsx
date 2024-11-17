@@ -11,7 +11,7 @@ export default async function Orders() {
     <Container flexCol>
       <PageHeader>Orders ({orders.length})</PageHeader>
       <AdminBtn />
-      <OrderList orders={orders} admin />
+      <OrderList orders={orders} admin page />
     </Container>
   );
 }

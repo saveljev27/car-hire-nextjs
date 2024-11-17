@@ -140,26 +140,3 @@ export const findCars = async (params: SearchParams, showAll = false) => {
     return { cars: [], count: 0 };
   }
 };
-export const findCar = async (id: string) => {
-  try {
-    await connectToDB();
-    const car = await Cars.findById(id);
-    return JSON.parse(JSON.stringify(car));
-  } catch (error) {
-    return [];
-  }
-};
-export const updateCarInfo = async (id: string, data: any) => {
-  try {
-    await connectToDB();
-    const carInfo = Object.fromEntries(data);
-    console.log(carInfo);
-    const car = await Cars.findOneAndUpdate({ _id: id }, carInfo, {
-      new: true,
-    });
-    await car.save();
-  } catch (error) {
-    return console.error('Update car info error', error);
-  }
-  return true;
-};
