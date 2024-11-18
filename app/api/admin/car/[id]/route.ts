@@ -3,7 +3,7 @@ import { Cars } from '@/shared/models/Cars';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(response: NextResponse, { params }: Params) {
+export async function GET(req: NextRequest, { params }: Params) {
   const id = params.id;
   try {
     await connectToDB();
@@ -14,7 +14,7 @@ export async function GET(response: NextResponse, { params }: Params) {
   }
 }
 
-export async function DELETE(response: NextResponse, { params }: Params) {
+export async function DELETE(req: NextRequest, { params }: Params) {
   const id = params.id;
   if (id) {
     await connectToDB();
