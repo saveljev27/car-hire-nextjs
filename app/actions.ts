@@ -8,7 +8,7 @@ import { connectToDB } from '@/shared/lib';
 import { Order } from '@/shared/models/Order';
 import { User } from '@/shared/models/User';
 import { Cars } from '@/shared/models/Cars';
-import { DBOrderInfo, SearchParams } from '@/types';
+import { SearchParams } from '@/types';
 
 // Profile actions
 export const profileAction = async (formData: FormData) => {
@@ -41,35 +41,8 @@ export const findProfileInfo = async () => {
     return JSON.parse(JSON.stringify(profileInfo));
   } catch (error) {}
 };
-export const findProfileOrders = async (showAll = true) => {
-  const limit = showAll ? 0 : 5;
-  const session = await getServerSession(options);
-  const email = session?.user?.email;
-  if (!email) {
-    redirect('/');
-  }
-  try {
-    await connectToDB();
-    const clientsOrders = await Order.find({ email }).limit(limit).sort({
-      createdAt: -1,
-    });
-    return JSON.parse(JSON.stringify(clientsOrders));
-  } catch (error) {
-    return [];
-  }
-};
 
 // Order actions
-export const getAllOrders = async () => {
-  try {
-    await connectToDB();
-    const orders = await Order.find({}).sort({ createdAt: -1 });
-    if (orders) {
-      return JSON.parse(JSON.stringify(orders));
-    }
-    return [];
-  } catch (error) {}
-};
 export const findOrder = async (id: string) => {
   try {
     await connectToDB();

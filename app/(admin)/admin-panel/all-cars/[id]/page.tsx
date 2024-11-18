@@ -1,5 +1,5 @@
 import { Container } from '@/shared/components';
-import { CarInfo } from '@/shared/components/Admin/CarInfo';
+import { CarEdit } from '@/shared/components/Admin/CarEdit';
 
 export default async function SingeCarPage({
   params,
@@ -8,7 +8,7 @@ export default async function SingeCarPage({
 }) {
   return (
     <Container>
-      <CarInfo carId={params.id} />
+      <CarEdit carId={params.id} />
     </Container>
   );
 }

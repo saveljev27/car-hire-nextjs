@@ -1,19 +1,12 @@
 'use server';
 
-import { findProfileOrders } from '@/app/actions';
 import { Container } from '@/shared/components';
-import { OrderList } from '@/shared/components/Profile';
+import { ProfileOrderList } from '@/shared/components/Profile/ProfileOrderList';
 
 export default async function MyOrders() {
-  const orders = await findProfileOrders();
-
   return (
     <Container flexCol>
-      <OrderList
-        orders={orders}
-        title={`All Bookings (${orders.length})`}
-        page
-      />
+      <ProfileOrderList title="All Bookings" page admin={false} limit={0} />
     </Container>
   );
 }

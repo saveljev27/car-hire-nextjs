@@ -6,8 +6,9 @@ import { CustomButton, PageHeader, Select } from '../UI';
 import { bodyClass, fuels, transmissions, drive } from '@/shared/constants';
 import { AdminBtn, CarListBtn } from './NavButtons';
 import { useCar } from '@/shared/hooks/useCar';
+import { CarInfoSkeleton } from '../Order';
 
-export const CarInfo = ({ carId }: { carId: string }) => {
+export const CarEdit = ({ carId }: { carId: string }) => {
   const {
     carFields,
     carSelectFields,
@@ -19,7 +20,7 @@ export const CarInfo = ({ carId }: { carId: string }) => {
     carId,
   });
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <CarInfoSkeleton />;
 
   return (
     <div className="flex flex-col justify-center items-center">
