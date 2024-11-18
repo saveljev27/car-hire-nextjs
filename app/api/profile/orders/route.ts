@@ -19,6 +19,6 @@ export async function GET(req: NextRequest) {
     });
     return NextResponse.json({ orders: clientsOrders });
   } catch (error) {
-    return [];
+    return NextResponse.json([]);
   }
 }
