@@ -9,6 +9,18 @@ import { Order } from '@/shared/models/Order';
 import { User } from '@/shared/models/User';
 import { Cars } from '@/shared/models/Cars';
 import { SearchParams } from '@/types';
+import { revalidatePath } from 'next/cache';
+
+// Admins actions
+export const getAllBookings = async () => {
+  try {
+    await connectToDB();
+    const orders = await Order.find({}).sort({ createdAt: -1 });
+    return JSON.parse(JSON.stringify(orders));
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 // Profile actions
 export const profileAction = async (formData: FormData) => {
@@ -40,6 +52,38 @@ export const findProfileInfo = async () => {
     );
     return JSON.parse(JSON.stringify(profileInfo));
   } catch (error) {}
+};
+export const userProfileOrders = async () => {
+  const session = await getServerSession(options);
+  const email = session?.user?.email;
+  if (!email) {
+    redirect('/');
+  }
+  try {
+    await connectToDB();
+    const clientsOrders = await Order.find({ email }).limit(5).sort({
+      createdAt: -1,
+    });
+    return JSON.parse(JSON.stringify(clientsOrders));
+  } catch (error) {
+    return JSON.parse(JSON.stringify([]));
+  }
+};
+export const userAllProfileOrders = async () => {
+  const session = await getServerSession(options);
+  const email = session?.user?.email;
+  if (!email) {
+    redirect('/');
+  }
+  try {
+    await connectToDB();
+    const clientsOrders = await Order.find({ email }).sort({
+      createdAt: -1,
+    });
+    return JSON.parse(JSON.stringify(clientsOrders));
+  } catch (error) {
+    return JSON.parse(JSON.stringify([]));
+  }
 };
 
 // Order actions
@@ -111,5 +155,59 @@ export const findCars = async (params: SearchParams, showAll = false) => {
   } catch (error) {
     console.log('Error fetching cars: ', error);
     return { cars: [], count: 0 };
+  }
+};
+export const findCar = async (id: string) => {
+  await connectToDB();
+  try {
+    const car = await Cars.findById(id);
+    return JSON.parse(JSON.stringify(car));
+  } catch (error) {}
+};
+export const createCar = async (prevState: any, formData: FormData) => {
+  const data = Object.fromEntries(formData);
+  try {
+    if (data) {
+      const createCar = await Cars.create(data);
+      createCar.save();
+      revalidatePath('/admin-panel/all-cars');
+      return JSON.parse(
+        JSON.stringify({ status: true, message: 'Car successfully added' })
+      );
+    }
+  } catch (error) {
+    return JSON.parse(
+      JSON.stringify({ status: false, message: 'Error adding car' })
+    );
+  }
+};
+export const updateCarData = async (prevState: any, formData: FormData) => {
+  const id = formData.get('_id');
+  try {
+    await connectToDB();
+    const carInfo = Object.fromEntries(formData);
+    const car = await Cars.findOneAndUpdate({ _id: id }, carInfo, {
+      new: true,
+    });
+    await car.save();
+    revalidatePath('/admin-panel/all-cars');
+    return JSON.parse(
+      JSON.stringify({ status: true, message: 'Car successfully updated' })
+    );
+  } catch (error) {
+    return JSON.parse(
+      JSON.stringify({ status: false, message: 'Error updating car' })
+    );
+  }
+};
+export const deleteCar = async (id: string) => {
+  if (id) {
+    await connectToDB();
+    try {
+      await Cars.findByIdAndDelete(id);
+      revalidatePath('/admin-panel/all-cars');
+      return JSON.parse(JSON.stringify({ success: true }));
+    } catch (error) {}
+    return JSON.parse(JSON.stringify({ success: false }));
   }
 };

@@ -7,29 +7,26 @@ import { CustomButton, PageHeader } from './UI';
 interface AdminOrderListProps {
   orders: DBOrderInfo[];
   title?: string;
-  admin?: boolean;
-  page?: boolean;
-  limit?: number;
+  isAdminPage?: boolean;
+  showAllBtn?: boolean;
 }
 
 export const OrderList = ({
   orders,
   title,
-  page,
-  admin,
-  limit,
+  showAllBtn,
+  isAdminPage,
 }: AdminOrderListProps) => {
-  const url = admin ? 'admin-panel/orders' : 'profile/my-orders';
-  const limitOrders = limit ? orders.slice(0, limit) : orders;
+  const url = isAdminPage ? 'admin-panel/orders' : 'profile/my-orders';
 
   return (
     <>
-      {!limitOrders.length || limitOrders.length === 0 ? (
+      {!orders.length || orders.length === 0 ? (
         <p className="page__title mt-8">No bookings found...</p>
       ) : (
         <div className="mt-5 w-full min-w-[600px] max-w-[1000px] ">
-          {!admin && <PageHeader>{title}</PageHeader>}
-          {limitOrders.map((order: DBOrderInfo) => (
+          {!isAdminPage && <PageHeader>{title}</PageHeader>}
+          {orders.map((order: DBOrderInfo) => (
             <Link
               href={`/${url}/${order._id.toString()}`}
               className="w-full hover:opacity-80"
@@ -38,7 +35,7 @@ export const OrderList = ({
               <Order {...order} />
             </Link>
           ))}
-          {limitOrders.length >= 5 && !page && (
+          {orders.length >= 5 && !showAllBtn && (
             <Link href="/profile/my-orders">
               <div className="mt-5">
                 <CustomButton

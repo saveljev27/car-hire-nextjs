@@ -20,7 +20,7 @@ export default async function AdminSingleOrderPage({
             <OrderListBtn />
             <AdminBtn />
           </div>
-          <OrderInfo order={order} />
+          <OrderInfo order={order} admin />
         </>
       ) : (
         <div>No Order Found</div>

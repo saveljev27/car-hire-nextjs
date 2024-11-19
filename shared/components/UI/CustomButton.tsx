@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { CustomButtonProps } from '@/types';
+import { useFormStatus } from 'react-dom';
 
 export const CustomButton = ({
   title,
@@ -12,9 +13,11 @@ export const CustomButton = ({
   rightIcon,
   isDisabled,
 }: CustomButtonProps) => {
+  const { pending } = useFormStatus();
+
   return (
     <button
-      disabled={isDisabled || false}
+      disabled={pending || isDisabled}
       type={btnType || 'button'}
       className={`custom-btn ${containerStyles}`}
       onClick={handleClick}

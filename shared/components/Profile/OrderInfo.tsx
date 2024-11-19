@@ -12,9 +12,10 @@ interface CompleteOrderInfo
 
 interface AllOrderInfo {
   order: CompleteOrderInfo;
+  admin?: boolean;
 }
 
-export const OrderInfo = ({ order }: AllOrderInfo) => {
+export const OrderInfo = ({ order, admin = false }: AllOrderInfo) => {
   const [saved, setSaved] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -106,15 +107,17 @@ export const OrderInfo = ({ order }: AllOrderInfo) => {
           </div>
         </div>
       </div>
-      <div className="mt-4">
-        <CustomButton
-          isDisabled={saved}
-          title={open ? 'Close Edit' : 'Edit'}
-          containerStyles="min-w-[300px] m-auto py-[8px] mt-6 rounded bg-green-500"
-          textStyles="text-white"
-          handleClick={() => setOpen((prev) => !prev)}
-        />
-      </div>
+      {admin && (
+        <div className="mt-4">
+          <CustomButton
+            isDisabled={saved}
+            title={open ? 'Close Edit' : 'Edit'}
+            containerStyles="min-w-[300px] m-auto py-[8px] mt-6 rounded bg-green-500"
+            textStyles="text-white"
+            handleClick={() => setOpen((prev) => !prev)}
+          />
+        </div>
+      )}
       {open && (
         <div className="mt-10">
           <PageHeader>Update Order</PageHeader>

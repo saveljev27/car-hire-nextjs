@@ -1,14 +1,16 @@
+import { getAllBookings } from '@/app/actions';
 import { Container } from '@/shared/components';
-import { AdminOrderList } from '@/shared/components/Admin/AdminOrderList';
 import { AdminBtn } from '@/shared/components/Admin/NavButtons';
+import { OrderList } from '@/shared/components/OrderList';
 import { PageHeader } from '@/shared/components/UI';
 
-export default function Orders() {
+export default async function AllBookings() {
+  const orders = await getAllBookings();
   return (
     <Container flexCol>
-      <PageHeader>All Orders</PageHeader>
+      <PageHeader>All Orders ({orders.length})</PageHeader>
       <AdminBtn />
-      <AdminOrderList />
+      <OrderList orders={orders} isAdminPage />
     </Container>
   );
 }

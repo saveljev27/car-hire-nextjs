@@ -1,5 +1,4 @@
 'use client';
-
 import Image from 'next/image';
 import { Input } from '../UI/Input';
 import { CustomButton, PageHeader, Select } from '../UI';
@@ -7,20 +6,24 @@ import { bodyClass, fuels, transmissions, drive } from '@/shared/constants';
 import { AdminBtn, CarListBtn } from './NavButtons';
 import { useCar } from '@/shared/hooks/useCar';
 import { CarInfoSkeleton } from '../Order';
+import { deleteCar, findCar, updateCarData } from '@/app/actions';
+import { useFormState, useFormStatus } from 'react-dom';
+import { CarProps } from '@/types';
+import { useRouter } from 'next/navigation';
 
-export const CarEdit = ({ carId }: { carId: string }) => {
-  const {
-    carFields,
-    carSelectFields,
-    loading,
-    saved,
-    handleUpdate,
-    handleDelete,
-  } = useCar({
-    carId,
-  });
+export const CarEdit = ({ car }: { car: CarProps }) => {
+  const [updateState, handleUpdate] = useFormState(updateCarData, null);
+  const { carFields, carSelectFields } = useCar(car);
+  const router = useRouter();
 
-  if (loading) return <CarInfoSkeleton />;
+  const handleDelete = async ({ id }: { id: string }) => {
+    const confirm = window.confirm('Are you sure you want to delete this car?');
+    if (!confirm) return;
+    const response = await deleteCar(id);
+    if (response.success) {
+      router.replace('/admin-panel/all-cars');
+    }
+  };
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -38,7 +41,7 @@ export const CarEdit = ({ carId }: { carId: string }) => {
         />
       </div>
       <form action={handleUpdate}>
-        <Input id="_id" name="_id" label="_id" defaultValue={carId} />
+        <Input id="_id" name="_id" label="_id" defaultValue={car._id} />
         <div className="grid grid-cols-3 gap-3">
           {Object.entries(carFields).map(([key, value]) => (
             <Input
@@ -51,7 +54,6 @@ export const CarEdit = ({ carId }: { carId: string }) => {
             />
           ))}
         </div>
-
         <Select
           options={fuels}
           title="fuel_type"
@@ -73,10 +75,16 @@ export const CarEdit = ({ carId }: { carId: string }) => {
           defaultValue={carSelectFields.transmission}
         />
 
+        <div className="flex justify-center items-center mt-5 ">
+          {updateState?.status == true ? (
+            <p className="text-green-500">{updateState?.message}</p>
+          ) : (
+            <p className="text-red-500">{updateState?.message}</p>
+          )}
+        </div>
         <div className="mt-4">
           <CustomButton
-            isDisabled={saved}
-            title={`${saved ? 'Updating...' : 'Update'}`}
+            title="Update"
             btnType="submit"
             containerStyles="w-full py-[8px] mt-6 rounded bg-green-500"
             textStyles="text-white"
@@ -85,7 +93,7 @@ export const CarEdit = ({ carId }: { carId: string }) => {
             title="Delete"
             containerStyles="w-full py-[8px] mt-6 rounded bg-primary-red"
             textStyles="text-white"
-            handleClick={handleDelete}
+            handleClick={() => handleDelete({ id: car._id })}
           />
         </div>
       </form>
