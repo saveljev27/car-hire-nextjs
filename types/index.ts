@@ -120,3 +120,11 @@ export interface SearchParams {
   search?: string;
   limit?: string;
 }
+
+interface CompleteOrderInfo
+  extends DBOrderInfo,
+    Pick<OrderProps, 'email' | 'name' | 'phone' | 'token'> {}
+
+export interface AllOrderInfo {
+  booking: CompleteOrderInfo;
+}

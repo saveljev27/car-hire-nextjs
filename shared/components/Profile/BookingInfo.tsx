@@ -1,10 +1,9 @@
 'use client';
 
 import { DBOrderInfo, OrderProps } from '@/types';
-import { CustomButton, PageHeader } from '../UI';
+import { CustomButton } from '../UI';
 import { dateFormatUpdate } from '@/shared/lib';
-import { useState } from 'react';
-import { Input } from '../UI/Input';
+import Link from 'next/link';
 
 interface CompleteOrderInfo
   extends OrderProps,
@@ -15,19 +14,12 @@ interface AllOrderInfo {
   admin?: boolean;
 }
 
-export const OrderInfo = ({ order, admin = false }: AllOrderInfo) => {
-  const [saved, setSaved] = useState(false);
-  const [open, setOpen] = useState(false);
-
-  const handleDelete = async () => {
-    console.log(order._id);
-  };
-
+export const BookingInfo = ({ order, admin = false }: AllOrderInfo) => {
   return (
     <form>
       <div className="border border-gray-200 py-2 px-4 mt-5 rounded-lg min-w-[80%]">
         <div className="flex justify-between *:text-lg *:text-gray-500 max-md:flex-col *:max-md:text-xs ">
-          <p>Order ID: {order._id.toString()}</p>
+          <p>Booking ID: {order._id.toString()}</p>
           <p>
             Created At:
             {new Date(order.createdAt).toLocaleString('en-GB', {
@@ -109,44 +101,13 @@ export const OrderInfo = ({ order, admin = false }: AllOrderInfo) => {
       </div>
       {admin && (
         <div className="mt-4">
-          <CustomButton
-            isDisabled={saved}
-            title={open ? 'Close Edit' : 'Edit'}
-            containerStyles="min-w-[300px] m-auto py-[8px] mt-6 rounded bg-green-500"
-            textStyles="text-white"
-            handleClick={() => setOpen((prev) => !prev)}
-          />
-        </div>
-      )}
-      {open && (
-        <div className="mt-10">
-          <PageHeader>Update Order</PageHeader>
-          <div className="grid grid-cols-3 gap-3">
-            {Object.entries(order).map(([key, value]) => (
-              <Input
-                id={key}
-                name={key}
-                key={key}
-                label={key}
-                defaultValue={value as string}
-              />
-            ))}
-          </div>
-          <div className="mt-4">
+          <Link href={`/admin-panel/orders/edit/${order._id.toString()}`}>
             <CustomButton
-              isDisabled={saved}
-              title={`${saved ? 'Updating...' : 'Update'}`}
-              btnType="submit"
+              title="Edit"
               containerStyles="min-w-[300px] m-auto py-[8px] mt-6 rounded bg-green-500"
               textStyles="text-white"
             />
-            <CustomButton
-              title="Delete"
-              containerStyles="min-w-[300px] m-auto py-[8px] mt-6 rounded bg-primary-red"
-              textStyles="text-white"
-              handleClick={handleDelete}
-            />
-          </div>
+          </Link>
         </div>
       )}
     </form>

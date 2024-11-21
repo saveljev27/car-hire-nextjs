@@ -1,6 +1,19 @@
+import { deleteCar } from '@/app/actions';
 import { CarProps } from '@/types';
+import { useRouter } from 'next/navigation';
 
 export const useCar = (car?: CarProps) => {
+  const router = useRouter();
+
+  const handleDelete = async ({ id }: { id: string }) => {
+    const confirm = window.confirm('Are you sure you want to delete this car?');
+    if (!confirm) return;
+    const response = await deleteCar(id);
+    if (response.success) {
+      router.replace('/admin-panel/all-cars');
+    }
+  };
+
   const carNewFields = {
     city_consumption: '',
     highway_consumption: '',
@@ -38,5 +51,6 @@ export const useCar = (car?: CarProps) => {
     carNewFields,
     carFields,
     carSelectFields,
+    handleDelete,
   };
 };

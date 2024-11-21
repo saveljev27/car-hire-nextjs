@@ -104,7 +104,7 @@ export const CarCard = ({ car, admin }: CarCard) => {
             handleClick={() => setIsOpen(true)}
           />
           {admin ? (
-            <Link href={`/admin-panel/all-cars/${_id}`}>
+            <Link href={`/admin-panel/all-cars/edit/${_id}`}>
               <CustomButton
                 title="Edit"
                 containerStyles="w-full py-[8px] rounded-full min-w-[180px] bg-green-500"

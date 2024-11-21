@@ -14,7 +14,9 @@ export const Input = ({
 }: InputProps) => {
   return (
     <div className="relative mt-3">
-      <label htmlFor={id}>{label}</label>
+      <label className="capitalize" htmlFor={id}>
+        {label}
+      </label>
       <input
         id={id}
         name={name}

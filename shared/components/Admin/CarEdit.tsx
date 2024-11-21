@@ -5,25 +5,14 @@ import { CustomButton, PageHeader, Select } from '../UI';
 import { bodyClass, fuels, transmissions, drive } from '@/shared/constants';
 import { AdminBtn, CarListBtn } from './NavButtons';
 import { useCar } from '@/shared/hooks/useCar';
-import { CarInfoSkeleton } from '../Order';
-import { deleteCar, findCar, updateCarData } from '@/app/actions';
+import { updateCarData } from '@/app/actions';
 import { useFormState, useFormStatus } from 'react-dom';
 import { CarProps } from '@/types';
-import { useRouter } from 'next/navigation';
+import { Status } from '../UI/Status';
 
 export const CarEdit = ({ car }: { car: CarProps }) => {
   const [updateState, handleUpdate] = useFormState(updateCarData, null);
-  const { carFields, carSelectFields } = useCar(car);
-  const router = useRouter();
-
-  const handleDelete = async ({ id }: { id: string }) => {
-    const confirm = window.confirm('Are you sure you want to delete this car?');
-    if (!confirm) return;
-    const response = await deleteCar(id);
-    if (response.success) {
-      router.replace('/admin-panel/all-cars');
-    }
-  };
+  const { carFields, carSelectFields, handleDelete } = useCar(car);
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -75,13 +64,7 @@ export const CarEdit = ({ car }: { car: CarProps }) => {
           defaultValue={carSelectFields.transmission}
         />
 
-        <div className="flex justify-center items-center mt-5 ">
-          {updateState?.status == true ? (
-            <p className="text-green-500">{updateState?.message}</p>
-          ) : (
-            <p className="text-red-500">{updateState?.message}</p>
-          )}
-        </div>
+        <Status status={updateState} />
         <div className="mt-4">
           <CustomButton
             title="Update"

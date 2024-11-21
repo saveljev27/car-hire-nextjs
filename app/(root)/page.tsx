@@ -1,6 +1,6 @@
-import { CarProps, SearchParams } from '@/types';
+import { SearchParams } from '@/types';
 import { fuels, bodyClass, transmissions } from '@/shared/constants';
-import { CarCard, CarList, Filter, Hero, SearchBar } from '@/shared/components';
+import { CarList, Filter, Hero, SearchBar } from '@/shared/components';
 import {
   BsFillFuelPumpFill,
   FaCarAlt,

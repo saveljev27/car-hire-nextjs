@@ -1,7 +1,7 @@
 import { findOrder } from '@/app/actions';
 import { Container } from '@/shared/components';
 import { AdminBtn, OrderListBtn } from '@/shared/components/Admin/NavButtons';
-import { OrderInfo } from '@/shared/components/Profile/OrderInfo';
+import { BookingInfo } from '@/shared/components/Profile/BookingInfo';
 import { PageHeader } from '@/shared/components/UI';
 
 export default async function AdminSingleOrderPage({
@@ -20,7 +20,7 @@ export default async function AdminSingleOrderPage({
             <OrderListBtn />
             <AdminBtn />
           </div>
-          <OrderInfo order={order} admin />
+          <BookingInfo order={order} admin />
         </>
       ) : (
         <div>No Order Found</div>

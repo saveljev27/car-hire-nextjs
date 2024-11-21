@@ -97,6 +97,37 @@ export const findOrder = async (id: string) => {
     return [];
   } catch (error) {}
 };
+export const updateBooking = async (prevState: any, formData: FormData) => {
+  const id = formData.get('_id');
+  try {
+    await connectToDB();
+    const bookingInfo = Object.fromEntries(formData);
+    const order = await Order.findOneAndUpdate({ _id: id }, bookingInfo, {
+      new: true,
+    });
+    await order.save();
+    revalidatePath('/admin-panel/orders');
+    return JSON.parse(
+      JSON.stringify({ status: true, message: 'Booking successfully updated' })
+    );
+  } catch (error) {
+    return JSON.parse(
+      JSON.stringify({ status: false, message: 'Error updating booking' })
+    );
+  }
+};
+export const deleteBooking = async (id: string) => {
+  if (id) {
+    await connectToDB();
+    try {
+      await Order.findByIdAndDelete(id);
+      revalidatePath('/admin-panel/orders');
+      return JSON.parse(JSON.stringify({ success: true }));
+    } catch (error) {}
+    return JSON.parse(JSON.stringify({ success: false }));
+  }
+};
+
 export const getConfirmationOrder = async () => {
   const cookiesStore = cookies();
   const token = cookiesStore.get('orderToken');
