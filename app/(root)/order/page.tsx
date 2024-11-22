@@ -1,6 +1,6 @@
 'use server';
 
-import { CarInfo, OrderInputs } from '@/shared/components/Order';
+import { CarInfo, OrderInputs } from '@/shared/components/Booking';
 import { findProfileInfo } from '../../actions';
 import { Container } from '@/shared/components';
 

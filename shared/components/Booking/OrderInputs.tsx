@@ -2,26 +2,38 @@
 
 import { OrderProps } from '@/types';
 import { Input } from '../UI/Input';
-import { Alert, Cancel, CustomButton } from '../UI';
-import { useOrderInputs } from '@/shared/hooks/useOrderInputs';
+import { Cancel, CustomButton } from '../UI';
 import { AddressInput } from './AddressInput';
+import { useSelector } from 'react-redux';
+import { orderCard } from '@/shared/redux';
+import { useFormState } from 'react-dom';
+import { createBooking } from '@/app/actions';
+import { Status } from '../UI/Status';
+import { useRouter } from 'next/navigation';
 
 interface OrderInfoProps {
   profileInfo: OrderProps | null;
 }
 
 export function OrderInputs({ profileInfo }: OrderInfoProps) {
-  const { error, handleSubmit } = useOrderInputs();
+  const { items } = useSelector(orderCard);
+  const router = useRouter();
+  if (!items || items.length === 0 || !items[0]) {
+    router.replace('/');
+  }
+  const { price, make, model } = items[0];
+  const [bookingState, handleSubmit] = useFormState(createBooking, null);
 
   return (
     <div className="section">
       <h1 className="subtitle__text">2. Order Details</h1>
-      <form onSubmit={handleSubmit}>
+      <form action={handleSubmit}>
         <div className="grid grid-cols-2 gap-4 max-sm:block">
           <Input
             id="name"
             name="name"
             label="Fullname"
+            type="text"
             placeholder="John Doe"
             defaultValue={profileInfo?.name}
           />
@@ -30,6 +42,7 @@ export function OrderInputs({ profileInfo }: OrderInfoProps) {
             name="email"
             label="Email"
             placeholder="johh.doe@example.com"
+            type="email"
             defaultValue={profileInfo?.email}
             required
             readOnly={profileInfo?.email ? true : false}
@@ -77,9 +90,10 @@ export function OrderInputs({ profileInfo }: OrderInfoProps) {
           defaultValue={profileInfo?.dropTime}
           required
         />
-
-        {error && <Alert>{error}</Alert>}
-
+        <Input id="price" name="price" hidden defaultValue={price} />
+        <Input id="make" name="make" hidden defaultValue={make} />
+        <Input id="model" name="model" hidden defaultValue={model} />
+        <Status status={bookingState} />
         <div className="mt-10 ">
           <h1 className="subtitle__text">3. Go to Checkout</h1>
           <div className="flex  justify-between gap-5 max-md:flex-col-reverse">

@@ -15,29 +15,33 @@ export const useCar = (car?: CarProps) => {
   };
 
   const carNewFields = {
-    city_consumption: '',
-    highway_consumption: '',
-    combination_consumption: '',
-    seats: '',
-    displacement: '',
-    price: '',
-    make: '',
-    model: '',
-    year: '',
-    image: '',
+    city_consumption: { value: '', type: 'number' },
+    highway_consumption: { value: '', type: 'number' },
+    combination_consumption: { value: '', type: 'number' },
+    seats: { value: '', type: 'number' },
+    displacement: { value: '', type: 'number' },
+    price: { value: '', type: 'number' },
+    make: { value: '', type: 'text' },
+    model: { value: '', type: 'text' },
+    year: { value: '', type: 'number' },
   };
 
   const carFields = {
-    city_consumption: car?.city_consumption || '',
-    highway_consumption: car?.highway_consumption || '',
-    combination_consumption: car?.combination_consumption || '',
-    seats: car?.seats || '',
-    displacement: car?.displacement || '',
-    price: car?.price || '',
-    make: car?.make || '',
-    model: car?.model || '',
-    year: car?.year || '',
-    image: car?.image || '',
+    city_consumption: { value: car?.city_consumption || '', type: 'number' },
+    highway_consumption: {
+      value: car?.highway_consumption || '',
+      type: 'number',
+    },
+    combination_consumption: {
+      value: car?.combination_consumption || '',
+      type: 'number',
+    },
+    seats: { value: car?.seats || '', type: 'number' },
+    displacement: { value: car?.displacement || '', type: 'number' },
+    price: { value: car?.price || '', type: 'number' },
+    make: { value: car?.make || '', type: 'text' },
+    model: { value: car?.model || '', type: 'text' },
+    year: { value: car?.year || '', type: 'number' },
   };
 
   const carSelectFields = {

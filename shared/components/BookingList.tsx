@@ -11,20 +11,20 @@ interface AdminOrderListProps {
   showAllBtn?: boolean;
 }
 
-export const OrderList = ({
+export const BookingList = ({
   orders,
   title,
   showAllBtn,
   isAdminPage,
 }: AdminOrderListProps) => {
-  const url = isAdminPage ? 'admin-panel/orders' : 'profile/my-orders';
+  const url = isAdminPage ? 'admin-panel/bookings' : 'profile/my-bookings';
 
   return (
     <>
       {!orders.length || orders.length === 0 ? (
         <p className="page__title mt-8">No bookings found...</p>
       ) : (
-        <div className="mt-5 w-full min-w-[600px] max-w-[1000px] ">
+        <div className="mt-5 w-full min-w-[450px] max-w-[1000px] ">
           {!isAdminPage && <PageHeader>{title}</PageHeader>}
           {orders.map((order: DBOrderInfo) => (
             <Link
@@ -36,12 +36,12 @@ export const OrderList = ({
             </Link>
           ))}
           {orders.length >= 5 && !showAllBtn && (
-            <Link href="/profile/my-orders">
+            <Link href="/profile/my-bookings">
               <div className="mt-5">
                 <CustomButton
                   title="Show All Bookings"
                   btnType="button"
-                  containerStyles="showmore__btn"
+                  containerStyles="interface_btn"
                 />
               </div>
             </Link>

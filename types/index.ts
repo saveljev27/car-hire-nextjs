@@ -88,14 +88,15 @@ export interface UserInfo {
 export interface InputProps {
   id: string;
   name: string;
-  label: string;
+  label?: string;
   type?: string;
-  defaultValue?: string | null;
+  defaultValue?: string | number | null;
   placeholder?: string;
   onChange?: any;
   disabled?: boolean;
   required?: boolean;
   readOnly?: boolean;
+  hidden?: boolean;
 }
 
 export interface OptionProps {

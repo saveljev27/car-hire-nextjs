@@ -4,7 +4,7 @@ import { options } from './api/auth/[...nextauth]/options';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 
-import { connectToDB } from '@/shared/lib';
+import { connectToDB, getSumFromDate } from '@/shared/lib';
 import { Order } from '@/shared/models/Order';
 import { User } from '@/shared/models/User';
 import { Cars } from '@/shared/models/Cars';
@@ -97,6 +97,68 @@ export const findOrder = async (id: string) => {
     return [];
   } catch (error) {}
 };
+export const createBooking = async (prevState: any, formData: FormData) => {
+  const pickupDateStr = formData.get('pickupDate') as string;
+  const dropDateStr = formData.get('dropDate') as string;
+  const email = formData.get('email') as string;
+  if (!email) {
+    return JSON.parse(
+      JSON.stringify({ status: false, message: 'Email is required.' })
+    );
+  }
+  const price = Number(formData.get('price') as string);
+
+  const pickupDate = new Date(pickupDateStr).getTime();
+  const dropDate = new Date(dropDateStr).getTime();
+  const today = new Date().getTime();
+  const rentDays = getSumFromDate(pickupDate, dropDate);
+  if (rentDays <= 0) {
+    return JSON.parse(
+      JSON.stringify({
+        status: false,
+        message: 'Booking duration should be greater than 1 day',
+      })
+    );
+  }
+
+  formData.set('rentDays', JSON.stringify(rentDays));
+  formData.set('rentValue', JSON.stringify(rentDays * price));
+  formData.set('rentPerDay', JSON.stringify(price));
+
+  if (pickupDate > dropDate) {
+    return JSON.parse(
+      JSON.stringify({
+        status: false,
+        message: 'Pickup date cannot be greater than drop date.',
+      })
+    );
+  }
+  if (pickupDate <= today) {
+    return JSON.parse(
+      JSON.stringify({
+        status: false,
+        message: 'Pickup date cannot be in the past.',
+      })
+    );
+  }
+
+  const bookingData = Object.fromEntries(formData);
+  let createOrder;
+
+  await connectToDB();
+  try {
+    createOrder = await Order.create(bookingData);
+  } catch (error) {
+    return JSON.parse(
+      JSON.stringify({ status: false, message: 'Error adding booking' })
+    );
+  }
+  if (createOrder) {
+    revalidatePath(`/order/${createOrder._id.toString()}`);
+    redirect(`/order/${createOrder._id.toString()}`);
+  }
+};
+
 export const updateBooking = async (prevState: any, formData: FormData) => {
   const id = formData.get('_id');
   try {
@@ -106,7 +168,7 @@ export const updateBooking = async (prevState: any, formData: FormData) => {
       new: true,
     });
     await order.save();
-    revalidatePath('/admin-panel/orders');
+    revalidatePath('/admin-panel/bookings');
     return JSON.parse(
       JSON.stringify({ status: true, message: 'Booking successfully updated' })
     );
@@ -121,7 +183,7 @@ export const deleteBooking = async (id: string) => {
     await connectToDB();
     try {
       await Order.findByIdAndDelete(id);
-      revalidatePath('/admin-panel/orders');
+      revalidatePath('/admin-panel/bookings');
       return JSON.parse(JSON.stringify({ success: true }));
     } catch (error) {}
     return JSON.parse(JSON.stringify({ success: false }));

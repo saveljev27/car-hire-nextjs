@@ -7,7 +7,9 @@ interface SelectProps {
 export const Select = ({ options, title, defaultValue }: SelectProps) => {
   return (
     <div className="relative mt-3">
-      <label htmlFor={title}>{title}</label>
+      <label className="capitalize" htmlFor={title}>
+        {title}
+      </label>
       <select
         id={title}
         name={title}

@@ -1,7 +1,7 @@
 'use server';
 
 import { getConfirmationOrder } from '@/app/actions';
-import { OrderConfirmation } from '@/shared/components/Order';
+import { OrderConfirmation } from '@/shared/components/Booking';
 
 const OrderPage = async ({ params }: { params: { id: string } }) => {
   const findOrder = await getConfirmationOrder();

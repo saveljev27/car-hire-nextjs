@@ -23,14 +23,20 @@ export const CarEdit = ({ car }: { car: CarProps }) => {
       </div>
       <div className="pt-8">
         <Image
-          src={carFields.image}
-          alt={carFields.make}
+          src={car.image}
+          alt={carFields.make.value as string}
           width={300}
           height={300}
         />
       </div>
       <form action={handleUpdate}>
-        <Input id="_id" name="_id" label="_id" defaultValue={car._id} />
+        <Input
+          id="_id"
+          name="_id"
+          label="_id"
+          defaultValue={car._id}
+          hidden={true}
+        />
         <div className="grid grid-cols-3 gap-3">
           {Object.entries(carFields).map(([key, value]) => (
             <Input
@@ -39,10 +45,18 @@ export const CarEdit = ({ car }: { car: CarProps }) => {
               name={key}
               label={key}
               placeholder={key}
-              defaultValue={value as string | null | undefined}
+              defaultValue={value.value as string}
+              type={value.type}
             />
           ))}
         </div>
+        <Input
+          id="image"
+          name="image"
+          label="image"
+          placeholder="image"
+          defaultValue={car.image}
+        />
         <Select
           options={fuels}
           title="fuel_type"
@@ -65,16 +79,16 @@ export const CarEdit = ({ car }: { car: CarProps }) => {
         />
 
         <Status status={updateState} />
-        <div className="mt-4">
+        <div className="mt-4 flex">
           <CustomButton
             title="Update"
             btnType="submit"
-            containerStyles="w-full py-[8px] mt-6 rounded bg-green-500"
+            containerStyles="min-w-[300px] m-auto py-[8px] mt-6 rounded bg-green-500"
             textStyles="text-white"
           />
           <CustomButton
             title="Delete"
-            containerStyles="w-full py-[8px] mt-6 rounded bg-primary-red"
+            containerStyles="min-w-[300px] m-auto py-[8px] mt-6 rounded bg-primary-red"
             textStyles="text-white"
             handleClick={() => handleDelete({ id: car._id })}
           />

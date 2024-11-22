@@ -1,5 +1,6 @@
 'use client';
 
+import { useFormState } from 'react-dom';
 import { Container } from '@/shared/components';
 import {
   CustomButton,
@@ -9,10 +10,9 @@ import {
 } from '@/shared/components/UI';
 import { transmissions, bodyClass, fuels, drive } from '@/shared/constants';
 import { AdminBtn, CarListBtn } from '@/shared/components/Admin/NavButtons';
-import { useFormState } from 'react-dom';
 import { createCar } from '@/app/actions';
 import { useCar } from '@/shared/hooks/useCar';
-import Link from 'next/link';
+import { Status } from '@/shared/components/UI/Status';
 
 export default function NewCar() {
   const carId = crypto.randomUUID();
@@ -28,7 +28,7 @@ export default function NewCar() {
           <AdminBtn />
         </div>
         <form action={handleNewCar}>
-          <Input id="_id" name="_id" label="_id" defaultValue={carId} />
+          <Input id="_id" name="_id" label="_id" defaultValue={carId} hidden />
           <div className="grid grid-cols-3 gap-3">
             {Object.entries(carNewFields).map(([key, value]) => (
               <Input
@@ -37,26 +37,16 @@ export default function NewCar() {
                 name={key}
                 label={key}
                 placeholder={key}
-                defaultValue={value as string | null | undefined}
+                type={value.type}
               />
             ))}
           </div>
+          <Input id="image" name="image" label="image" placeholder="image" />
           <Select options={fuels} title="fuel_type" />
           <Select options={drive} title="drive" />
           <Select options={bodyClass} title="class" />
           <Select options={transmissions} title="transmission" />
-          <div className="flex justify-center items-center mt-5 ">
-            {newCarState?.status == true ? (
-              <p className="text-green-500">
-                {newCarState?.message}
-                <span className="text-green-600 underline ml-1">
-                  <Link href={'/admin-panel/all-cars'}>Go to all cars</Link>
-                </span>
-              </p>
-            ) : (
-              <p className="text-red-500">{newCarState?.message}</p>
-            )}
-          </div>
+          <Status status={newCarState} />
           <div className="mt-4">
             <CustomButton
               title="Add"

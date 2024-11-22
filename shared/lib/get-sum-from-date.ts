@@ -6,5 +6,6 @@ export const getSumFromDate = (pickupDate: any, dropDate: any) => {
   const differenceInDays: number = Math.ceil(
     diffreneceInMs / (1000 * 60 * 60 * 24)
   );
+
   return differenceInDays;
 };

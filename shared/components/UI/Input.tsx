@@ -11,9 +11,10 @@ export const Input = ({
   disabled = false,
   required = false,
   readOnly = false,
+  hidden = false,
 }: InputProps) => {
   return (
-    <div className="relative mt-3">
+    <div className={hidden ? 'hidden' : `relative mt-3`}>
       <label className="capitalize" htmlFor={id}>
         {label}
       </label>

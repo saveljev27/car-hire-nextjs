@@ -3,9 +3,9 @@
 import { getServerSession } from 'next-auth';
 import { options } from '../../api/auth/[...nextauth]/options';
 import { redirect } from 'next/navigation';
-import { ClientInputs, OrderList } from '@/shared/components/Profile';
+import { ClientInputs } from '@/shared/components/Profile';
 import { findProfileInfo, userProfileOrders } from '../../actions';
-import { Container } from '@/shared/components';
+import { BookingList, Container } from '@/shared/components';
 
 export default async function Profile() {
   const session = await getServerSession(options);
@@ -20,9 +20,9 @@ export default async function Profile() {
     <Container flexCol>
       <ClientInputs profileInfo={profileData} image={userImage} />
       <div className="divider" />
-      <OrderList
+      <BookingList
         orders={profileOrders}
-        title={`Last (${profileOrders.length}) bookings`}
+        title={`Your last (${profileOrders.length}) booking/s`}
       />
     </Container>
   );

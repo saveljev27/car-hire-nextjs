@@ -17,12 +17,12 @@ interface AllOrderInfo {
 export const BookingInfo = ({ order, admin = false }: AllOrderInfo) => {
   return (
     <form>
-      <div className="border border-gray-200 py-2 px-4 mt-5 rounded-lg min-w-[80%]">
+      <div className="border border-gray-200 py-2 px-4 mt-5 rounded-lg min-w-[750px]  w-full">
         <div className="flex justify-between *:text-lg *:text-gray-500 max-md:flex-col *:max-md:text-xs ">
           <p>Booking ID: {order._id.toString()}</p>
           <p>
             Created At:
-            {new Date(order.createdAt).toLocaleString('en-GB', {
+            {new Date(order.createdAt).toLocaleDateString('en-GB', {
               timeZone: 'UTC',
             })}
           </p>
@@ -43,7 +43,7 @@ export const BookingInfo = ({ order, admin = false }: AllOrderInfo) => {
                 <span className="font-semibold mr-1">Phone:</span>
                 {order.phone}
               </p>
-              <p>
+              <p className="max-w-[275px]">
                 <span className="font-semibold mr-1">Address:</span>
                 {order.address}
               </p>
@@ -101,7 +101,7 @@ export const BookingInfo = ({ order, admin = false }: AllOrderInfo) => {
       </div>
       {admin && (
         <div className="mt-4">
-          <Link href={`/admin-panel/orders/edit/${order._id.toString()}`}>
+          <Link href={`/admin-panel/bookings/edit/${order._id.toString()}`}>
             <CustomButton
               title="Edit"
               containerStyles="min-w-[300px] m-auto py-[8px] mt-6 rounded bg-green-500"

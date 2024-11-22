@@ -89,7 +89,7 @@ export const NavBar = ({ session }: { session: Session | null }) => {
           {clientItems.length > 0 && (
             <Link href="/order">
               <CustomButton
-                title={`Order (${clientItems.length})`}
+                title={`Booking (${clientItems.length})`}
                 btnType="button"
                 containerStyles="text-white rounded bg-primary-red min-w-[130px]"
               />

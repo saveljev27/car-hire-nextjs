@@ -26,7 +26,7 @@ export const useBookings = ({ booking }: AllOrderInfo) => {
     if (!confirm) return;
     const response = await deleteBooking(id);
     if (response.success) {
-      router.replace('/admin-panel/orders');
+      router.replace('/admin-panel/bookings');
     }
   };
 

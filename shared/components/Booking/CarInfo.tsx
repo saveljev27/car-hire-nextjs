@@ -25,7 +25,7 @@ export const CarInfo = () => {
       ) : (
         <>
           {items.map((model, index) => (
-            <div className="flex flex-col" key={index}>
+            <div className="flex flex-col gap-3" key={index}>
               <div className="flex justify-center">
                 <Image
                   src={model.image}

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { orderCard } from '../redux';
+import { getSumFromDate } from '../lib';
 
 export const useOrderInputs = () => {
   const [error, setError] = useState<string | null>(null);
@@ -27,6 +28,11 @@ export const useOrderInputs = () => {
     const pickupDate = new Date(pickupDateStr).getTime();
     const dropDate = new Date(dropDateStr).getTime();
     const today = new Date().getTime();
+    const rentDays = getSumFromDate(pickupDate, dropDate);
+
+    formData.set('rentDays', JSON.stringify(rentDays));
+    formData.set('rentValue', JSON.stringify(rentDays * price));
+    formData.set('rentPerDay', JSON.stringify(price));
 
     if (!email) {
       setError('Email is required.');
