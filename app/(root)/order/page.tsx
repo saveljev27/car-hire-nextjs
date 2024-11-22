@@ -2,10 +2,16 @@
 
 import { CarInfo, OrderInputs } from '@/shared/components/Booking';
 import { findProfileInfo } from '../../actions';
-import { Container } from '@/shared/components';
+import { BookingLogin, Container } from '@/shared/components';
+import { getServerSession } from 'next-auth';
+import { options } from '@/app/api/auth/[...nextauth]/options';
 
 const Order = async () => {
   const profileData = await findProfileInfo();
+  const session = await getServerSession(options);
+  if (!session) {
+    return <BookingLogin />;
+  }
 
   return (
     <Container flexCol>

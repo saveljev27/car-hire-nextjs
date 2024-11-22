@@ -15,7 +15,7 @@ export const Order = ({
         </p>
         <p className="text-xs flex justify-center">
           Make:
-          <span className="font-bold capitalize">{make.replace('', '')}</span>
+          <span className="font-bold capitalize">{make}</span>
         </p>
         <p className="text-xs flex justify-center">
           Rent Value: <span className="font-bold">{rentValue}€</span>

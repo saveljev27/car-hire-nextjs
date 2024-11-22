@@ -190,16 +190,10 @@ export const deleteBooking = async (id: string) => {
   }
 };
 
-export const getConfirmationOrder = async () => {
-  const cookiesStore = cookies();
-  const token = cookiesStore.get('orderToken');
-  if (!token) {
-    redirect('/');
-  }
+export const getConfirmationOrder = async (id: string) => {
+  await connectToDB();
   try {
-    await connectToDB();
-    const confirmedOrder = await Order.findOne({ token: token?.value });
-
+    const confirmedOrder = await Order.findOne({ _id: id });
     return JSON.parse(JSON.stringify(confirmedOrder));
   } catch (error) {}
 };

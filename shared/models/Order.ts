@@ -16,7 +16,6 @@ const OrderSchema = new Schema<OrderProps>(
     email: { type: String },
     name: { type: String },
     phone: { type: String },
-    token: { type: String },
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
