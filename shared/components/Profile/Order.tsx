@@ -9,21 +9,21 @@ export const Order = ({
 }: DBOrderInfo) => {
   return (
     <div className="border border-gray-200 py-2 px-4 mt-5 rounded-lg">
-      <div className="flex justify-around items-center gap-10">
-        <p className="text-xs flex justify-center">
-          ID: <span className="font-bold">{_id.toString()}</span>
+      <div className="flex justify-around items-center gap-10 *:text-xs *:justify-center">
+        <p>
+          ID: <span className="font-bold ml-1">{_id.toString()}</span>
         </p>
-        <p className="text-xs flex justify-center">
+        <p>
           Make:
-          <span className="font-bold capitalize">{make}</span>
+          <span className="font-bold ml-1 capitalize">{make}</span>
         </p>
-        <p className="text-xs flex justify-center">
-          Rent Value: <span className="font-bold">{rentValue}€</span>
+        <p>
+          Rent Value: <span className="font-bold ml-1">{rentValue}€</span>
         </p>
-        <p className="text-xs flex justify-center">
-          Rent Days: <span className="font-bold">{rentDays}</span>
+        <p>
+          Rent Days: <span className="font-bold ml-1">{rentDays}</span>
         </p>
-        <p className="text-xs flex justify-center">
+        <p>
           Created At:
           <span className="font-bold">
             {new Date(createdAt).toLocaleDateString('en-GB', {

@@ -6,47 +6,49 @@ import Link from 'next/link';
 import { Container } from '@/shared/components';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { CustomButton } from '@/shared/components/UI';
+import { findBookingSuccess } from '@/app/actions';
+import { redirect } from 'next/navigation';
 
 export default async function Success({
-  searchParams: { amount },
+  searchParams: { order },
 }: {
-  searchParams: { amount: string };
+  searchParams: { order: string };
 }) {
   const session = await getServerSession(options);
+  const bookings = await findBookingSuccess(order);
+  if (!session) {
+    redirect('/');
+  }
 
   return (
     <Container flexCol>
       <h1 className="profile__title">Thank You!</h1>
-      {amount ? (
+      {bookings.status === 'paid' && (
         <h1 className="text-center">
-          The booking has been successfully completed and paid €{amount}! We
-          will contact you shortly.
-        </h1>
-      ) : (
-        <h1 className="text-center">
-          The booking has been successfully completed! We will contact you
-          shortly.
+          The booking has been successfully completed and paid €
+          {bookings.totalAmount}! We will contact you shortly.
         </h1>
       )}
+      {bookings.status === 'unpaid' && (
+        <h1 className="text-center">
+          The bookings has been successfully reserved for €
+          {bookings.totalAmount}! We will contact you shortly.
+        </h1>
+      )}
+
       <div className="flex align-center flex-col items-center mt-8">
-        {session ? (
-          <>
-            <p className="mt-5 text-sm font-bold">
-              You can check out your booking in profile
-            </p>
-            <Link href="/profile">
-              <CustomButton
-                title="Check Order"
-                btnType="button"
-                containerStyles="text-white mt-5 rounded bg-primary-red min-w-[130px]"
-              />
-            </Link>
-          </>
-        ) : (
+        <>
           <p className="mt-5 text-sm font-bold">
-            If you want save your booking history you need to Sign Up!
+            You can check out your booking in profile
           </p>
-        )}
+          <Link href="/profile">
+            <CustomButton
+              title="Check Order"
+              btnType="button"
+              containerStyles="text-white mt-5 rounded bg-primary-red min-w-[130px]"
+            />
+          </Link>
+        </>
       </div>
 
       <Link href="/">

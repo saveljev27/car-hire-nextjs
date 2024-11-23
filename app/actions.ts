@@ -10,6 +10,7 @@ import { User } from '@/shared/models/User';
 import { Cars } from '@/shared/models/Cars';
 import { SearchParams } from '@/types';
 import { revalidatePath } from 'next/cache';
+import { OrderStatus } from '@/shared/models/OrderStatus';
 
 // Admins actions
 export const getAllBookings = async () => {
@@ -143,19 +144,19 @@ export const createBooking = async (prevState: any, formData: FormData) => {
   }
 
   const bookingData = Object.fromEntries(formData);
-  let createOrder;
+  let createBooking;
 
   await connectToDB();
   try {
-    createOrder = await Order.create(bookingData);
+    createBooking = await Order.create(bookingData);
   } catch (error) {
     return JSON.parse(
       JSON.stringify({ status: false, message: 'Error adding booking' })
     );
   }
-  if (createOrder) {
-    revalidatePath(`/order/${createOrder._id.toString()}`);
-    redirect(`/order/${createOrder._id.toString()}`);
+  if (createBooking) {
+    revalidatePath(`/order/${createBooking._id.toString()}`);
+    redirect(`/order/${createBooking._id.toString()}`);
   }
 };
 
@@ -201,6 +202,36 @@ export const findAndDeleteOrder = async (id: string) => {
   try {
     await connectToDB();
     return await Order.deleteOne({ _id: id });
+  } catch (error) {}
+};
+
+export const createPaymentCard = async (formData: FormData) => {
+  await connectToDB();
+  const data = Object.fromEntries(formData);
+  const cardPayment = {
+    payment: 'cash',
+    status: 'unpaid',
+    orderId: data.orderId,
+    totalAmount: data.totalAmount,
+  };
+  let createCardBooking;
+  try {
+    if (data) {
+      const findOrder = await Order.findById(data.orderId);
+      createCardBooking = await OrderStatus.create(cardPayment);
+      createCardBooking.order.push(findOrder);
+      return JSON.parse(
+        JSON.stringify({ success: true, id: createCardBooking._id.toString() })
+      );
+    }
+  } catch (error) {}
+};
+
+export const findBookingSuccess = async (id: string) => {
+  await connectToDB();
+  try {
+    const confirmedOrder = await OrderStatus.findOne({ _id: id });
+    return JSON.parse(JSON.stringify(confirmedOrder));
   } catch (error) {}
 };
 

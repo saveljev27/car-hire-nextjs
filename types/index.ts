@@ -63,7 +63,6 @@ export interface OrderProps {
   name: string;
   phone: string;
   token: string;
-  user: Types.ObjectId;
 }
 
 export interface OrderStatusInfo {
