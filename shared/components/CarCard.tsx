@@ -107,16 +107,15 @@ export const CarCard = ({ car, admin }: CarCard) => {
             <Link href={`/admin-panel/all-cars/edit/${_id}`}>
               <CustomButton
                 title="Edit"
-                containerStyles="w-full py-[8px] rounded-full min-w-[180px] bg-green-500"
+                containerStyles="bg-green-500"
                 textStyles="text-white text-[14px] leading-[17px] font-bold"
-                handleClick={onClickAddButton}
               />
             </Link>
           ) : (
             <Link href={`/order`}>
               <CustomButton
                 title="Book"
-                containerStyles="w-full py-[8px] rounded-full min-w-[180px] bg-green-500"
+                containerStyles="bg-green-500"
                 textStyles="text-white text-[14px] leading-[17px] font-bold"
                 handleClick={onClickAddButton}
               />

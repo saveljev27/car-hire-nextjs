@@ -19,11 +19,11 @@ export const CarInfo = () => {
 
   return (
     <div className="section">
-      <h1 className="subtitle__text">1. Car Information</h1>
       {carItems.length === 0 ? (
         <CarInfoSkeleton />
       ) : (
         <>
+          <h1 className="subtitle__text">1. Car Information</h1>
           {items.map((model, index) => (
             <div className="flex flex-col gap-3" key={index}>
               <div className="flex justify-center">

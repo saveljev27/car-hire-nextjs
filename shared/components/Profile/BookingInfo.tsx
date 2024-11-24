@@ -105,11 +105,11 @@ export const BookingInfo = ({ order, admin = false }: AllOrderInfo) => {
         </div>
       </div>
       {admin && (
-        <div className="mt-4">
+        <div className="mt-4 flex justify-end">
           <Link href={`/admin-panel/bookings/edit/${order._id.toString()}`}>
             <CustomButton
               title="Edit"
-              containerStyles="min-w-[300px] m-auto py-[8px] mt-6 rounded bg-green-500"
+              containerStyles="bg-green-500"
               textStyles="text-white"
             />
           </Link>

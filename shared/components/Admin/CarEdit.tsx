@@ -79,16 +79,16 @@ export const CarEdit = ({ car }: { car: CarProps }) => {
         />
 
         <Status status={updateState} />
-        <div className="mt-4 flex">
+        <div className="mt-4 flex justify-end gap-4">
           <CustomButton
             title="Update"
             btnType="submit"
-            containerStyles="min-w-[300px] m-auto py-[8px] mt-6 rounded bg-green-500"
+            containerStyles="bg-green-500"
             textStyles="text-white"
           />
           <CustomButton
             title="Delete"
-            containerStyles="min-w-[300px] m-auto py-[8px] mt-6 rounded bg-primary-red"
+            containerStyles="bg-primary-red"
             textStyles="text-white"
             handleClick={() => handleDelete({ id: car._id })}
           />

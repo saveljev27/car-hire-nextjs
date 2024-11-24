@@ -1,4 +1,4 @@
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, Transition, TransitionChild } from '@headlessui/react';
 import { Fragment } from 'react';
 
 interface ModalProps {
@@ -14,7 +14,7 @@ export const Modal = ({ isVisible, title, onClose, onConfirm }: ModalProps) => {
   return (
     <Transition appear show={isVisible} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onClose}>
-        <Transition.Child
+        <TransitionChild
           as={Fragment}
           enter="ease-out duration-300"
           enterFrom="opacity-0"
@@ -43,7 +43,7 @@ export const Modal = ({ isVisible, title, onClose, onConfirm }: ModalProps) => {
               </div>
             </div>
           </div>
-        </Transition.Child>
+        </TransitionChild>
       </Dialog>
     </Transition>
   );

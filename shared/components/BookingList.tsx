@@ -24,7 +24,7 @@ export const BookingList = ({
       {!orders.length || orders.length === 0 ? (
         <p className="page__title mt-8">No bookings found...</p>
       ) : (
-        <div className="mt-5 w-full min-w-[450px] max-w-[1000px] ">
+        <div className="mt-5 w-full min-w-[350px] max-w-[1000px] ">
           {!isAdminPage && <PageHeader>{title}</PageHeader>}
           {orders.map((order: DBOrderInfo) => (
             <Link

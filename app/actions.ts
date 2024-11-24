@@ -24,7 +24,7 @@ export const getAllBookings = async () => {
 };
 
 // Profile actions
-export const profileAction = async (formData: FormData) => {
+export const profileAction = async (prevState: any, formData: FormData) => {
   const session = await getServerSession(options);
   const email = session?.user?.email;
 
@@ -35,12 +35,22 @@ export const profileAction = async (formData: FormData) => {
     if (profileInfo) {
       profileInfo.set({ name, phone });
       await profileInfo.save();
-    } else {
-      await profileInfo.create({ name, phone, email });
+      revalidatePath('/profile');
+      return JSON.parse(
+        JSON.stringify({
+          status: true,
+          message: 'Profile successfully updated',
+        })
+      );
     }
-  } catch (error) {}
-
-  return true;
+  } catch (error) {
+    return JSON.parse(
+      JSON.stringify({
+        status: false,
+        message: 'Something went wrong',
+      })
+    );
+  }
 };
 export const findProfileInfo = async () => {
   const session = await getServerSession(options);

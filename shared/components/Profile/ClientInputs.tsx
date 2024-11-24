@@ -1,12 +1,13 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
 import { profileAction } from '@/app/actions';
 import { UserInfo } from '@/types';
 import { Input } from '../UI/Input';
 import Link from 'next/link';
 import { CustomButton } from '../UI';
+import { useFormState } from 'react-dom';
+import { Status } from '../UI/Status';
 
 type Props = {
   profileInfo: UserInfo | null;
@@ -14,17 +15,10 @@ type Props = {
 };
 
 export const ClientInputs = ({ profileInfo, image }: Props) => {
-  const [saved, setSaved] = useState(false);
-
-  const handleFormSubmit = async (formData: FormData) => {
-    try {
-      const response = await profileAction(formData);
-      if (response) {
-        setSaved(true);
-        setTimeout(() => setSaved(false), 3000);
-      }
-    } catch (error) {}
-  };
+  const [profileUpdateState, handleFormSubmit] = useFormState(
+    profileAction,
+    null
+  );
 
   return (
     <form action={handleFormSubmit}>
@@ -59,25 +53,25 @@ export const ClientInputs = ({ profileInfo, image }: Props) => {
         label="Phone"
         defaultValue={profileInfo?.phone}
       />
-      <CustomButton
-        isDisabled={saved}
-        title={`${saved ? 'Saved' : 'Save'}`}
-        containerStyles={`w-full py-[8px] mt-6 rounded ${
-          saved ? 'bg-green-500' : 'bg-primary-red'
-        }`}
-        textStyles="text-white"
-        btnType="submit"
-      />
-      {profileInfo?.isAdmin && (
-        <Link href={`/admin-panel/`}>
-          <CustomButton
-            title="Admin Panel"
-            containerStyles={`w-full py-[8px] mt-6 rounded bg-primary-red`}
-            textStyles="text-white"
-            btnType="button"
-          />
-        </Link>
-      )}
+      <Status status={profileUpdateState} />
+      <div className="flex flex-col justify-center items-center gap-3 mt-4">
+        <CustomButton
+          title="Save"
+          containerStyles={`bg-primary-red`}
+          textStyles="text-white"
+          btnType="submit"
+        />
+        {profileInfo?.isAdmin && (
+          <Link href={`/admin-panel/`}>
+            <CustomButton
+              title="Admin Panel"
+              containerStyles={`bg-primary-red`}
+              textStyles="text-white"
+              btnType="button"
+            />
+          </Link>
+        )}
+      </div>
     </form>
   );
 };

@@ -72,7 +72,7 @@ export const NavBar = ({ session }: { session: Session | null }) => {
                 title="Logout"
                 handleClick={() => signOut({ callbackUrl: '/' })}
                 btnType="button"
-                containerStyles="text-white rounded bg-primary-red min-w-[130px]"
+                containerStyles="text-white bg-primary-red"
               />
             </>
           )}
@@ -81,7 +81,7 @@ export const NavBar = ({ session }: { session: Session | null }) => {
               <CustomButton
                 title="Sign Up"
                 btnType="button"
-                containerStyles="text-white rounded bg-primary-red min-w-[130px]"
+                containerStyles="text-white bg-primary-red"
                 handleClick={() => signIn('google', { callbackUrl: '/' })}
               />
             </>
@@ -91,7 +91,7 @@ export const NavBar = ({ session }: { session: Session | null }) => {
               <CustomButton
                 title={`Booking (${clientItems.length})`}
                 btnType="button"
-                containerStyles="text-white rounded bg-primary-red min-w-[130px]"
+                containerStyles="text-white bg-primary-red"
               />
             </Link>
           )}

@@ -1,9 +1,8 @@
 'use client';
 
-import { removeItem } from '@/shared/redux';
+import { orderCard, removeItem } from '@/shared/redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { orderCard } from '@/shared/redux';
 import { findAndDeleteBooking } from '@/app/actions';
 import { useState } from 'react';
 import { Modal } from './Modal';
@@ -34,7 +33,7 @@ export const Cancel = ({ title, orderId }: CancelProps) => {
       dispatch(removeItem(data._id));
       localStorage.removeItem('car');
       if (orderId) {
-        findAndDeleteBooking(orderId);
+        await findAndDeleteBooking(orderId);
       }
     } catch (error) {
       console.error('Error removing order:', error);

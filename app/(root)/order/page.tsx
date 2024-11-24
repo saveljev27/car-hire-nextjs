@@ -5,10 +5,12 @@ import { findProfileInfo } from '../../actions';
 import { BookingLogin, Container } from '@/shared/components';
 import { getServerSession } from 'next-auth';
 import { options } from '@/app/api/auth/[...nextauth]/options';
+import { useCar } from '@/shared/hooks/useCar';
 
 const Order = async () => {
   const profileData = await findProfileInfo();
   const session = await getServerSession(options);
+
   if (!session) {
     return <BookingLogin />;
   }

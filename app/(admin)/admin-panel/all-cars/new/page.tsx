@@ -52,11 +52,11 @@ export default function NewCar() {
           <Select options={bodyClass} title="class" />
           <Select options={transmissions} title="transmission" />
           <Status status={newCarState} />
-          <div className="mt-4">
+          <div className="mt-4 flex justify-end">
             <CustomButton
               title="Add"
               btnType="submit"
-              containerStyles={`w-full py-[8px] mt-6 rounded bg-green-500`}
+              containerStyles="bg-green-500"
               textStyles="text-white"
             />
           </div>
