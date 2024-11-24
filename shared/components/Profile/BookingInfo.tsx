@@ -18,13 +18,18 @@ export const BookingInfo = ({ order, admin = false }: AllOrderInfo) => {
   return (
     <form>
       <div className="border border-gray-200 py-2 px-4 mt-5 rounded-lg min-w-[750px]  w-full">
-        <div className="flex justify-between *:text-lg *:text-gray-500 max-md:flex-col *:max-md:text-xs ">
-          <p>Booking ID: {order._id.toString()}</p>
+        <div className="flex justify-between *:text-lg max-md:flex-col *:max-md:text-xs ">
+          <p>
+            Booking ID:
+            <span className="text-gray-500">{order._id.toString()}</span>
+          </p>
           <p>
             Created At:
-            {new Date(order.createdAt).toLocaleDateString('en-GB', {
-              timeZone: 'UTC',
-            })}
+            <span className="text-gray-500">
+              {new Date(order.createdAt).toLocaleDateString('en-GB', {
+                timeZone: 'UTC',
+              })}
+            </span>
           </p>
         </div>
         <div className="mt-2 *:text-lg gap-x-4 *:max-md:text-xs max-md:grid-cols-1">

@@ -189,7 +189,7 @@
   @apply absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm;
 }
 .interface_btn {
-  @apply relative min-w-[160px] flex items-center justify-center rounded-lg bg-white py-2 px-3 shadow-md sm:text-sm border m-auto hover:bg-primary-red hover:text-white cursor-pointer;
+  @apply relative flex items-center justify-center rounded-lg bg-white py-2 px-3 shadow-md sm:text-sm border m-auto hover:bg-primary-red hover:text-white cursor-pointer;
 }
 /* END: Custom Filter styles */
 

@@ -1,5 +1,8 @@
+'use client';
+
 import Link from 'next/link';
-import { CustomButton } from '../UI';
+import { CustomButton, IoArrowBackCircleSharp } from '../UI';
+import { useRouter } from 'next/navigation';
 
 export const AdminBtn = () => {
   return (
@@ -30,5 +33,16 @@ export const AddCarBtn = () => {
     <Link href="/admin-panel/all-cars/new">
       <CustomButton title="Add car" containerStyles="interface_btn" />
     </Link>
+  );
+};
+
+export const BackBtn = () => {
+  const router = useRouter();
+  return (
+    <CustomButton
+      title={<IoArrowBackCircleSharp size={20} />}
+      containerStyles="interface_btn"
+      handleClick={() => router.back()}
+    />
   );
 };

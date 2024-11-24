@@ -1,8 +1,9 @@
 import { Types } from 'mongoose';
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
+import { IconType } from 'react-icons/lib';
 
 export interface CustomButtonProps {
-  title: string;
+  title: string | ReactNode;
   containerStyles?: string;
   handleClick?: MouseEventHandler<HTMLButtonElement>;
   btnType?: 'button' | 'submit';

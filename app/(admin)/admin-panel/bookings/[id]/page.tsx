@@ -1,6 +1,10 @@
-import { findOrder } from '@/app/actions';
+import { findBooking } from '@/app/actions';
 import { Container } from '@/shared/components';
-import { AdminBtn, OrderListBtn } from '@/shared/components/Admin/NavButtons';
+import {
+  AdminBtn,
+  BackBtn,
+  OrderListBtn,
+} from '@/shared/components/Admin/NavButtons';
 import { BookingInfo } from '@/shared/components/Profile/BookingInfo';
 import { PageHeader } from '@/shared/components/UI';
 
@@ -9,7 +13,7 @@ export default async function AdminSingleOrderPage({
 }: {
   params: { id: string };
 }) {
-  const order = await findOrder(params?.id);
+  const order = await findBooking(params?.id);
 
   return (
     <Container flexCol>
@@ -17,6 +21,7 @@ export default async function AdminSingleOrderPage({
         <>
           <PageHeader>Order: {order._id}</PageHeader>
           <div className="flex gap-3 justify-center mb-4">
+            <BackBtn />
             <OrderListBtn />
             <AdminBtn />
           </div>

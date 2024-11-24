@@ -1,10 +1,10 @@
 'use server';
 
-import { getConfirmationOrder } from '@/app/actions';
+import { getConfirmationOnBooking } from '@/app/actions';
 import { OrderConfirmation } from '@/shared/components/Booking';
 
 const OrderPage = async ({ params }: { params: { id: string } }) => {
-  const findOrder = await getConfirmationOrder(params.id);
+  const findOrder = await getConfirmationOnBooking(params.id);
 
   return (
     <div className="flex-1 pt-36 pb-36 padding-x min-h-[100vh]">

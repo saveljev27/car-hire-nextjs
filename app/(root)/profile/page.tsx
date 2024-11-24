@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth';
 import { options } from '../../api/auth/[...nextauth]/options';
 import { redirect } from 'next/navigation';
 import { ClientInputs } from '@/shared/components/Profile';
-import { findProfileInfo, userProfileOrders } from '../../actions';
+import { findProfileInfo, userProfileBookings } from '../../actions';
 import { BookingList, Container } from '@/shared/components';
 
 export default async function Profile() {
@@ -14,7 +14,7 @@ export default async function Profile() {
   if (!session) redirect('/');
 
   const profileData = await findProfileInfo();
-  const profileOrders = await userProfileOrders();
+  const profileOrders = await userProfileBookings();
 
   return (
     <Container flexCol>

@@ -6,26 +6,30 @@ export const Order = ({
   rentDays,
   createdAt,
   make,
+  model,
 }: DBOrderInfo) => {
   return (
     <div className="border border-gray-200 py-2 px-4 mt-5 rounded-lg">
-      <div className="flex justify-around items-center gap-10 *:text-xs *:justify-center">
+      <p className="text-sm">
+        Booking ID:
+        <span className="ml-1 text-gray-500">{_id.toString()}</span>
+      </p>
+      <div className="grid grid-cols-5 gap-4 *:text-sm pt-2 *:text-center">
         <p>
-          ID: <span className="font-bold ml-1">{_id.toString()}</span>
+          Make: <span className="font-semibold ml-1 capitalize">{make}</span>
         </p>
         <p>
-          Make:
-          <span className="font-bold ml-1 capitalize">{make}</span>
+          Model: <span className="font-semibold ml-1 capitalize">{model}</span>
         </p>
         <p>
-          Rent Value: <span className="font-bold ml-1">{rentValue}€</span>
+          Rent Value: <span className="font-semibold ml-1">{rentValue}€</span>
         </p>
         <p>
-          Rent Days: <span className="font-bold ml-1">{rentDays}</span>
+          Rent Days: <span className="font-semibold ml-1">{rentDays}</span>
         </p>
         <p>
           Created At:
-          <span className="font-bold">
+          <span className="font-semibold ml-1">
             {new Date(createdAt).toLocaleDateString('en-GB', {
               timeZone: 'UTC',
             })}

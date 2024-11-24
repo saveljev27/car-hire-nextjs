@@ -1,10 +1,10 @@
 'use server';
 
-import { userAllProfileOrders } from '@/app/actions';
+import { userAllProfileBookings } from '@/app/actions';
 import { BookingList, Container } from '@/shared/components';
 
 export default async function MyOrders() {
-  const orders = await userAllProfileOrders();
+  const orders = await userAllProfileBookings();
   return (
     <Container flexCol>
       <BookingList

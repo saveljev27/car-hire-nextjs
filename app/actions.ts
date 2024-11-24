@@ -54,7 +54,7 @@ export const findProfileInfo = async () => {
     return JSON.parse(JSON.stringify(profileInfo));
   } catch (error) {}
 };
-export const userProfileOrders = async () => {
+export const userProfileBookings = async () => {
   const session = await getServerSession(options);
   const email = session?.user?.email;
   if (!email) {
@@ -70,7 +70,7 @@ export const userProfileOrders = async () => {
     return JSON.parse(JSON.stringify([]));
   }
 };
-export const userAllProfileOrders = async () => {
+export const userAllProfileBookings = async () => {
   const session = await getServerSession(options);
   const email = session?.user?.email;
   if (!email) {
@@ -88,7 +88,7 @@ export const userAllProfileOrders = async () => {
 };
 
 // Order actions
-export const findOrder = async (id: string) => {
+export const findBooking = async (id: string) => {
   try {
     await connectToDB();
     const order = await Order.findById(id);
@@ -191,14 +191,14 @@ export const deleteBooking = async (id: string) => {
   }
 };
 
-export const getConfirmationOrder = async (id: string) => {
+export const getConfirmationOnBooking = async (id: string) => {
   await connectToDB();
   try {
     const confirmedOrder = await Order.findOne({ _id: id });
     return JSON.parse(JSON.stringify(confirmedOrder));
   } catch (error) {}
 };
-export const findAndDeleteOrder = async (id: string) => {
+export const findAndDeleteBooking = async (id: string) => {
   try {
     await connectToDB();
     return await Order.deleteOne({ _id: id });

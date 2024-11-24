@@ -1,6 +1,7 @@
 import { GiSteeringWheel } from 'react-icons/gi';
 import { PiSeatFill } from 'react-icons/pi';
 import { IoSpeedometerSharp } from 'react-icons/io5';
+import { IoArrowBackCircleSharp } from 'react-icons/io5';
 import { BsFillFuelPumpFill } from 'react-icons/bs';
 import { FaCarAlt } from 'react-icons/fa';
 import { GiGearStick } from 'react-icons/gi';
@@ -26,4 +27,5 @@ export {
   FaCarAlt,
   GiGearStick,
   RxCross2,
+  IoArrowBackCircleSharp,
 };

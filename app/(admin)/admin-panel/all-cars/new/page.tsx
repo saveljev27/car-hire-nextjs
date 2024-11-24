@@ -9,7 +9,11 @@ import {
   Select,
 } from '@/shared/components/UI';
 import { transmissions, bodyClass, fuels, drive } from '@/shared/constants';
-import { AdminBtn, CarListBtn } from '@/shared/components/Admin/NavButtons';
+import {
+  AdminBtn,
+  BackBtn,
+  CarListBtn,
+} from '@/shared/components/Admin/NavButtons';
 import { createCar } from '@/app/actions';
 import { useCar } from '@/shared/hooks/useCar';
 import { Status } from '@/shared/components/UI/Status';
@@ -24,6 +28,7 @@ export default function NewCar() {
       <div className="flex flex-col justify-center items-center">
         <PageHeader>New Car</PageHeader>
         <div className="flex gap-3 justify-center mb-4">
+          <BackBtn />
           <CarListBtn />
           <AdminBtn />
         </div>
