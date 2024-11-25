@@ -290,14 +290,6 @@ export const createPaymentCard = async (formData: FormData) => {
     }
   } catch (error) {}
 };
-export const findBookingSuccess = async (id: string) => {
-  await connectToDB();
-  try {
-    const confirmedOrder = await OrderStatus.findOne({ _id: id });
-    console.log(confirmedOrder);
-    return JSON.parse(JSON.stringify(confirmedOrder));
-  } catch (error) {}
-};
 export const findBookingStatus = async (id: string) => {
   await connectToDB();
   try {

@@ -63,7 +63,7 @@ export const useCheckout = ({ amount, orderId }: CheckoutProps) => {
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `https://car-rent-next-js-xi.vercel.app/success/${orderId}`,
+        return_url: `https://car-rent-next-js-xi.vercel.app/success?order=${orderId}`,
       },
     });
 

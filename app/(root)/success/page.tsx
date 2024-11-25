@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Container } from '@/shared/components';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { CustomButton } from '@/shared/components/UI';
-import { findBookingSuccess } from '@/app/actions';
+import { findBookingStatus } from '@/app/actions';
 import { redirect } from 'next/navigation';
 
 export default async function Success({
@@ -15,7 +15,7 @@ export default async function Success({
   searchParams: { order: string };
 }) {
   const session = await getServerSession(options);
-  const bookings = await findBookingSuccess(order);
+  const bookings = await findBookingStatus(order);
   if (!session) {
     redirect('/');
   }

@@ -71,7 +71,6 @@ export interface OrderStatusInfo {
   status: string;
   orderId: string;
   totalAmount: number;
-  order: Types.ObjectId;
 }
 
 export interface UserInfo {
