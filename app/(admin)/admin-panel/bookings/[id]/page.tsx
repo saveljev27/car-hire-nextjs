@@ -1,4 +1,5 @@
-import { findBooking } from '@/app/actions';
+'use server';
+import { findBooking, findBookingStatus } from '@/app/actions';
 import { Container } from '@/shared/components';
 import {
   AdminBtn,
@@ -14,6 +15,7 @@ export default async function AdminSingleOrderPage({
   params: { id: string };
 }) {
   const order = await findBooking(params?.id);
+  const bookingStatus = await findBookingStatus(params?.id);
 
   return (
     <Container flexCol>
@@ -25,7 +27,7 @@ export default async function AdminSingleOrderPage({
             <OrderListBtn />
             <AdminBtn />
           </div>
-          <BookingInfo order={order} admin />
+          <BookingInfo order={order} bookingStatus={bookingStatus} admin />
         </>
       ) : (
         <div>No Order Found</div>

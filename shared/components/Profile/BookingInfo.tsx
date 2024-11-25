@@ -1,6 +1,6 @@
 'use client';
 
-import { DBOrderInfo, OrderProps } from '@/types';
+import { DBOrderInfo, OrderProps, OrderStatusInfo } from '@/types';
 import { CustomButton } from '../UI';
 import { dateFormatUpdate } from '@/shared/lib';
 import Link from 'next/link';
@@ -12,9 +12,14 @@ interface CompleteOrderInfo
 interface AllOrderInfo {
   order: CompleteOrderInfo;
   admin?: boolean;
+  bookingStatus?: OrderStatusInfo | undefined;
 }
 
-export const BookingInfo = ({ order, admin = false }: AllOrderInfo) => {
+export const BookingInfo = ({
+  order,
+  bookingStatus,
+  admin = false,
+}: AllOrderInfo) => {
   return (
     <form>
       <div className="border border-gray-200 py-2 px-4 mt-5 rounded-lg w-full min-w-[300px]">
@@ -99,6 +104,14 @@ export const BookingInfo = ({ order, admin = false }: AllOrderInfo) => {
               <p>
                 <span className="font-semibold mr-1">Rent Per Day:</span>
                 {order.rentPerDay}€
+              </p>
+              <p>
+                <span className="font-semibold mr-1">Payment Status:</span>
+                <span className="capitalize">{bookingStatus?.status}</span>
+              </p>
+              <p>
+                <span className="font-semibold mr-1">Payment Method:</span>
+                <span className="capitalize">{bookingStatus?.payment}</span>
               </p>
             </div>
           </div>

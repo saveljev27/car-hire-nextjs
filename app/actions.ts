@@ -59,7 +59,6 @@ export const updateUser = async (prevState: any, formData: FormData) => {
     );
   }
 };
-
 export const deleteUser = async (id: string) => {
   if (id) {
     await connectToDB();
@@ -146,7 +145,7 @@ export const userAllProfileBookings = async () => {
   }
 };
 
-// Order actions
+// Booking actions
 export const getAllBookings = async () => {
   try {
     await connectToDB();
@@ -227,7 +226,6 @@ export const createBooking = async (prevState: any, formData: FormData) => {
     redirect(`/order/${createBooking._id.toString()}`);
   }
 };
-
 export const updateBooking = async (prevState: any, formData: FormData) => {
   const id = formData.get('_id');
   try {
@@ -258,7 +256,6 @@ export const deleteBooking = async (id: string) => {
     return JSON.parse(JSON.stringify({ success: false }));
   }
 };
-
 export const getConfirmationOnBooking = async (id: string) => {
   await connectToDB();
   try {
@@ -272,7 +269,6 @@ export const findAndDeleteBooking = async (id: string) => {
     return await Order.deleteOne({ _id: id });
   } catch (error) {}
 };
-
 export const createPaymentCard = async (formData: FormData) => {
   await connectToDB();
   const data = Object.fromEntries(formData);
@@ -294,12 +290,19 @@ export const createPaymentCard = async (formData: FormData) => {
     }
   } catch (error) {}
 };
-
 export const findBookingSuccess = async (id: string) => {
   await connectToDB();
   try {
     const confirmedOrder = await OrderStatus.findOne({ _id: id });
+    console.log(confirmedOrder);
     return JSON.parse(JSON.stringify(confirmedOrder));
+  } catch (error) {}
+};
+export const findBookingStatus = async (id: string) => {
+  await connectToDB();
+  try {
+    const bookingStatus = await OrderStatus.findOne({ orderId: id });
+    return JSON.parse(JSON.stringify(bookingStatus));
   } catch (error) {}
 };
 

@@ -45,7 +45,11 @@ export default async function Home({
           </div>
         </div>
         <CarList cars={cars} count={count} />
-        {count > cars.length && <Showmore limit={limit} />}
+        {count > cars.length && (
+          <div className="flex justify-center">
+            <Showmore limit={limit} />
+          </div>
+        )}
       </div>
     </main>
   );

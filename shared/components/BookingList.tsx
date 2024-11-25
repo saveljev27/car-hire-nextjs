@@ -35,9 +35,9 @@ export const BookingList = ({
               <Order {...order} />
             </Link>
           ))}
-          {orders.length >= 5 && !showAllBtn && (
+          {orders.length >= 5 && showAllBtn && (
             <Link href="/profile/my-bookings">
-              <div className="mt-5">
+              <div className="mt-5 flex justify-center">
                 <CustomButton
                   title="Show All Bookings"
                   btnType="button"

@@ -52,7 +52,7 @@ export const OrderConfirmation = ({ findOrder, params }: ConfirmationProps) => {
         }}
       >
         <div className="max-md:text-xs">
-          <p>Order ID: {params.id}</p>
+          <p>Booking ID: {params.id}</p>
           <div className="flex mt-3 justify-between border-b">
             <p className="font-bold mr-2">Period:</p>
             <p>

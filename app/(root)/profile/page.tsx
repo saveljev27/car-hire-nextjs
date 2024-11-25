@@ -23,6 +23,7 @@ export default async function Profile() {
       <BookingList
         orders={profileOrders}
         title={`Your last (${profileOrders.length}) booking/s`}
+        showAllBtn
       />
     </Container>
   );
