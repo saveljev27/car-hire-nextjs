@@ -7,12 +7,6 @@ const OrderStatusSchema = new Schema<OrderStatusInfo>(
     status: { type: String },
     orderId: { type: String },
     totalAmount: { type: Number },
-    order: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Order',
-      },
-    ],
   },
   { timestamps: true }
 );
