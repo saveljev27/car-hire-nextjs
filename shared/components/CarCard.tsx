@@ -99,23 +99,23 @@ export const CarCard = ({ car, admin }: CarCard) => {
         <div className="car-card__btn-container">
           <CustomButton
             title="View"
-            containerStyles="w-full py-[8px] rounded-full bg-primary-red"
+            containerStyles="bg-primary-red w-full"
             textStyles="text-white text-[14px] leading-[17px] font-bold"
             handleClick={() => setIsOpen(true)}
           />
           {admin ? (
-            <Link href={`/admin-panel/all-cars/edit/${_id}`}>
+            <Link href={`/admin-panel/all-cars/edit/${_id}`} className="w-full">
               <CustomButton
                 title="Edit"
-                containerStyles="bg-green-500"
+                containerStyles="bg-green-500 w-full"
                 textStyles="text-white text-[14px] leading-[17px] font-bold"
               />
             </Link>
           ) : (
-            <Link href={`/order`}>
+            <Link href={`/order`} className="w-full">
               <CustomButton
                 title="Book"
-                containerStyles="bg-green-500"
+                containerStyles="bg-green-500 w-full"
                 textStyles="text-white text-[14px] leading-[17px] font-bold"
                 handleClick={onClickAddButton}
               />

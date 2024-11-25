@@ -14,12 +14,12 @@ export default async function SingleOrderPage({
   return (
     <Container flexCol>
       {order ? (
-        <>
+        <div>
           <PageHeader>Booking: {order._id}</PageHeader>
           <BackBtn />
           <div className="flex gap-3 justify-center mb-4"></div>
           <BookingInfo order={order} />
-        </>
+        </div>
       ) : (
         <div>No Order Found</div>
       )}

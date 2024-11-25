@@ -17,7 +17,7 @@ interface AllOrderInfo {
 export const BookingInfo = ({ order, admin = false }: AllOrderInfo) => {
   return (
     <form>
-      <div className="border border-gray-200 py-2 px-4 mt-5 rounded-lg min-w-[750px]  w-full">
+      <div className="border border-gray-200 py-2 px-4 mt-5 rounded-lg w-full min-w-[300px]">
         <div className="flex justify-between *:text-lg max-md:flex-col *:max-md:text-xs ">
           <p>
             Booking ID:
@@ -32,8 +32,8 @@ export const BookingInfo = ({ order, admin = false }: AllOrderInfo) => {
             </span>
           </p>
         </div>
-        <div className="mt-2 *:text-lg gap-x-4 *:max-md:text-xs max-md:grid-cols-1">
-          <div className="grid grid-cols-2">
+        <div className="mt-2 *:text-lg gap-x-4 *:max-md:text-xs ">
+          <div className="grid grid-cols-2 max-md:grid-cols-1">
             <h1 className="font-bold">Customer Details:</h1>
             <div>
               <p>
@@ -55,7 +55,7 @@ export const BookingInfo = ({ order, admin = false }: AllOrderInfo) => {
             </div>
           </div>
           <div className="divider"></div>
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-2 max-md:grid-cols-1">
             <h1 className="font-bold">Booking Details:</h1>
             <div>
               <p>
@@ -89,7 +89,7 @@ export const BookingInfo = ({ order, admin = false }: AllOrderInfo) => {
             </div>
           </div>
           <div className="divider"></div>
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-2 max-md:grid-cols-1">
             <h1 className="font-bold">Costs:</h1>
             <div>
               <p>

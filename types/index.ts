@@ -83,6 +83,8 @@ export interface UserInfo {
   phone: string;
   orders: Types.ObjectId[];
   isAdmin: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface InputProps {

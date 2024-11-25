@@ -6,7 +6,7 @@ export const Container = ({
   flexCol?: boolean;
 }) => {
   return (
-    <div className="pt-36 pb-36 padding-x">
+    <div className="pt-36 pb-36 padding-x ">
       <div
         className={`flex justify-center items-center w-full mx-auto ${
           flexCol ? 'flex-col' : ''

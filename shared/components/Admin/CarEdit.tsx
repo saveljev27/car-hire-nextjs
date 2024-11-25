@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Input } from '../UI/Input';
 import { CustomButton, PageHeader, Select } from '../UI';
 import { bodyClass, fuels, transmissions, drive } from '@/shared/constants';
-import { AdminBtn, CarListBtn } from './NavButtons';
+import { AdminBtn, BackBtn, CarListBtn } from './NavButtons';
 import { useCar } from '@/shared/hooks/useCar';
 import { updateCarData } from '@/app/actions';
 import { useFormState, useFormStatus } from 'react-dom';
@@ -18,6 +18,7 @@ export const CarEdit = ({ car }: { car: CarProps }) => {
     <div className="flex flex-col justify-center items-center">
       <PageHeader>Car Edit</PageHeader>
       <div className="flex gap-3 justify-center mb-4">
+        <BackBtn />
         <CarListBtn />
         <AdminBtn />
       </div>
