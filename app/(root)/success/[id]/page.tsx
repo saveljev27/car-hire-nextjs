@@ -9,13 +9,9 @@ import { CustomButton } from '@/shared/components/UI';
 import { findBookingStatus } from '@/app/actions';
 import { redirect } from 'next/navigation';
 
-export default async function Success({
-  searchParams: { order },
-}: {
-  searchParams: { order: string };
-}) {
+export default async function Success({ params }: { params: { id: string } }) {
   const session = await getServerSession(options);
-  const bookings = await findBookingStatus(order);
+  const bookings = await findBookingStatus(params.id);
   if (!session) {
     redirect('/');
   }
