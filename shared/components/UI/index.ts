@@ -6,6 +6,10 @@ import { BsFillFuelPumpFill } from 'react-icons/bs';
 import { FaCarAlt } from 'react-icons/fa';
 import { GiGearStick } from 'react-icons/gi';
 import { RxCross2 } from 'react-icons/rx';
+import { TbCalendarCancel } from 'react-icons/tb';
+import { MdSupportAgent } from 'react-icons/md';
+import { GrMapLocation } from 'react-icons/gr';
+import { FaArrowCircleDown } from 'react-icons/fa';
 
 export { Alert } from './Alert';
 export { Cancel } from './Cancel';
@@ -28,4 +32,8 @@ export {
   GiGearStick,
   RxCross2,
   IoArrowBackCircleSharp,
+  TbCalendarCancel,
+  MdSupportAgent,
+  GrMapLocation,
+  FaArrowCircleDown,
 };

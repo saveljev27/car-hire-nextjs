@@ -9,7 +9,7 @@ export const Order = ({
   model,
 }: DBOrderInfo) => {
   return (
-    <div className="border  border-gray-200 py-2 px-4 mt-5 rounded-lg">
+    <div className="border border-primary-red py-2 px-4 mt-5 rounded-lg">
       <p className="text-sm">
         Booking ID:
         <span className=" text-gray-500">{_id.toString()}</span>

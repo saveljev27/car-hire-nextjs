@@ -1,7 +1,12 @@
 'use client';
 
-import { IoMdCheckbox } from 'react-icons/io';
-import { CustomButton } from './UI';
+import {
+  CustomButton,
+  TbCalendarCancel,
+  MdSupportAgent,
+  GrMapLocation,
+  FaArrowCircleDown,
+} from './UI';
 
 export const Hero = () => {
   const handleScroll = () => {
@@ -21,22 +26,30 @@ export const Hero = () => {
         <div className="flex justify-between mt-5 max-xl:flex-col">
           <p className="hero__subtitle flex flex-col gap-2 items-center">
             Free cancellations on most bookings
-            <span className="text-black text-3xl">{<IoMdCheckbox />}</span>
+            <span className="text-black text-3xl">
+              {<TbCalendarCancel size={50} />}
+            </span>
           </p>
           <p className="hero__subtitle flex flex-col gap-2 items-center">
             Customer support 24/7
-            <span className="text-black text-3xl">{<IoMdCheckbox />}</span>
+            <span className="text-black text-3xl">
+              {<MdSupportAgent size={50} />}
+            </span>
           </p>
           <p className="hero__subtitle flex flex-col gap-2 items-center">
             Drop car on different locations
-            <span className="text-black text-3xl">{<IoMdCheckbox />}</span>
+            <span className="text-black text-3xl">
+              {<GrMapLocation size={50} />}
+            </span>
           </p>
         </div>
-        <CustomButton
-          title="Explore Cars"
-          containerStyles="bg-primary-red text-white rounded-full mt-10"
-          handleClick={handleScroll}
-        />
+        <div className="flex justify-center">
+          <CustomButton
+            title={<FaArrowCircleDown />}
+            containerStyles="bg-primary-red text-white rounded-full mt-12 min-w-[100px] w-[200px]"
+            handleClick={handleScroll}
+          />
+        </div>
       </div>
     </div>
   );

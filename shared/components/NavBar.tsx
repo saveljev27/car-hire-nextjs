@@ -45,8 +45,7 @@ export const NavBar = ({ session }: { session: Session | null }) => {
             alt="Car Showcase logo"
             width={100}
             height={100}
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-contain w-24 h-full"
+            className="object-contain w-18 h-full"
           />
         </Link>
         <div className="flex gap-3 max-[738px]: mt-2">

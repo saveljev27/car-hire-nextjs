@@ -5,7 +5,7 @@ import { profileAction } from '@/app/actions';
 import { UserInfo } from '@/types';
 import { Input } from '../UI/Input';
 import Link from 'next/link';
-import { CustomButton } from '../UI';
+import { CustomButton, PageHeader } from '../UI';
 import { useFormState } from 'react-dom';
 import { Status } from '../UI/Status';
 
@@ -23,7 +23,7 @@ export const ClientInputs = ({ profileInfo, image }: Props) => {
   return (
     <form action={handleFormSubmit}>
       <div className="flex flex-col justify-center items-center p-2 rounded-lg relative">
-        <h1 className="page__title">Profile Settings</h1>
+        <PageHeader>Profile</PageHeader>
         <Image
           className="rounded-full h-24 w-24"
           src={image || 'images/default.svg'}

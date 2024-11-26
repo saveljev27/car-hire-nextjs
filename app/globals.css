@@ -219,7 +219,7 @@
 }
 
 .page__title {
-  @apply text-xs text-black-100 font-semibold text-center mb-5 md:text-3xl;
+  @apply text-xl text-black-100 font-bold text-center mb-7 md:text-4xl;
 }
 .subtitle__text {
   @apply text-left mx-[-10px] mb-2 font-semibold;
