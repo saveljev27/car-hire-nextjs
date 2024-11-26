@@ -14,9 +14,10 @@ import {
   BackBtn,
   CarListBtn,
 } from '@/shared/components/Admin/NavButtons';
-import { createCar } from '@/app/actions';
+
 import { useCar } from '@/shared/hooks/useCar';
 import { Status } from '@/shared/components/UI/Status';
+import { createCar } from '@/app/actions/car';
 
 export default function NewCar() {
   const carId = crypto.randomUUID();

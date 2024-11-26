@@ -4,8 +4,9 @@ import { getServerSession } from 'next-auth';
 import { options } from '../../api/auth/[...nextauth]/options';
 import { redirect } from 'next/navigation';
 import { ClientInputs } from '@/shared/components/Profile';
-import { findProfileInfo, userProfileBookings } from '../../actions';
+
 import { BookingList, Container } from '@/shared/components';
+import { findProfileInfo, userProfileBookings } from '@/app/actions/profile';
 
 export default async function Profile() {
   const session = await getServerSession(options);

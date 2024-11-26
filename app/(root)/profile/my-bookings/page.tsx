@@ -1,6 +1,6 @@
 'use server';
 
-import { userAllProfileBookings } from '@/app/actions';
+import { userAllProfileBookings } from '@/app/actions/profile';
 import { BookingList, Container } from '@/shared/components';
 
 export default async function MyOrders() {

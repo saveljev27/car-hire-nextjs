@@ -1,13 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { profileAction } from '@/app/actions';
+
 import { UserInfo } from '@/types';
 import { Input } from '../UI/Input';
 import Link from 'next/link';
 import { CustomButton, PageHeader } from '../UI';
 import { useFormState } from 'react-dom';
 import { Status } from '../UI/Status';
+import { profileAction } from '@/app/actions/profile';
 
 type Props = {
   profileInfo: UserInfo | null;

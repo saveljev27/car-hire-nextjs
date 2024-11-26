@@ -1,4 +1,4 @@
-import { findCars } from '@/app/actions';
+import { findCars } from '@/app/actions/car';
 import { CarList, Container } from '@/shared/components';
 import {
   AddCarBtn,

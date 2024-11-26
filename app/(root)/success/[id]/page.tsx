@@ -6,8 +6,9 @@ import Link from 'next/link';
 import { Container } from '@/shared/components';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { CustomButton } from '@/shared/components/UI';
-import { findBookingStatus } from '@/app/actions';
+
 import { redirect } from 'next/navigation';
+import { findBookingStatus } from '@/app/actions/booking';
 
 export default async function Success({ params }: { params: { id: string } }) {
   const session = await getServerSession(options);

@@ -1,4 +1,4 @@
-import { findBooking, findBookingStatus } from '@/app/actions';
+import { findBooking, findBookingStatus } from '@/app/actions/booking';
 import { Container } from '@/shared/components';
 import { BackBtn } from '@/shared/components/Admin/NavButtons';
 import { BookingInfo } from '@/shared/components/Profile/BookingInfo';

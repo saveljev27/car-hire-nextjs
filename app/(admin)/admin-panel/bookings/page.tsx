@@ -1,4 +1,4 @@
-import { getAllBookings } from '@/app/actions';
+import { getAllBookings } from '@/app/actions/booking';
 import { BookingList, Container } from '@/shared/components';
 import { AdminBtn, BackBtn } from '@/shared/components/Admin/NavButtons';
 import { PageHeader } from '@/shared/components/UI';

@@ -1,11 +1,10 @@
 'use server';
 
 import { CarInfo, OrderInputs } from '@/shared/components/Booking';
-import { findProfileInfo } from '../../actions';
 import { BookingLogin, Container } from '@/shared/components';
 import { getServerSession } from 'next-auth';
 import { options } from '@/app/api/auth/[...nextauth]/options';
-import { useCar } from '@/shared/hooks/useCar';
+import { findProfileInfo } from '@/app/actions/profile';
 
 const Order = async () => {
   const profileData = await findProfileInfo();

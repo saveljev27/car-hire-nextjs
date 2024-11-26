@@ -1,4 +1,4 @@
-import { deleteBooking } from '@/app/actions';
+import { deleteBooking } from '@/app/actions/booking';
 import { AllOrderInfo } from '@/types';
 import { useRouter } from 'next/navigation';
 

@@ -3,10 +3,11 @@
 import { orderCard, removeItem } from '@/shared/redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { findAndDeleteBooking } from '@/app/actions';
+
 import { useState } from 'react';
 import { Modal } from './Modal';
 import { CustomButton } from './CustomButton';
+import { findAndDeleteBooking } from '@/app/actions/booking';
 
 interface CancelProps {
   title: string;

@@ -8,7 +8,7 @@ import {
 } from '@/shared/components/UI';
 import { Showmore } from '@/shared/components/UI/ShowMore';
 import { ResetFilters } from '@/shared/components/UI/ResetFilters';
-import { findCars } from '../actions';
+import { findCars } from '../actions/car';
 
 export default async function Home({
   searchParams,

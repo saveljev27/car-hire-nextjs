@@ -2,7 +2,7 @@
 import { CustomButton, Input, PageHeader } from '../UI';
 import { AllOrderInfo } from '@/types';
 import { useFormState } from 'react-dom';
-import { updateBooking } from '@/app/actions';
+import { updateBooking } from '@/app/actions/booking';
 import { Status } from '../UI/Status';
 import { useBookings } from '@/shared/hooks/useBookings';
 

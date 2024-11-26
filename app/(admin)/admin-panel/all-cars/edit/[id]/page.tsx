@@ -1,4 +1,4 @@
-import { findCar } from '@/app/actions';
+import { findCar } from '@/app/actions/car';
 import { Container } from '@/shared/components';
 import { CarEdit } from '@/shared/components/Admin/CarEdit';
 

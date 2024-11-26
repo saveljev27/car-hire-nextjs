@@ -1,5 +1,6 @@
 'use server';
-import { findBooking, findBookingStatus } from '@/app/actions';
+
+import { findBooking, findBookingStatus } from '@/app/actions/booking';
 import { Container } from '@/shared/components';
 import {
   AdminBtn,

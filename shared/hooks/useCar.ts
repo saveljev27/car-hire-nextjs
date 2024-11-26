@@ -1,4 +1,4 @@
-import { deleteCar } from '@/app/actions';
+import { deleteCar } from '@/app/actions/car';
 import { CarProps } from '@/types';
 import { useRouter } from 'next/navigation';
 

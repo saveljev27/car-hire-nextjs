@@ -3,7 +3,7 @@ import '../../globals.css';
 import { getServerSession } from 'next-auth';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { redirect } from 'next/navigation';
-import { findProfileInfo } from '@/app/actions';
+import { findProfileInfo } from '@/app/actions/profile';
 
 export default async function AdminPanelLayout({
   children,

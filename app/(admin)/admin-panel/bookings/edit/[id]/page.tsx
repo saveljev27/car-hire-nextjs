@@ -1,4 +1,4 @@
-import { findBooking } from '@/app/actions';
+import { findBooking } from '@/app/actions/booking';
 import { Container } from '@/shared/components';
 import { BookingEdit } from '@/shared/components/Admin/BookingEdit';
 import {

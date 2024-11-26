@@ -1,6 +1,6 @@
 'use server';
 
-import { getConfirmationOnBooking } from '@/app/actions';
+import { getConfirmationOnBooking } from '@/app/actions/booking';
 import { OrderConfirmation } from '@/shared/components/Booking';
 
 const OrderPage = async ({ params }: { params: { id: string } }) => {

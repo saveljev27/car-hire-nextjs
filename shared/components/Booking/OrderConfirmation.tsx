@@ -7,10 +7,11 @@ import { convertToSubcurrency } from '@/shared/lib';
 import { loadStripe } from '@stripe/stripe-js';
 import { CheckoutPage } from './CheckoutPage';
 import { useState } from 'react';
-import { createPaymentCard } from '@/app/actions';
+
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { clearItems } from '@/shared/redux';
+import { createPaymentCard } from '@/app/actions/booking';
 
 interface ConfirmationProps {
   params: { id: string };

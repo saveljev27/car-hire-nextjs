@@ -7,9 +7,9 @@ import { AddressInput } from './AddressInput';
 import { useSelector } from 'react-redux';
 import { orderCard } from '@/shared/redux';
 import { useFormState } from 'react-dom';
-import { createBooking } from '@/app/actions';
 import { Status } from '../UI/Status';
 import Link from 'next/link';
+import { createBooking } from '@/app/actions/booking';
 
 interface OrderInfoProps {
   profileInfo: OrderProps | null;

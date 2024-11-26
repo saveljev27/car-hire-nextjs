@@ -1,5 +1,5 @@
 'use server';
-import { findUser } from '@/app/actions';
+import { findUser } from '@/app/actions/user';
 import { Container } from '@/shared/components';
 import { AdminBtn, BackBtn } from '@/shared/components/Admin/NavButtons';
 import { UserEdit } from '@/shared/components/Admin/UserEdit';

@@ -5,10 +5,11 @@ import { CustomButton, PageHeader, Select } from '../UI';
 import { bodyClass, fuels, transmissions, drive } from '@/shared/constants';
 import { AdminBtn, BackBtn, CarListBtn } from './NavButtons';
 import { useCar } from '@/shared/hooks/useCar';
-import { updateCarData } from '@/app/actions';
+
 import { useFormState, useFormStatus } from 'react-dom';
 import { CarProps } from '@/types';
 import { Status } from '../UI/Status';
+import { updateCarData } from '@/app/actions/car';
 
 export const CarEdit = ({ car }: { car: CarProps }) => {
   const [updateState, handleUpdate] = useFormState(updateCarData, null);

@@ -1,5 +1,5 @@
 'use server';
-import { getAllUsers } from '@/app/actions';
+import { getAllUsers } from '@/app/actions/user';
 import { Container } from '@/shared/components';
 import { AdminBtn, BackBtn } from '@/shared/components/Admin/NavButtons';
 import { UserList } from '@/shared/components/Admin/UserList';

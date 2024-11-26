@@ -3,9 +3,10 @@ import { CustomButton, Input, PageHeader } from '../UI';
 import { Status } from '../UI/Status';
 import { useFormState } from 'react-dom';
 import { UserInfo } from '@/types';
-import { deleteUser, updateUser } from '@/app/actions';
+
 import { AdminBtn, BackBtn } from './NavButtons';
 import { useRouter } from 'next/navigation';
+import { deleteUser, updateUser } from '@/app/actions/user';
 
 export const UserEdit = ({ user }: { user: UserInfo }) => {
   const [updateState, handleUpdate] = useFormState(updateUser, null);
