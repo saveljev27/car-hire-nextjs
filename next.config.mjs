@@ -17,6 +17,11 @@ const nextConfig = {
         hostname: 'www.discovercars.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'fuchsia-persistent-termite-693.mypinata.cloud',
+        pathname: '/**',
+      },
     ],
   },
 };

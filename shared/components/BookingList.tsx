@@ -3,6 +3,7 @@ import { DBOrderInfo } from '@/types';
 import { Order } from './Profile/Order';
 import Link from 'next/link';
 import { CustomButton, PageHeader } from './UI';
+import { BackBtn } from './Admin/NavButtons';
 
 interface AdminOrderListProps {
   orders: DBOrderInfo[];
@@ -26,6 +27,7 @@ export const BookingList = ({
       ) : (
         <div className="mt-5 w-full min-w-[350px] max-w-[1000px] ">
           {!isAdminPage && <PageHeader>{title}</PageHeader>}
+          {!showAllBtn && !isAdminPage && <BackBtn />}
           {orders.map((order: DBOrderInfo) => (
             <Link
               href={`/${url}/${order._id.toString()}`}

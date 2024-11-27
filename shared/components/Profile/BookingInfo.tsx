@@ -22,7 +22,7 @@ export const BookingInfo = ({
 }: AllOrderInfo) => {
   return (
     <form>
-      <div className="border-2 border-primary-red py-3 px-6 mt-5 rounded-lg w-full min-w-[300px]">
+      <div className="shadow-lg border border-gray-200 py-3 px-6 mt-5 rounded-lg w-full min-w-[300px]">
         <div className="flex justify-between *:text-lg max-md:flex-col *:max-md:text-xs ">
           <p>
             Booking ID:

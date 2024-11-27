@@ -1,22 +1,8 @@
 'use client';
 
-import {
-  CustomButton,
-  TbCalendarCancel,
-  MdSupportAgent,
-  GrMapLocation,
-  FaArrowCircleDown,
-} from './UI';
+import { TbCalendarCancel, MdSupportAgent, GrMapLocation } from './UI';
 
 export const Hero = () => {
-  const handleScroll = () => {
-    const nextSection = document.getElementById('discover');
-
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <div className="hero">
       <div className="pt-36 padding-x">
@@ -42,13 +28,6 @@ export const Hero = () => {
               {<GrMapLocation size={50} />}
             </span>
           </p>
-        </div>
-        <div className="flex justify-center">
-          <CustomButton
-            title={<FaArrowCircleDown />}
-            containerStyles="bg-primary-red text-white rounded-full mt-12 min-w-[100px] w-[200px]"
-            handleClick={handleScroll}
-          />
         </div>
       </div>
     </div>
