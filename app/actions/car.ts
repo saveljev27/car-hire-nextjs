@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { connectToDB } from '@/shared/lib';
 import { Cars } from '@/shared/models/Cars';
 import { SearchParams } from '@/types';
+import { carSchema } from '@/utils/zod';
 
 export const findCars = async (params: SearchParams, showAll = false) => {
   await connectToDB();
@@ -53,9 +54,26 @@ export const findCar = async (id: string) => {
 };
 export const createCar = async (prevState: any, formData: FormData) => {
   const data = Object.fromEntries(formData);
+  const validation = carSchema.safeParse(data);
+  if (!validation.success) {
+    const errors = validation.error.format();
+    return JSON.parse(
+      JSON.stringify({
+        status: false,
+        message: 'Please fill in the required fields',
+        errors,
+      })
+    );
+  }
   try {
     if (data) {
-      const createCar = await Cars.create(data);
+      await connectToDB();
+      const id = crypto.randomUUID();
+      const car = {
+        _id: id,
+        ...data,
+      };
+      const createCar = await Cars.create(car);
       createCar.save();
       revalidatePath('/admin-panel/all-cars');
       return JSON.parse(
@@ -70,10 +88,21 @@ export const createCar = async (prevState: any, formData: FormData) => {
 };
 export const updateCarData = async (prevState: any, formData: FormData) => {
   const id = formData.get('_id');
+  const data = Object.fromEntries(formData);
+  const validation = carSchema.safeParse(data);
+  if (!validation.success) {
+    const errors = validation.error.format();
+    return JSON.parse(
+      JSON.stringify({
+        status: false,
+        message: 'Please fill in the required fields',
+        errors,
+      })
+    );
+  }
   try {
     await connectToDB();
-    const carInfo = Object.fromEntries(formData);
-    const car = await Cars.findOneAndUpdate({ _id: id }, carInfo, {
+    const car = await Cars.findOneAndUpdate({ _id: id }, data, {
       new: true,
     });
     await car.save();

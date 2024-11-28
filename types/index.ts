@@ -98,6 +98,12 @@ export interface InputProps {
   required?: boolean;
   readOnly?: boolean;
   hidden?: boolean;
+  validation?: {
+    id: string;
+    message: {
+      _errors: [string];
+    };
+  }[];
 }
 
 export interface OptionProps {
