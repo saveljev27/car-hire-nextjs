@@ -1,9 +1,9 @@
 'use client';
 import { DBOrderInfo } from '@/types';
-import { Order } from './Profile/Order';
+import { Order } from '../Profile/Order';
 import Link from 'next/link';
-import { CustomButton, PageHeader } from './UI';
-import { BackBtn } from './Admin/NavButtons';
+import { CustomButton, PageHeader } from '../UI';
+import { BackBtn } from '../Admin/NavButtons';
 
 interface AdminOrderListProps {
   orders: DBOrderInfo[];

@@ -5,3 +5,7 @@ export { OrderInputs } from './OrderInputs';
 export { CheckoutPage } from './CheckoutPage';
 export { AddressInput } from './AddressInput';
 export { CarInfoSkeleton } from './CarInfoSkeleton';
+export { BookingList } from './BookingList';
+export { BookingLogin } from './BookingLogin';
+export { BookingContent } from './BookingContent';
+export { BookingListSkeleton } from './BookingListSkeleton';

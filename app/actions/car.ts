@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { connectToDB } from '@/shared/lib';
 import { Cars } from '@/shared/models/Cars';
 import { SearchParams } from '@/types';
-import { validateCarData } from '@/shared/lib/car-data-validation';
+import { validateCarData } from '@/shared/lib';
 
 export const findCars = async (params: SearchParams, showAll = false) => {
   await connectToDB();

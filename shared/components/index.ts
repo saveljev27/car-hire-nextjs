@@ -8,5 +8,3 @@ export { Hero } from './Hero';
 export { NavBar } from './NavBar';
 export { SearchBar } from './SearchBar';
 export { StoreProvider } from './StoreProvides';
-export { BookingList } from './BookingList';
-export { BookingLogin } from './BookingLogin';

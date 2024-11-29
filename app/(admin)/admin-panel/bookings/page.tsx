@@ -1,18 +1,23 @@
-import { getAllBookings } from '@/app/actions/booking';
-import { BookingList, Container } from '@/shared/components';
+import { Container } from '@/shared/components';
 import { AdminBtn, BackBtn } from '@/shared/components/Admin/NavButtons';
+import {
+  BookingContent,
+  BookingListSkeleton,
+} from '@/shared/components/Booking';
 import { PageHeader } from '@/shared/components/UI';
+import { Suspense } from 'react';
 
 export default async function AllBookings() {
-  const orders = await getAllBookings();
   return (
     <Container flexCol>
-      <PageHeader>All Bookings ({orders.length})</PageHeader>
+      <PageHeader>All Bookings</PageHeader>
       <div className="flex gap-3 justify-center">
         <BackBtn />
         <AdminBtn />
       </div>
-      <BookingList orders={orders} isAdminPage />
+      <Suspense fallback={<BookingListSkeleton />}>
+        <BookingContent type="ADMIN_BOOKINGS" />
+      </Suspense>
     </Container>
   );
 }

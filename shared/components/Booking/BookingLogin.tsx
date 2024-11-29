@@ -1,7 +1,7 @@
 'use client';
 import { signIn } from 'next-auth/react';
-import { Container } from './Container';
-import { CustomButton } from './UI';
+import { Container } from '../Container';
+import { CustomButton } from '../UI';
 
 export const BookingLogin = () => {
   return (

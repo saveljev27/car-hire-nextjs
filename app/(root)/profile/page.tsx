@@ -5,8 +5,13 @@ import { options } from '../../api/auth/[...nextauth]/options';
 import { redirect } from 'next/navigation';
 import { ClientInputs } from '@/shared/components/Profile';
 
-import { BookingList, Container } from '@/shared/components';
-import { findProfileInfo, userProfileBookings } from '@/app/actions/profile';
+import { Container } from '@/shared/components';
+import { findProfileInfo } from '@/app/actions/profile';
+import {
+  BookingContent,
+  BookingListSkeleton,
+} from '@/shared/components/Booking';
+import { Suspense } from 'react';
 
 export default async function Profile() {
   const session = await getServerSession(options);
@@ -15,17 +20,14 @@ export default async function Profile() {
   if (!session) redirect('/');
 
   const profileData = await findProfileInfo();
-  const profileOrders = await userProfileBookings();
 
   return (
     <Container flexCol>
       <ClientInputs profileInfo={profileData} image={userImage} />
       <div className="divider" />
-      <BookingList
-        orders={profileOrders}
-        title={`Your last (${profileOrders.length}) booking/s`}
-        showAllBtn
-      />
+      <Suspense fallback={<BookingListSkeleton />}>
+        <BookingContent type="PROFILE_BOOKINGS" />
+      </Suspense>
     </Container>
   );
 }
