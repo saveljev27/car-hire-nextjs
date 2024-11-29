@@ -20,10 +20,11 @@ export const Input = ({
 
   useEffect(() => {
     if (validation) {
-      const error = validation.find((err) => err.id === id);
+      const error = validation.find((err) => err.key === id);
+
       if (error) {
-        const message = Array.isArray(error.message._errors)
-          ? error.message._errors.join(', ')
+        const message = Array.isArray(error.message)
+          ? error.message.join(', ')
           : String(error.message);
         setErrorMessage(message);
       } else {

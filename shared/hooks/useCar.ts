@@ -6,10 +6,7 @@ import { useRef, useState } from 'react';
 import { useFormState } from 'react-dom';
 import { CarContentProps } from '../components/Admin/CarContent';
 
-export const useCar = (
-  car?: CarProps,
-  validation?: CarContentProps['validation']
-) => {
+export const useCar = (car?: CarProps) => {
   const router = useRouter();
 
   const fileRef = useRef<HTMLInputElement>(null);
@@ -20,17 +17,6 @@ export const useCar = (
 
   const [updateState, handleUpdate] = useFormState(updateCarData, null);
   const [newCarState, handleNewCar] = useFormState(createCar, null);
-
-  const validationData = validation?.errors;
-  const validationErrors =
-    validationData &&
-    Object.entries(validationData).map(([key, value]) => ({
-      id: key,
-      message: value,
-    }));
-  const imageValidation = validationErrors?.find(
-    (error) => error.id === 'image'
-  )?.message._errors;
 
   const uploadFile = async () => {
     try {
@@ -149,8 +135,6 @@ export const useCar = (
     uploading,
     newCarState,
     updateState,
-    validationErrors,
-    imageValidation,
     uploadFile,
     handleNewCar,
     handleUpdate,

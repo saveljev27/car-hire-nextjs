@@ -6,10 +6,8 @@ interface SelectProps {
   title: string;
   defaultValue?: string;
   validation?: {
-    id: string;
-    message: {
-      _errors: [string];
-    };
+    key: string;
+    message: string;
   }[];
 }
 
@@ -22,10 +20,10 @@ export const Select = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   useEffect(() => {
     if (validation) {
-      const error = validation.find((err) => err.id === title);
+      const error = validation.find((err) => err.key === title);
       if (error) {
-        const message = Array.isArray(error.message._errors)
-          ? error.message._errors.join(', ')
+        const message = Array.isArray(error.message)
+          ? error.message.join(', ')
           : String(error.message);
         setErrorMessage(message);
       } else {

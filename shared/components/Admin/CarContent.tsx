@@ -7,7 +7,10 @@ export interface CarContentProps {
   validation?: {
     status: boolean;
     message: string;
-    errors: object;
+    errors?: {
+      key: string;
+      message: string;
+    }[];
   };
 }
 export const CarContent = ({ car, validation }: CarContentProps) => {
@@ -17,11 +20,13 @@ export const CarContent = ({ car, validation }: CarContentProps) => {
     carUrl,
     fileRef,
     uploading,
-    validationErrors,
-    imageValidation,
     handleChange,
     uploadFile,
-  } = useCar(car, validation);
+  } = useCar(car);
+
+  const imageValidation = validation?.errors?.find(
+    (error) => error.key === 'image'
+  );
 
   return (
     <div className="flex flex-col justify-center items-center gap-5 mb-8">
@@ -37,7 +42,7 @@ export const CarContent = ({ car, validation }: CarContentProps) => {
         />
       </div>
       {imageValidation && (
-        <p className="text-red-500 text-sm">{imageValidation[0]}</p>
+        <p className="text-red-500 text-sm">{imageValidation.message}</p>
       )}
       <div className="flex gap-3">
         <input
@@ -86,7 +91,7 @@ export const CarContent = ({ car, validation }: CarContentProps) => {
               placeholder={value.placeholder}
               type={value.type}
               defaultValue={value.value}
-              validation={validationErrors}
+              validation={validation?.errors}
             />
           ))}
         </div>
@@ -96,7 +101,7 @@ export const CarContent = ({ car, validation }: CarContentProps) => {
             options={value.options}
             title={value.title}
             defaultValue={value.value}
-            validation={validationErrors}
+            validation={validation?.errors}
           />
         ))}
       </div>
