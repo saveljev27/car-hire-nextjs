@@ -1,7 +1,11 @@
 'use server';
 
-import { CarInfo, OrderInputs } from '@/shared/components/Booking';
-import { BookingLogin, Container } from '@/shared/components';
+import {
+  BookingLogin,
+  CarInfo,
+  OrderInputs,
+} from '@/shared/components/Booking';
+import { Container } from '@/shared/components';
 import { getServerSession } from 'next-auth';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { findProfileInfo } from '@/app/actions/profile';
