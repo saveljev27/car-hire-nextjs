@@ -4,7 +4,14 @@ import { useRef, useState } from 'react';
 import { useJsApiLoader, StandaloneSearchBox } from '@react-google-maps/api';
 import { Input } from '../UI/Input';
 
-export const AddressInput = () => {
+export const AddressInput = ({
+  errors,
+}: {
+  errors?: {
+    key: string;
+    message: string;
+  }[];
+}) => {
   const inputRef = useRef<google.maps.places.SearchBox | null>(null);
   const [address, setAddress] = useState<string>('');
 
@@ -35,6 +42,7 @@ export const AddressInput = () => {
             label="Address"
             placeholder="123 Main St, New York, NY 10001"
             defaultValue={address}
+            validation={errors}
           />
         </StandaloneSearchBox>
       ) : (
@@ -44,6 +52,7 @@ export const AddressInput = () => {
           label="Address"
           placeholder="123 Main St, New York, NY 10001"
           defaultValue={address}
+          validation={errors}
         />
       )}
     </div>

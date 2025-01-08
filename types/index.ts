@@ -98,6 +98,7 @@ export interface InputProps {
   required?: boolean;
   readOnly?: boolean;
   hidden?: boolean;
+  obligatory?: boolean;
   validation?: {
     key: string;
     message: string;

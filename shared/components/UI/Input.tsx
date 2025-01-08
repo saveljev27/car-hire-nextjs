@@ -14,6 +14,7 @@ export const Input = ({
   required = false,
   readOnly = false,
   hidden = false,
+  obligatory = false,
   validation,
 }: InputProps) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -39,6 +40,7 @@ export const Input = ({
     <div className={hidden ? 'hidden' : `relative mt-3`}>
       <label className="capitalize" htmlFor={id}>
         {label}
+        {obligatory && <span className="text-red-500 ml-1">*</span>}
       </label>
       <input
         id={id}

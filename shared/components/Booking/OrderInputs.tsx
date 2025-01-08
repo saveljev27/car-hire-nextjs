@@ -18,7 +18,6 @@ interface OrderInfoProps {
 export function OrderInputs({ profileInfo }: OrderInfoProps) {
   const { items } = useSelector(orderCard);
   const [bookingState, handleSubmit] = useFormState(createBooking, null);
-
   return (
     <div className="section">
       {items.length === 0 ? (
@@ -49,6 +48,8 @@ export function OrderInputs({ profileInfo }: OrderInfoProps) {
               defaultValue={profileInfo?.email}
               required
               readOnly={profileInfo?.email ? true : false}
+              validation={bookingState?.errors}
+              obligatory
             />
           </div>
           <Input
@@ -58,16 +59,18 @@ export function OrderInputs({ profileInfo }: OrderInfoProps) {
             type="number"
             defaultValue={profileInfo?.phone}
             placeholder="123 456 7890"
-            required
+            validation={bookingState?.errors}
+            obligatory
           />
-          <AddressInput />
+          <AddressInput errors={bookingState?.errors} />
           <Input
             id="pickupDate"
             name="pickupDate"
             type="date"
             label="Pick-up date"
             defaultValue={profileInfo?.pickupDate}
-            required
+            validation={bookingState?.errors}
+            obligatory
           />
           <Input
             id="pickupTime"
@@ -75,7 +78,8 @@ export function OrderInputs({ profileInfo }: OrderInfoProps) {
             type="time"
             label="Pick-up time"
             defaultValue={profileInfo?.pickupTime}
-            required
+            validation={bookingState?.errors}
+            obligatory
           />
           <Input
             id="dropDate"
@@ -83,7 +87,8 @@ export function OrderInputs({ profileInfo }: OrderInfoProps) {
             type="date"
             label="Drop-off date"
             defaultValue={profileInfo?.dropDate}
-            required
+            validation={bookingState?.errors}
+            obligatory
           />
           <Input
             id="dropTime"
@@ -91,7 +96,8 @@ export function OrderInputs({ profileInfo }: OrderInfoProps) {
             type="time"
             label="Drop-off time"
             defaultValue={profileInfo?.dropTime}
-            required
+            validation={bookingState?.errors}
+            obligatory
           />
 
           <input

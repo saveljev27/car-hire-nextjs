@@ -42,3 +42,27 @@ export const carSchema = z.object({
     message: 'Transmission is required',
   }),
 });
+
+export const bookingSchema = z.object({
+  email: z.string().min(1, {
+    message: 'Email is required',
+  }),
+  phone: z.string().min(1, {
+    message: 'Phone is required',
+  }),
+  address: z.string().min(1, {
+    message: 'Address is required',
+  }),
+  pickupDate: z.string().min(1, {
+    message: 'Pickup date is required',
+  }),
+  pickupTime: z.string().min(1, {
+    message: 'Pickup time is required',
+  }),
+  dropDate: z.string().min(1, {
+    message: 'Drop date is required',
+  }),
+  dropTime: z.string().min(1, {
+    message: 'Drop time is required',
+  }),
+});

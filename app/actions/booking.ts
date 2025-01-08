@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { connectToDB, getSumFromDate } from '@/shared/lib';
 import { Order } from '@/shared/models/Order';
 import { OrderStatus } from '@/shared/models/OrderStatus';
+import { validateBookingData } from '@/shared/lib';
 
 export const getAllBookings = async () => {
   try {
@@ -26,14 +27,20 @@ export const findBooking = async (id: string) => {
   } catch (error) {}
 };
 export const createBooking = async (prevState: any, formData: FormData) => {
-  const pickupDateStr = formData.get('pickupDate') as string;
-  const dropDateStr = formData.get('dropDate') as string;
-  const email = formData.get('email') as string;
-  if (!email) {
+  const data = Object.fromEntries(formData);
+  const validation = validateBookingData(data);
+  if (!validation.success) {
     return JSON.parse(
-      JSON.stringify({ status: false, message: 'Email is required.' })
+      JSON.stringify({
+        status: false,
+        message: validation.message,
+        errors: validation.errors,
+      })
     );
   }
+
+  const pickupDateStr = formData.get('pickupDate') as string;
+  const dropDateStr = formData.get('dropDate') as string;
   const price = Number(formData.get('price') as string);
 
   const pickupDate = new Date(pickupDateStr).getTime();
